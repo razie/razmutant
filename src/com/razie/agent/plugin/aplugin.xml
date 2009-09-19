@@ -1,0 +1,13 @@
+<!-- plugin/module definition. class is optional -->
+<plugin name="" class="">
+	<!-- these services are registered to the default agent instance -->
+	<services>
+		<!-- service name="AgentDbService" class="com.razie.sdk.db.AgentDbService" /-->
+	</services>
+
+	<!-- these command listeners are registered to the default web server -->
+	<listeners>
+		<listener name="com.razie.comm.commands.CmdAssets" />
+	</listeners>
+
+</plugin>

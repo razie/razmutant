@@ -1,0 +1,87 @@
+package com.razie.assets
+
+import com.razie.media.ToDeleteMediaInventory;
+import org.w3c.dom.Element;
+import com.razie.dist.db.AgentDb;
+import com.razie.pub.assets.AssetBrief;
+import com.razie.pub.assets.AssetKey;
+import com.razie.pub.assets.AssetMgr;
+import com.razie.assets.ScalaInventory;
+import com.razie.pub.assets.AssetLocation;
+import com.razie.pub.base.data.HttpUtils;
+import com.razie.pub.base.log.Log;
+import com.razie.pub.media.players.PlayerHandle;
+import com.razie.pub.media.players.PlayerRegistry;
+import com.razie.pub.media.players.SdkPlayer;
+
+/**
+ * internet streams - are currently only obtained from user.xml
+ * 
+ */
+class NewStreamInventory extends ToDeleteMediaInventory /*with ScalaInventory*/ {
+    val sCLASS_STREAM = "Stream";
+
+    override def getBrief(ref:AssetKey ):AssetBrief = {
+        val b = super.getBrief(ref);
+        b.setFileName("");
+        b.setLocalDir(ref.getLocation().toHttp());
+        b.setIcon("/mutant/pics/bb_mov_.png");
+        return b;
+    }
+
+    override def playAsset(prefPlayerNm:String, ref:AssetKey):AnyRef = {
+        var as = new Asset(AssetMgr.brief(ref));
+
+        var prefPlayer = PlayerRegistry.getPlayers().get("internet");
+
+        if (prefPlayer != null) {
+            Log.logThis("FOUND_PLAYER " + prefPlayer.getBrief().getName() + " for " + ref);
+            val handle = prefPlayer.play(as);
+            return handle;
+        } else {
+            val m = "ERR_NO_PLAYER for " + ref;
+            Log.logThis(m);
+			return HttpUtils.toUrlEncodedString(m);
+        }
+    }
+
+    /** list all assets of the given type at the given location */
+    override def listAll(ttype:String, env:AssetLocation, recurse:boolean*)
+    :java.util.Map[AssetKey, AssetBrief] = {
+      // TODO optimize somehow this conversion
+      val m = xlistAll (ttype, env,recurse:_*)
+      var ret = new java.util.HashMap[AssetKey, AssetBrief]()
+
+      for (val e <- m)
+         ret.put (e._1, e._2) 
+      
+      ret
+      }
+
+    /*override*/ def xlistAll(ttype:String, env:AssetLocation, recurse:Boolean*)
+    :scala.collection.mutable.Map[AssetKey, AssetBrief] = {
+        var ret = new scala.collection.mutable.HashMap[AssetKey, AssetBrief]();
+
+        for (val s <- AgentDb.db("streams").xml().listEntities("/db/streams/stream").toArray) {
+//        for (Element stream : AgentDb.db("streams").xml().listEntities("/db/streams/stream")) {
+          val stream = s.asInstanceOf[Element]
+            var b = new AssetBrief();
+
+            val url = stream.getAttribute("url");
+            b.setKey(new AssetKey(sCLASS_STREAM, stream.getAttribute("name"), new AssetLocation(url)));
+            b.player = stream.getAttribute("player");
+            b.setFileName("");
+            b.setLocalDir(url);
+            b.setIcon(stream.getAttribute("icon"));
+
+            b.setLargeDesc(stream.getAttribute("desc"));
+
+            b.setName(b.getKey().getId());
+            ret.put(b.getKey(), b);
+        }
+        
+        ret
+    }
+
+}
+ 

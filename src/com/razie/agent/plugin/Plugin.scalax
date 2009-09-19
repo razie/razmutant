@@ -1,0 +1,49 @@
+package com.razie.agent.plugin
+
+import java.net._
+import com.razie.pub.base.data._
+import com.razie.pub.data._
+import com.razie.pub.base.log._
+  
+object PluginFactory {
+  
+   def fromFile (f:URL) : Option[Plugin] = {
+      val doc:RazElement= new XmlDoc().load("plugin", f);
+      val cls = doc xpa "/plugin/@cls"
+      var p:Option[Plugin]=None
+
+      if (cls.length > 0) 
+        p = newcls[Plugin] (cls)
+      else   
+        p = Some(new DfltPlugin (doc xpa "/plugin/@name"))
+     
+      p match {
+        case Some(t) => {
+        }
+      }
+      
+      p
+   }
+   
+   private def newcls [T] (cls:String) : Option[T] = {
+      try {
+        val l = Class.forName(cls).newInstance();
+        Some(l.asInstanceOf[T])
+      } catch {
+        case e : Exception =>
+          Log.logThis("ERR_CANT_INIT_CLASS " + cls, e);
+          None          
+      }
+   }
+}
+
+/** this is a module/bundle/plugin... */
+trait Plugin {
+   def name : String
+   
+   def init
+}
+
+class DfltPlugin (val name:String) extends Plugin {
+   def init = {}
+}
