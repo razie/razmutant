@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="/razmutant.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/razmutant/bibi.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="false" exportJavaFiles="false" exportOutputFolder="true">
+        <javaElement handleIdentifier="=razpub"/>
+        <javaElement handleIdentifier="=razdidi"/>
+        <javaElement handleIdentifier="=razupnp"/>
+        <javaElement handleIdentifier="=razassets"/>
+        <javaElement handleIdentifier="=razmutant"/>
+        <javaElement handleIdentifier="=razagent"/>
+        <javaElement handleIdentifier="=razmedia"/>
+        <javaElement handleIdentifier="=razpubs"/>
+    </selectedElements>
+    <fatjar builder="org.eclipse.jdt.ui.plain_jar_builder" launchConfig=""/>
+</jardesc>

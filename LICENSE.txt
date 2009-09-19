@@ -1,0 +1,13 @@
+This code is copyrighted by Razvan Cojocaru: you can use it only for personal use.
+
+All code and resources in packages under com.razie.pub are copyrighted under the 
+Creative Commons Attribution 3.0 Unported License, 
+available at http://creativecommons.org/licenses/by/3.0/.
+
+All resources in all other packages are copyrighted under the 
+Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License, 
+available at http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+If you don't know what that means, you're not allowed to use, view, see or otherwise be near this.
+
+Contact via http://razpub.googlecode.com for other licensing options.
