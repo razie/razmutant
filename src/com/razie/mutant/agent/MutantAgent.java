@@ -103,7 +103,6 @@ public class MutantAgent extends Agent {
 		register(new AgentUpnpService(Devices.getInstance()));
 		register(new AgentDbService());
 
-		register(new PlayerService());
 		register(new AssetService());
 		register(new MetaService());
 
@@ -120,7 +119,6 @@ public class MutantAgent extends Agent {
 		// initialize rest in separate thread to speed up startup response time
 		new Thread(new Runnable() {
 			public void run() {
-				register(new JukeboxUpnpService());
 
 				// Initialize all services
 				for (Element e : MutantConfig.getInstance().listEntities(

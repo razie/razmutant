@@ -103,9 +103,6 @@ object MutantMain {
 
          mainAgent register new NewAgentNetworkService
          
-         mainAgent register new MediaService
-         Log.logThis("CREATE_SERVICE " + "MediaService");
-
 //         mainAgent register new MutantScriptable
          
          mainAgent register new AgentMutantService
@@ -124,12 +121,18 @@ object MutantMain {
          AssetsConfig getInstance;
          
          MutantAssetMgr init new ScalaAssetMgr
+        
+         // intiailizig all plugins
          
-//         Plugins.findAll(new java.net.URL("" + "/plugins")).foreach (Plugins init _)
          // TODO need to find all plugins nicely
          Plugins init classOf[MediaConfig].getResource ("/plugins/plugin_media.xml")
          Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_assets_tests.xml")
          Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_base_assets.xml")
+         
+//         val pl = Plugins.findAll(new java.net.URL("" + "/plugins")).foreach (Plugins init _)
+         
+         // this is phase2, all known plugins are loaded
+         Plugins.allPlugins foreach (_ loadphase2)
          
          PlayerRegistryScala init;
          Devices getInstance;

@@ -69,6 +69,8 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (r
       res
   }
 
+  override def toString = if (this.handle != null) "handle="+this.handle.toString else "key="+this.ref.toString 
+  
   final val cmdCSCRIPT      = new ActionItem("capturescript", RazIcons.UNKNOWN);
    final val cmdRSCRIPT      = new ActionItem("runscript", RazIcons.UNKNOWN);
 }
