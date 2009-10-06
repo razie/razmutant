@@ -1,8 +1,8 @@
 package com.razie.mutant;
 
-import com.razie.assets.MutantAssetMgr;
+import com.razie.assets.CoolAsset;
+import com.razie.assets.InventoryAssetMgr;
 import com.razie.assets.ProxyInventory;
-import com.razie.assets.cool.CoolAsset;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.assets.AssetActionToInvoke;
 import com.razie.pub.assets.AssetBrief;
@@ -42,7 +42,7 @@ public class DiagAsset extends CoolAsset {
         // if not reg yet, reg the class as soa
             AgentHttpService.registerSoaAsset(DiagAsset.class);
 
-        MutantAssetMgr.registerAsset(this, new Meta(META, "", this.getClass().getName(),
+        InventoryAssetMgr.registerAsset(this, new Meta(META, "", this.getClass().getName(),
                 ProxyInventory.class.getName()));
     }
 

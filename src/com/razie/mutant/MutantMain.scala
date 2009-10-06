@@ -10,13 +10,12 @@ import com.razie.pub.resources.RazIconRes
 import com.razie.pub.comms.Agents
 import com.razie.pub.agent.Agent
 import com.razie.agent.Version
-import com.razie.agent.config.AgentConfig
+import com.razie.agent._
 import com.razie.agent.network.Devices
-import com.razie.mutant.agent.MutantAgent
+import com.razie.mutant.agent.MutantAgentJ
 import com.razie.agent.network.MutantDevices
 import com.razie.sdk.config.UserConfig
 import com.razie.assets._
-import com.razie.assets.config.AssetsConfig
 import com.razie.mutant._
 import com.razie.mutant.MutantDarkTheme
 
@@ -26,17 +25,19 @@ import com.razie.media.MediaService
 
 import com.razie.agent.network._
 import com.razie.pub.plugin._
-
+import com.razie.pub.comms._
+import com.razie.secu._
+import com.razie.pub.agent._
 
 /** starts the mutant agent. */
 object MutantMain {
   
-   var mainAgent:MutantAgent=null;
+   var mainAgent:MutantAgentJ=null;
 
    /** smart selection of the IP to use from the list of current IPs */
    def selectip () : String = {
       //InetAddress.getLocalHost().getHostAddress();
-      val addresses:List[String] = FindIp.list
+      val addresses:Seq[String] = FindIp.list
 
       val cfg:RazElement = AgentConfig.instance() e
 
@@ -70,20 +71,19 @@ object MutantMain {
          startup (testing)
       }
 
-      def sayboo () = {
-        println ("Mutant says boo...")
-      }
-      
       def startup(testing : boolean) = {
+		
          // intialize the main agent...assuming name is the same as hostname
          MutantDevices.init(new MutantDevicesScala(), Agents.findMyHostName(testing), selectip);
          val d = Devices.getInstance();
-         mainAgent = new MutantAgent(Agents.me(), Agents.homeCloud());
+        
+         // TODO SECU use password
+		   LightAuth.init(new SecuLightAuth(Agents.me().localdir + "/keys", "mutant", "password"))
+
+         mainAgent = new MutantAgentJ(Agents.me(), Agents.homeCloud());
+	      mainAgent.getThreadContext().enter()
          // initializing the agent will change the root nostatics...
-         //  NoStatics.put(Devices.class, d);
          NoStatics.put(classOf[Devices], d);
-         //  NoStatics.put(Class.forName("com.razie.agent.network.Devices"), d);
-         MutantAgent.init(mainAgent);
 
          Agents.instance().testing = testing;
 
@@ -98,14 +98,42 @@ object MutantMain {
 
          mainAgent onInit;
          mainAgent onStartup;
+         
+         AgentHttpService.registerHandler (new com.razie.comm.commands.CmdAssets());
 
-//		   mainAgent.register(new WebUiService());
+         // plugins are initialized after the agent is up
+         
+         // TODO need to find all plugins nicely
+         Plugins init classOf[MediaConfig].getResource ("/plugins/plugin_media.xml")
+         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_assets_tests.xml")
+         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_base_assets.xml")
+         
+//         val pl = Plugins.findAll(new java.net.URL("" + "/plugins")).foreach (Plugins init _)
+         
+         // this is phase2, all known plugins are loaded
+         Plugins.allPlugins foreach (_ loadphase2)
+         
+         //		   mainAgent.register(new WebUiService());
 
          mainAgent register new NewAgentNetworkService
+         mainAgent register new com.razie.comm.commands.AgentServiceLinks
          
 //         mainAgent register new MutantScriptable
          
-         mainAgent register new AgentMutantService
+         
+         // stupid way to decouple the playground...
+         try {
+            val p = Class.forName("com.razie.playground.Init").newInstance();
+            Log.logThis("PLAYGROUND_INITIALIZED ");
+         } catch {
+            case e:Exception => Log.logThis("WARN_PLAYGROUND_NOT_FOUND", e);
+         }
+         
+         // initialize diagnostics
+         new DiagAsset("1");
+         new DiagAsset("2");
+         new DiagAsset("3");
+
          mainAgent register new com.razie.mutant.AgentDebugService
          mainAgent register new SampleScalaAgentService
 
@@ -120,21 +148,8 @@ object MutantMain {
          UserConfig init;
          AssetsConfig getInstance;
          
-         MutantAssetMgr init new ScalaAssetMgr
+         InventoryAssetMgr init new RazieAssetMgr
         
-         // intiailizig all plugins
-         
-         // TODO need to find all plugins nicely
-         Plugins init classOf[MediaConfig].getResource ("/plugins/plugin_media.xml")
-         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_assets_tests.xml")
-         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_base_assets.xml")
-         
-//         val pl = Plugins.findAll(new java.net.URL("" + "/plugins")).foreach (Plugins init _)
-         
-         // this is phase2, all known plugins are loaded
-         Plugins.allPlugins foreach (_ loadphase2)
-         
-         PlayerRegistryScala init;
          Devices getInstance;
 
          try {

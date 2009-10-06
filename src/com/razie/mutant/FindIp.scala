@@ -8,7 +8,7 @@ object FindIp {
     println(list mkString " ")
   }
   
-  def list() : List[String] = {
+  def list() = {
     val nes =  NetworkInterface.getNetworkInterfaces()
     var li = new java.util.ArrayList[String]()
     
@@ -23,6 +23,6 @@ object FindIp {
     }
 
     // TODO avoid this and build a freaking scala list...
-    RazElement.tolist(li)
+    razie.RJS apply li
   }
 }
