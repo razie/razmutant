@@ -1,0 +1,19 @@
+Defining new entities/assets/metas.
+
+1. meta header
+name, 
+
+2. meta structure
+
+
+3. associations
+
+
+4. functionality
+
+
+5. management
+
+
+6. persistency
+
