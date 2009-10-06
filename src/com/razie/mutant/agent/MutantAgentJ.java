@@ -1,16 +1,13 @@
 package com.razie.mutant.agent;
 
 
-import org.w3c.dom.Element;
-
 import com.razie.agent.RazAgent;
+import com.razie.agent.network.Devices;
+import com.razie.agent.pres.AgentNetworkService;
+import com.razie.agent.upnp.AgentUpnpService;
 import com.razie.dist.db.AgentDbService;
 import com.razie.pub.agent.Agent;
-import com.razie.pub.agent.AgentService;
 import com.razie.pub.base.NoStaticSafe;
-import com.razie.pub.base.ScriptContext;
-import com.razie.pub.base.ScriptFactory;
-import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.webui.MutantPresentation;
@@ -48,6 +45,9 @@ public class MutantAgentJ extends RazAgent {
 	   super.onInit();
       getThreadContext().enter();
 		MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
+
+    register(new AgentNetworkService());
+    register(new AgentUpnpService(Devices.getInstance()));
 
 		// initialize rest in separate thread to speed up startup response time
 		new Thread(new Runnable() {

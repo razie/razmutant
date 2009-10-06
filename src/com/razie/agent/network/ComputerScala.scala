@@ -20,6 +20,7 @@ import com.razie.pub.agent._
 
 
 class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (ref,ttype) {
+   // tired of the getXXX stuff, eh?
    def ip = getIp
    def port = getPort
    def name = getName
