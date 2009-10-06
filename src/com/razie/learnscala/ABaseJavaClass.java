@@ -1,5 +1,9 @@
 package com.razie.learnscala;
 
-public abstract class ABaseJavaClass {
-   public abstract void takesOptionalArgs (String...args); 
+public class ABaseJavaClass {
+   public void takesOptionalArgs (String...args) {
+      System.out.println ("Java printing: ");
+      for (String s : args)
+         System.out.print (s + " ");
+   }
 }

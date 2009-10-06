@@ -10,8 +10,10 @@ object LearnScala extends Application {
    doregexp("@john")
    doregexp("john")
 
-   val cc : AScalaExtension = (new AScalaExtension)
-   cc.takesOptionalArgs ("itsi", "bitsi", "spider")
+   // TODO broken in scala 2.8
+   
+//   val cc : AScalaExtension = (new AScalaExtension)
+//   cc.takesOptionalArgs ("itsi", "bitsi", "spider")
 
    // this particular one doesn't quite work
    implicit def itos (x:java.lang.Integer):String = String.valueOf(x)
@@ -34,29 +36,37 @@ object LearnScala extends Application {
       println("EXPR:"+expr+"  parsed:"+attr+":"+name+":"+scond)
    }
 
-   implicit def jltoa[A](ij:java.util.List[A]) : Array[A] = {
-      val l:Array[A] = new Array[A](ij.size)
-
-      //TODO optimize this or even remove it
-      for (i <- 0 to ij.size-1)
-         l(i) = ij.get(i)
-
-         l
-   }
-
-   //TODO optimize this or even remove it
-   implicit def jltol[A](ij:java.util.List[A]) : List[A] = {
-      val l:Array[A] = ij
-
-      l.toList
-   }
+   // TODO revive this when scala 2.8 is final
+//   implicit def jltoa[A](ij:java.util.List[A]) : Array[A] = {
+//      val l:Array[A] = new Array[A](ij.size)
+//
+//      //TODO optimize this or even remove it
+//      for (i <- 0 to ij.size-1)
+//         l(i) = ij.get(i)
+//
+//         l
+//   }
+//
+//   //TODO optimize this or even remove it
+//   implicit def jltol[A](ij:java.util.List[A]) : List[A] = {
+//      val l:Array[A] = ij
+//
+//      l.toList
+//   }
 
 }
 
+// TODO this is broken in scala 2.8
+
 class AScalaExtension extends ABaseJavaClass {
-   override def takesOptionalArgs (x:String*) = {
-      println ("Scala println: ", x.mkString(" "))
-      java.lang.System.out.printf ("Java printf: %s %s %s", x:_*)
+//   override def takesOptionalArgs (x:String*) = {
+//      println ("Scala println: ", x.mkString(" "))
+//      java.lang.System.out.printf ("Java printf: %s %s %s", x:_*)
+//   }
+   
+   def justScalaOpt (x:String*) = {
+      println ("More scala printing: ")
+      x.foreach (println)
    }
 }
 
@@ -81,3 +91,50 @@ class Blobber[T] {
 object MyMain extends Application {
    println ((new Blobber[String]) blob (new StrSer, List("itsi","bitsi","spider")))
 }
+
+object MoreStuff {
+// implicit def tomap[A,B] (m:java.util.Map[A,B]) : scala.collection.mutable.Map[A,B] = {
+//    val ret = new scala.collection.mutable.HashMap[A,B]
+//    val iter = m.entrySet.iterator
+//    while (iter.hasNext) {
+//       val e = iter.next
+//       ret.put (e.getKey, e.getValue)
+//    }
+//    ret
+// }
+
+// implicit def toarray[A](ij:java.util.List[A]) : Array[A] = {
+//    scala.collection.JavaConversions.asBuffer(ij).toArray
+//    val l:Array[A] = new Array[A](ij.size)
+//
+//    //TODO optimize this or even remove it
+//    for (i <- 0 to ij.size-1)
+//       l(i) = ij.get(i)
+//  
+//    l
+// }
+
+// implicit def xtolist[A](ij:java.util.List[A]) : List[A] = {
+//    val l:Array[A] = ij
+//    l.toList
+// }
+
+   implicit def toRazList[T](enumeration:java.util.List[T]):RazList[T] =
+      new RazList(enumeration)
+  
+   implicit def toRazList1[T](enumeration:java.lang.Iterable[T]):RazList1[T] =
+      new RazList1(enumeration)
+}
+
+class RazList[T](enumeration:java.util.List[T]) extends Iterator[T] {
+   val iter = enumeration.iterator
+   def hasNext:Boolean =  iter.hasNext
+   def next:T = iter.next
+}
+
+class RazList1[T](enumeration:java.lang.Iterable[T]) extends Iterator[T] {
+   val iter = enumeration.iterator
+   def hasNext:Boolean =  iter.hasNext
+   def next:T = iter.next
+}
+
