@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Mutant Jukebox</title>
+<link rel="stylesheet" type="text/css" href="/mutant/style.css" />
+</head>
+<body text="white" link="yellow" vlink="yellow">
+<table>
+	<tr>
+		<td>
+		<table>
+			<tr>
+				<td align="center" valign="middle">
+				<h2><img src="/mutant/pics/crossbones_linda_kim_01.png" /><br>
+				Mutant Jukebox</h2>
+				</td>
+				<td align="center" valign="middle"><a
+					href="/mutant/cmd/player/winfile"><img border=0
+					src="/mutant/pics/player_play.png" /><br>
+				Control</a></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+
+		<form name="captureUrl" action="/mutant/links/capturelink" method="get">
+		<table>
+			Capture URLs here:
+			<tr>
+				<td>URL:</td>
+				<td><input type="text" name="url"></td>
+			</tr>
+			<tr>
+				<td>Desc:</td>
+				<td><input type="text" name="desc"></td>
+
+			</tr>
+			<tr>
+				<td>Type:</td>
+				<td><select name="type">
+					<option value="Movie">Movie</option>
+					<option value="Site">Site</option>
+					<option value="Channel">Channel</option>
+					<option value="Stream">Stream</option></td>
+			</tr>
+			<tr>
+				<td>Category:</td>
+				<td><select name="category">
+					<option value="Documentary">Documentary</option>
+					<option value="Kids">Kids</option>
+					<option value="Music">Music</option></td>
+				<td rowspan=4 valign=middle><input type="submit" value="Submit"></td
+			</tr>
+		</table>
+		</form>
+</body>
+</html>
