@@ -1,4 +1,8 @@
-This code is copyrighted by Razvan Cojocaru: you can use it only for personal use.
+This code is copyrighted by Razvan Cojocaru: you can use it only for personal use. For 
+other uses, contact me via http://razpub.googlecode.com
+
+This code is provided AS IS. No warranties implied nor any liabilities assumed. Use at your 
+own risk!
 
 All code and resources in packages under com.razie.pub are copyrighted under the 
 Creative Commons Attribution 3.0 Unported License, 
