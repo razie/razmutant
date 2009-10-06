@@ -4,9 +4,9 @@ import org.w3c.dom.Element;
 
 import com.razie.agent.network.Device;
 import com.razie.agent.network.Devices;
-import com.razie.assets.MutantAssetMgr;
+import com.razie.assets.CoolAsset;
+import com.razie.assets.InventoryAssetMgr;
 import com.razie.assets.ProxyInventory;
-import com.razie.assets.cool.CoolAsset;
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.assets.AssetActionToInvoke;
@@ -69,7 +69,7 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         // if not reg yet, reg the class as soa
             AgentHttpService.registerSoaAsset(NewXmlAssetType.class);
 
-        MutantAssetMgr.registerAsset(this, new Meta(META, "", NewXmlAssetType.class.getName(),
+        InventoryAssetMgr.registerAsset(this, new Meta(META, "", NewXmlAssetType.class.getName(),
                 ProxyInventory.class.getName()));
     }
 
