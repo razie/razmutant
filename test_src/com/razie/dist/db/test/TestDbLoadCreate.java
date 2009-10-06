@@ -4,17 +4,16 @@ import junit.framework.TestCase;
 
 import org.json.JSONObject;
 
-import com.razie.assets.MutantAssetMgr;
+import com.razie.agent.SimpleAgent;
+import com.razie.assets.InventoryAssetMgr;
 import com.razie.dist.db.AgentDb;
+import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.base.AttrAccess;
-import com.razie.pub.base.NoStatics;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;
-import com.razie.agent.*;
-import com.razie.pub.agent.*;
 
 public class TestDbLoadCreate extends TestCase {
     static String newdbname  = null;
@@ -33,11 +32,11 @@ public class TestDbLoadCreate extends TestCase {
         AgentCloud group = new AgentCloud();
         group.put(me);
 //        NoStatics.put(Agents.class, new Agents(group, me));
-        agent = new SampleAgentStarter().startAgent(me, group);
+        agent = new SimpleAgent(me, group);
            
-        agent.getMainContext().enter();
+        agent.getThreadContext().enter();
         
-        MutantAssetMgr.init(new MutantAssetMgr());
+        InventoryAssetMgr.init(new InventoryAssetMgr());
 
         
 		new AgentFileService(Agents.me().localdir);

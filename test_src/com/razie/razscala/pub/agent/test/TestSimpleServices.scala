@@ -11,6 +11,7 @@ import com.razie.pub.comms.ActionToInvoke;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.ServiceActionToInvoke;
 import com.razie.pub.agent.test.TestAgentBase;
+import com.razie.agent.SimpleAgent
 
 /**
  * test the light server
@@ -20,19 +21,14 @@ import com.razie.pub.agent.test.TestAgentBase;
 class TestSimpleServices extends TestAgentBase {
 	// create an agent, do something with it and destroy it
 	def testAutoboundScalaService() = {
-		val group = new AgentCloud();
-  
-      val m=TestAgentBase.me;
-        
-		group.put(m);
-		val agent = TestAgentBase.startAgent(m, group);
+		val agent = new SimpleAgent(TestAgentBase.me, new AgentCloud(TestAgentBase.me));
 
 		try {
 		//	val svc = new com.razie.razscala.pub.agent.AutoBoundScalaService();
 //			agent.register(svc);
 			Thread.sleep(500);
 
-			val a = new ServiceActionToInvoke(m.url, "testservice",
+			val a = new ServiceActionToInvoke(TestAgentBase.me.url, "testservice",
 					new ActionItem("echo"));
 //			val oo = a.exec(null);
 	//		Log.logThis("REPLY: " + oo.toString());
