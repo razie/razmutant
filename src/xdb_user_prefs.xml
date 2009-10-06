@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   KEEP IN MIND: this file is the same on each node in your network. It
+   is replicated automatically.
+-->
+
+<db dbver="3" sync="true" target="all">
+	<settings lastsyncver="1" ver="1">
+		<sync sync="true" target="all" />
+		<diffs someattr="somevalue" />
+	</settings>
+	<prefs user="all">
+		<attr name="" desc="" value="" />
+	</prefs>
+	<prefs user="Razie">
+		<attr name="" desc="" value="" />
+	</prefs>
+</db>

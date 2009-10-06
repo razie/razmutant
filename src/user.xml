@@ -1,0 +1,178 @@
+
+	<!--
+		KEEP IN MIND: this file is the same on each node in your network When
+		upgrading mutants to/from, this file is also upgraded to/from, so you
+		can add/change hosts etc.
+	-->
+<config razieReloadMillis="1000">
+	<!--
+		all 3rd partytools used directly are here, you need to install them
+		and give me their paths. i don't support configuration per host, so
+		make sure their properties are the same on every host in your network.
+	-->
+	<tools>
+		<!--
+			Daemon tools is used to play ".ISO" DVD images. Play: the image is
+			mounted using daemon tools and the player starts automatically (make
+			sure it's configured that way)
+		-->
+		<tool name="DaemonTools" website="http://www.daemon-tools.cc/"
+			userguide="http://www.daemon-help.com/index.php?id=introduction">
+			<prop name="exe" value="c:\program files\Daemon tools\daemon.exe" />
+		</tool>
+	</tools>
+
+	<presentation>
+		<page.media.index>
+			<table col="5" packed="true">
+				<action label="Movies" icon="/mutant/pics/bb_mov_.png" cmd="list?type=Movie" />
+				<action label="Streams" icon="/mutant/pics/news.png" cmd="list?type=Stream" />
+				<action label="Series" icon="/mutant/pics/bb_mov_.png" cmd="list?type=Series" />
+				<action label="Link" icon="/mutant/pics/gnome-mime-audio-x-ogg.png"
+					cmd="list?type=Link" />
+				<action label="Photos" icon="/mutant/pics/gnome-mime-image-x-svg.png"
+					cmd="list?type=Photo" />
+
+				<browse label="Movies" icon="/mutant/pics/search_movie.png"
+					cmd="??" page="listall" />
+				<action label="Sites" icon="/mutant/pics/web.png" cmd="list?type=Site" />
+				<action label="Series" icon="/mutant/pics/search_movie.png"
+					cmd="listAll?type=Series" />
+				<action label="Music" icon="/mutant/pics/search_music.png"
+					cmd="listAll?type=Music" />
+				<action label="Photos" icon="/mutant/pics/search_photos.png"
+					cmd="listAll?type=Photo" />
+			</table>
+			<action label="google" icon="/mutant/pics/google.jpg" svc="filter"
+				cmd="filter?filterurl=www.google.ca" />
+			<action label="TESTCAT" icon="/mutant/pics/search_photos.png"
+				cmd="scala/testCAT" />
+		</page.media.index>
+
+		<page.index>
+			<!-- 
+			<script lang="js">presentation.page("page.media.index")</script>
+		-->
+			<script lang="js">presentation.page("page.main.index")
+			</script>
+		</page.index>
+
+		<page.main.index.morning>
+			<script lang="js">"MORNING " </script>
+			<table col="5" packed="true">
+				<browse label="Weather" icon="/mutant/pics/WEATHER.gif"
+					page="http://weather.yahooapis.com/forecastrss?p=CAXX0664&amp;u=c" />
+				<browse label="RSS" icon="/mutant/pics/news.png" page="http://www.google.com/reader" />
+				<browse label="Media" icon="/mutant/pics/bb_mov_.png" page="page.media.index" />
+				<browse label="CBC @ 6" icon="/mutant/pics/news.png"
+					page="http://www.cbc.ca/video/popup.html?http://www.cbc.ca/ondemand/newsatsix/toronto.asx" />
+				<browse label="Scorra" icon="http://www.scorra.ca/phpBB2/images/scorra.jpg"
+					page="http://scorra.ca/phpBB2/search.php?search_id=newposts" />
+				<browse label="Test" icon="" page="page.test.index" />
+			</table>
+		</page.main.index.morning>
+
+		<page.main.index>
+			<table col="5" packed="true">
+				<browse label="Media" icon="/mutant/pics/bb_mov_.png" page="page.media.index" />
+				<browse label="RSS" icon="/mutant/pics/news.png" page="http://www.google.com/reader" />
+				<browse label="CBC @ 6" icon="/mutant/pics/news.png"
+					page="http://www.cbc.ca/video/popup.html?http://www.cbc.ca/ondemand/newsatsix/toronto.asx" />
+				<browse label="Weather" icon="/mutant/pics/WEATHER.gif"
+					page="page.weather" />
+				<browse label="Scorra" icon="http://www.scorra.ca/phpBB2/images/scorra.jpg"
+					page="http://scorra.ca/phpBB2/search.php?search_id=newposts" />
+				<browse label="Test" icon="" page="page.test.index" />
+			</table>
+		</page.main.index>
+
+		<page.test.index>
+			<table>
+				<browse label="drag1" icon="" cmd="??" page="drag1" />
+				<browse label="drag9" icon="" cmd="??" page="drag9" />
+				<browse label="deep" icon="" cmd="??" page="deep/index" />
+				<browse label="capture" icon="/mutant/pics/gnome-mime-text.png"
+					cmd="??" page="capture" />
+				<browse label="POST" icon="" cmd="??" page="POSTcapture" />
+			</table>
+		</page.test.index>
+
+		<page.manage>
+			<table col="3" packed="true">
+				<action label="Network" icon="/mutant/pics/gnome-fs-network.png"
+					svc="network" cmd="Network" />
+				<action label="Status" icon="/mutant/pics/ruota_dentata_2_architet_01.png"
+					svc="control" cmd="Status" />
+				<action label="Log" icon="/mutant/pics/gnome-mime-text.png"
+					svc="control" cmd="GetLog" />
+
+				<action label="Icons" icon="/mutant/pics/view_text.png"
+					cmd="setpref?name=listvisual&amp;value=BRIEFLIST" />
+				<action label="Brief" icon="/mutant/pics/view_detailed.png"
+					cmd="setpref?name=listvisual&amp;value=LIST" />
+				<action label="Browser" icon="/mutant/pics/view_icon.png"
+					cmd="setpref?name=listvisual&amp;value=DETAILS" />
+			</table>
+		</page.manage>
+
+		<page.assets code="com.razie.assets.presentation.PageAssets" />
+		<page.services code="com.razie.pub.agent.PageServices" />
+		<page.razie.index>
+			<script lang="js">"RAZIE " </script>
+			<script lang="js">presentation.page("page.media.index")
+			</script>
+		</page.razie.index>
+		
+		<page.weather>
+			<table col="5" packed="true">
+				<browse label="Yahoo" icon="/mutant/pics/WEATHER.gif"
+					page="http://weather.yahooapis.com/forecastrss?p=CAXX0664&amp;u=c" />
+				<browse label="Weather.com" icon="/mutant/pics/WEATHER.gif"
+					page="http://www.theweathernetwork.com/weather/CAON0029" />
+				<browse label="Weather.com" icon="/mutant/pics/WEATHER.gif"
+					page="http://mobile.theweathernetwork.com/weather/caon0029" />
+			</table>
+		</page.weather>
+		
+	</presentation>
+
+	<sources>
+		<source name="Stage 6" url="http://www.stage6.com"></source>
+	</sources>
+
+	<users>
+		<user name="Razie" image="">
+			<onSelect>
+				<script lang="js">username="Razie"</script>
+				<script lang="js">
+					ctx.define("page.index", "page.razie.index")
+				</script>
+				<script lang="js">Display.say("Hello, Razie")</script>
+			</onSelect>
+			<test1>
+				<script when="user=='Razie'" lang="js">
+					ctx.redef("page.index", "page.razie.index")
+				</script>
+				<script when="user=='Razie'" lang="js">
+					ctx.redef("page.index", "page.razie.index")
+				</script>
+				<script when="user=='Razie'" lang="js">
+					ctx.redef("page.index", "page.razie.index")
+				</script>
+				<script cond="user=='Razie'" lang="js">
+					ctx.redef("page.index", "page.razie.index")
+				</script>
+			</test1>
+			<presentation>
+				<page />
+			</presentation>
+			<identities>
+				<identity name="yahoo" username="razvanc99" password="xxxx"
+					provider="http://yahoo.com" type="email" />
+				<identity name="gmail" username="razvanc99" password="xxxx"
+					provider="http://gmail.com" type="email" />
+			</identities>
+		</user>
+	</users>
+
+</config>

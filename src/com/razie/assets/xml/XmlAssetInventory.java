@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 
 import com.razie.assets.Asset;
 import com.razie.assets.AssetInventory;
-import com.razie.assets.MutantAssetMgr;
+import com.razie.assets.InventoryAssetMgr;
 import com.razie.dist.db.AgentDb;
 import com.razie.media.ToDeleteMediaInventory;
 import com.razie.pub.assets.AssetBrief;
