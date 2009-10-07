@@ -104,11 +104,15 @@ object MutantMain {
          // plugins are initialized after the agent is up
          
          // TODO need to find all plugins nicely
-         Plugins init classOf[MediaConfig].getResource ("/plugins/plugin_media.xml")
-         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_assets_tests.xml")
-         Plugins init classOf[AssetsConfig].getResource ("/plugins/plugin_base_assets.xml")
-         
-//         val pl = Plugins.findAll(new java.net.URL("" + "/plugins")).foreach (Plugins init _)
+         val hardcoded = Map (("plugin_media.xml" -> classOf[MediaConfig]), ("plugin_assets_tests.xml" -> classOf[AssetsConfig]), ("plugin_base_assets.xml" -> classOf[AssetsConfig]))
+         hardcoded.elements.foreach (x => Plugins.init(x._2.getResource ("/plugins/"+x._1)))
+       
+         try {
+        	 // TODO when in eclipse i probably want to load the xmls from classpath not disk
+        	 val urls = Plugins.findAll(new java.io.File(Agents.me().localdir + "/plugins").toURL)
+        	 Log.logThis ("FOUND_PLUGINS: " + urls.mkString)
+        	 urls.filter(x => !hardcoded.contains(new java.io.File(x.toURI()).getName)).foreach (Plugins init _)
+         }
          
          // this is phase2, all known plugins are loaded
          Plugins.allPlugins foreach (_ loadphase2)
