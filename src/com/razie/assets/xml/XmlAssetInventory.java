@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
-import com.razie.assets.Asset;
+import com.razie.assets.AssetImpl;
 import com.razie.assets.AssetInventory;
 import com.razie.assets.InventoryAssetMgr;
 import com.razie.dist.db.AgentDb;

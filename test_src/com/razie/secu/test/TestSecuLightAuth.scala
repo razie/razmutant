@@ -20,7 +20,7 @@ class TestSecuLightAuth extends JUnit3Suite {
    
    def testA = expect (true) {
       // start agent
-     new SimpleAgent (me, new AgentCloud(me))
+     new razie.SimpleAgent (me, new AgentCloud(me))
      
     val c:ComputerScala = new ComputerScala (new AssetKey ("Device", me.name), Computer.Type.LAPTOP)
      c.setHandle (me)

@@ -214,7 +214,7 @@ public class AgentDb implements SdkAsset {
     }
 
     @SoaMethod(descr = "returns the actual xml for this db")
-    @SoaStreamable(streamMimeType="application/xml")
+    @SoaStreamable(mime="application/xml")
     public void display(DrawStream out) {
         out.write (xml().xmlize(null));
     }

@@ -1,7 +1,7 @@
 package com.razie.agent
 
 import com.razie.pub.base._
-import com.razie.agent.webservice._
+//import com.razie.agent.webservice._
 import com.razie.agent._
 import com.razie.agent.network._
 import com.razie.agent.upnp._
@@ -21,8 +21,8 @@ class RazAgent (h:AgentHandle, c:AgentCloud, pluginsLocations:List[String]) exte
          		
 //      MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
 
-//      register(new TempAgentNetworkService())
-//      register(new AgentUpnpService(Devices.getInstance()));
+      register(new AgentNetworkService())
+      register(new AgentUpnpService(Devices.getInstance()));
         
       // initialize the JS support - takes a while...
       razie.Threads.run {

@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 
 import org.json.JSONObject;
 
-import com.razie.agent.SimpleAgent;
 import com.razie.assets.InventoryAssetMgr;
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.Agent;
@@ -32,7 +31,7 @@ public class TestDbLoadCreate extends TestCase {
         AgentCloud group = new AgentCloud();
         group.put(me);
 //        NoStatics.put(Agents.class, new Agents(group, me));
-        agent = new SimpleAgent(me, group);
+        agent = new scala.razie.SimpleAgent(me, group);
            
         agent.getThreadContext().enter();
         
