@@ -173,6 +173,9 @@ TIP.1. If one of your computers is in a bad domain, it will not find the others 
 
 RELEASE NOTES
 ---------------
+0.1.5 - Oct '09
+ too many changes to list
+ plugins work...
 
 0.1.4 - May'09
  lots of changes

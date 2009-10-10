@@ -1,7 +1,8 @@
 package com.razie.mutant.agent;
 
 
-import com.razie.agent.RazAgent;
+import scala.razie.FullAgent;
+
 import com.razie.agent.network.Devices;
 import com.razie.agent.pres.AgentNetworkService;
 import com.razie.agent.upnp.AgentUpnpService;
@@ -18,7 +19,7 @@ import com.razie.pub.webui.MutantPresentation;
  * @author razvanc
  */
 @NoStaticSafe
-public class MutantAgentJ extends RazAgent {
+public class MutantAgentJ extends FullAgent {
 
 	public MutantAgentJ(AgentHandle myHandle, AgentCloud homeGroup) {
 		super(myHandle, homeGroup, null);
@@ -44,10 +45,6 @@ public class MutantAgentJ extends RazAgent {
 	public synchronized MutantAgentJ onInit() {
 	   super.onInit();
       getThreadContext().enter();
-		MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
-
-    register(new AgentNetworkService());
-    register(new AgentUpnpService(Devices.getInstance()));
 
 		// initialize rest in separate thread to speed up startup response time
 		new Thread(new Runnable() {

@@ -59,7 +59,7 @@ class DeviceInventory extends AssetInventory with com.razie.assets.ScalaInventor
        case "gigi" => null
        case _ => {
            // TODO make this more efficient and extend to all assets
-    	   new SoaBinding (get(ref), "kuku").invoke(cmd, ctx)
+    	   new HttpSoaBinding (get(ref), "kuku").invoke(cmd, ctx)
           }
        }
    }

@@ -14,11 +14,14 @@ import com.razie.pub.comms.LightAuth.PermType
 import com.razie.pub.base._
 import com.razie.pub.base.data._
 import com.razie.pub.media._
-import com.razie.secu._
 import com.razie.pub.util._
 import com.razie.pub.agent._
+import com.razie.pubstage.comms._
 
 
+/** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
+ * @author razvanc
+ */
 class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (ref,ttype) {
    // tired of the getXXX stuff, eh?
    def ip = getIp
@@ -57,9 +60,9 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (r
          return null;
    }
 
-   def meth (name:String) = {
-      (for (m <- getClass().getMethods(); if (m.getName().equals(name)))
-         yield m).head
+   private def meth (name:String) = getClass().getMethods().find (_.getName().equals(name)) match { 
+	   case Some(m) => m
+	   case None => throw new IllegalArgumentException ("Method " + name + " not found")
    }
 
    @SoaMethod(descr = "main scripting interface") // TODO, perm = PermType.ADMIN)
@@ -71,7 +74,6 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (r
       f
    }
 
-
    @SoaMethod(descr = "run a given script on the given machine", args=Array("language", "script"))//TODO , perm = LightAuth.PermType.ADMIN)
    def runscript (language:String,script:String) = {
       val scr = ScriptFactory.make(language, script)
@@ -80,46 +82,37 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (r
       res
    }
 
-   @SoaMethod(descr = "generate local security codes", args=Array("password"))//TODO , perm = LightAuth.PermType.ADMIN, args=Array())
+   // TODO move to razplay and inject as valueadd
+   @SoaMethod(descr = "generate local security codes", args=Array("password"))//TODO, perm = LightAuth.PermType.ADMIN)
    def resetSecurity (password:String) = {
-      val ks = KS.create(Agents.me().localdir + "/keys", password)
-      val t = KS.genKeys()
-      ks.store (password, Agents.me.name, t._1, t._2) 
-      LightAuth.init(new SecuLightAuth(Agents.me().localdir + "/keys", "mutant", password))
-      "Ok - keys regenerated..."
+      LightAuth.instance.resetSecurity (password)
    }
 
-   @SoaMethod(descr = "accept this device", args=Array("password"))//TODO , perm = LightAuth.PermType.ADMIN, args=Array())
+   // TODO move to razplay and inject as valueadd
+   @SoaMethod(descr = "accept this device", args=Array("password"))
    def accept (password:String) = {
       if (this.getHandle().name == Agents.me().name) {
          new DrawError ("Cannot accept myself !")
       } else {
          // copy remote pub key
-         val ati = new AssetActionToInvoke (this.getHandle().getLocation().toHttp(), this.ref, new ActionItem("pubKey"))
-         val pk = ati.act(null).toString
-         val bytes = Base64.decode (pk)
-         val ks = KS.load(Agents.me().localdir + "/keys", password)
-         ks.store (password,this.getHandle().name, null, KS.pubKeyFromBytes(bytes))
-         "Ok - stored public key for " + this.getHandle().name + " at " + this.getHandle.url + " ..."
+         val ati = new AssetActionToInvoke (this.getHandle().url, this.ref, new ActionItem("pubKey"))
+         var pk = ati.act(null).toString
+         // TODO remove this when pubKey returns text, see todo there
+         pk =  HtmlContents.justBody(pk)
+         LightAuth.instance.accept (password, this.getHandle, pk)
       }
    }
 
-   @SoaMethod(descr = "accept this device", args=Array("password"))//TODO , perm = LightAuth.PermType.ADMIN, args=Array())
-   //  @SoaStreamable(streamMimeType = "application/text")
-   def pubKey (/*out:DrawStream, */password:String):String = {
+   // TODO move to razplay and inject as valueadd
+   @SoaMethod(descr = "return my pubkey")
+//   @SoaStreamable(mime = "application/text")
+   def pubKey (/*out:DrawStream*/)= {
+   //TODO use mime type when TODO in DeviceInventory.doAction is done...
       if (this.getHandle().name == Agents.me().name) {
-         Base64.encodeBytes(KS.load(Agents.me().localdir + "/keys", password).loadKeys (password, this.getHandle().name)._2.getEncoded())
+         val pk = LightAuth.instance.pubkey (this.getHandle)
+         pk
       } else {
-         new DrawError ("Cannot delegate this!").toString
-      }
-   }
-
-   @SoaMethod(descr = "accept this device", args=Array("password"))//TODO , perm = LightAuth.PermType.ADMIN, args=Array())
-   //@SoaStreamable(streamMimeType = "application/text")
-   def sign (/*out:DrawStream, */password:String):String = {
-      if (this.getHandle().name == Agents.me().name) {
-         Base64.encodeBytes(KS.load(Agents.me().localdir + "/keys", password).loadKeys (password, this.getHandle().name)._2.getEncoded())
-      } else {
+    	  // TODO SECU protect this code
          new DrawError ("Cannot delegate this!").toString
       }
    }

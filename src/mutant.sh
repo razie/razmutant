@@ -1,8 +1,15 @@
+# prepare the classpath and run the local agent
 
-MYDIR=/host/Video/razmutant
+MUTANTDIR=/host/Video/razmutant
 CLAP=
 
-for ff in `ls $MYDIR/lib/*.jar` ; do CLAP=$CLAP:$ff ; done
+if [[ ! -e $MUTANTDIR/razmutant.jar ]] 
+then
+   echo "ERROR_DIR Please make sure you edit mutant.cmd and set MUTANTDIR properly"
+   exit
+fi
+
+for ff in `ls $MUTANTDIR/lib/*.jar` ; do CLAP=$CLAP:$ff ; done
 
 GIGI=
 
@@ -11,19 +18,19 @@ do
 
 GIGI="nonzero"
 
-#java -cp ".:$MYDIR/razmutant.jar:$CLAP" -Xmx150m -Djava.io.tmpdir="%TMP%" com.razie.mutant.MutantMain
-echo java -cp ".:$MYDIR/razmutant.jar:$CLAP" -Xmx150m com.razie.mutant.MutantMain
-java -cp ".:$MYDIR/razmutant.jar:$CLAP" -Xmx150m com.razie.mutant.MutantMain 
+echo java -cp ".:$MUTANTDIR/razmutant.jar:$MUTANTDIR/razpub.jar:$CLAP" -Xmx150m com.razie.mutant.MutantMain
+java -cp ".:$MUTANTDIR/razmutant.jar:$MUTANTDIR/razpub.jar:$CLAP" -Xmx150m com.razie.mutant.MutantMain 
 
+# if an update is available, update and restart instead of exiting
 
-if [[ -e $MYDIR/upgrade/razmutant.jar ]] 
+if [[ -e $MUTANTDIR/upgrade/razmutant.jar ]] 
 then
-   mv $MYDIR/upgrade/razmutant.jar $MYDIR/razmutant.jar
-   mv $MYDIR/upgrade/*.xml $MYDIR/
-   mv $MYDIR/upgrade/*.txt $MYDIR/
-   mv $MYDIR/upgrade/lib/*.jar $MYDIR/lib
-   mv $MYDIR/upgrade/plugins/* $MYDIR/plugins
-   mkdir -p $MYDIR/log
+   mv $MUTANTDIR/upgrade/*.jar $MUTANTDIR/
+   mv $MUTANTDIR/upgrade/*.xml $MUTANTDIR/
+   mv $MUTANTDIR/upgrade/*.txt $MUTANTDIR/
+   mv $MUTANTDIR/upgrade/lib/*.jar $MUTANTDIR/lib
+   mv $MUTANTDIR/upgrade/plugins/* $MUTANTDIR/plugins
+   mkdir -p $MUTANTDIR/log
 
    GIGI=
 fi

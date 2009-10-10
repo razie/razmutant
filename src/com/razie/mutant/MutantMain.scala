@@ -26,7 +26,6 @@ import com.razie.media.MediaService
 import com.razie.agent.network._
 import com.razie.pub.plugin._
 import com.razie.pub.comms._
-import com.razie.secu._
 import com.razie.pub.agent._
 
 /** starts the mutant agent. */
@@ -76,10 +75,17 @@ object MutantMain {
          // intialize the main agent...assuming name is the same as hostname
          MutantDevices.init(new MutantDevicesScala(), Agents.findMyHostName(testing), selectip);
          val d = Devices.getInstance();
-        
-         // TODO SECU use password
-		   LightAuth.init(new SecuLightAuth(Agents.me().localdir + "/keys", "mutant", "password"))
+         
+         LightAuth.init(new LightAuth("mutant"))
 
+         // stupid way to decouple the playground...
+         try {
+            val p = Class.forName("com.razie.playground.Init1").newInstance();
+            Log.logThis("PLAYGROUND_INITIALIZED 1");
+         } catch {
+            case e:Exception => Log.logThis("WARN_PLAYGROUND_NOT_FOUND", e);
+         }
+         
          mainAgent = new MutantAgentJ(Agents.me(), Agents.homeCloud());
 	      mainAgent.getThreadContext().enter()
          // initializing the agent will change the root nostatics...
@@ -104,7 +110,7 @@ object MutantMain {
          // plugins are initialized after the agent is up
          
          // TODO need to find all plugins nicely
-         val hardcoded = Map (("plugin_media.xml" -> classOf[MediaConfig]), ("plugin_assets_tests.xml" -> classOf[AssetsConfig]), ("plugin_base_assets.xml" -> classOf[AssetsConfig]))
+         val hardcoded = Map (("plugin_razmedia.xml" -> classOf[MediaConfig]), ("plugin_assets_tests.xml" -> classOf[AssetsConfig]), ("plugin_base_assets.xml" -> classOf[AssetsConfig]))
          hardcoded.elements.foreach (x => Plugins.init(x._2.getResource ("/plugins/"+x._1)))
        
          try {
