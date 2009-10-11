@@ -46,6 +46,8 @@ public class MutantAgentJ extends FullAgent {
 	   super.onInit();
       getThreadContext().enter();
 
+      MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
+      
 		// initialize rest in separate thread to speed up startup response time
 		new Thread(new Runnable() {
 			public void run() {
