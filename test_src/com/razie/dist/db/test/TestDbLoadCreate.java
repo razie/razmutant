@@ -20,7 +20,7 @@ public class TestDbLoadCreate extends TestCase {
 
 	// TODO simplify using Agents for testing...
 	static AgentHandle me = new AgentHandle("localhost", "localhost",
-			"127.0.0.1", "4446", "http://localhost:4446", "linux",
+			"127.0.0.1", "4451", "http://localhost:4451", "ubuntu",
 			"/host/Video/razmutant");
 
 	Agent agent;

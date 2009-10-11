@@ -7,12 +7,12 @@ import junit.framework.TestSuite;
 import org.scalatest.junit._
 import org.scalatest.SuperSuite
 
-object SuiteAllScalaMain extends Application {
-   junit.textui.TestRunner.run (new SuiteAllScala())
+object SuiteAllSmallMain extends Application {
+   junit.textui.TestRunner.run (new SuiteAllSmall())
 }
 
 /** TODO this is sooooooooooooo messed up... */
-class SuiteAllScala () extends junit.framework.TestSuite(classOf[XNada]) {
+class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
   
   // this is where you list the tests...
    addTest(SuitePub.suite());
