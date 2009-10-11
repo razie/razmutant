@@ -9,7 +9,6 @@ import org.scalatest.SuperSuite
 
 object SuiteAllScalaMain extends Application {
    junit.textui.TestRunner.run (new SuiteAllScala())
-//   junit.swingui.TestRunner.run (new SuiteAllScala())
 }
 
 /** TODO this is sooooooooooooo messed up... */
@@ -20,10 +19,10 @@ class SuiteAllScala () extends junit.framework.TestSuite(classOf[XNada]) {
    addTest(new SuitePubs());
    addTest(SuiteUpnp.suite());
    // TODO add these tests too
-   addTest(new SuiteActionables());
-   addTest(new SuiteAssets());
-   addTest(com.razie.SuiteMedia.suite());
+   addTest(SuiteActionables.suite());
+   addTest(SuiteAssets.suite());
    addTest(SuiteAgent.suite());
+   addTest(com.razie.SuiteMedia.suite());
    addTest(SuiteDist.suite());
    
    def test1() = 
