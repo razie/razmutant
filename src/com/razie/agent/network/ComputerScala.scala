@@ -1,7 +1,6 @@
 package com.razie.agent.network
 
 import com.razie.pub.assets._
-import com.razie.agent.network.Computer.Impl
 import com.razie.agent.network.Computer.Type
 import com.razie.agent.network._
 
@@ -22,7 +21,7 @@ import com.razie.pubstage.comms._
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
  * @author razvanc
  */
-class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (ref,ttype) {
+class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (ref,ttype) {
    // tired of the getXXX stuff, eh?
    def ip = getIp
    def port = getPort
@@ -35,17 +34,21 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends Computer.Impl (r
          out.open(reply);
 
          if (Computer.Type.LAPTOP.equals(this.getType()) || Computer.Type.DESKTOP.equals(this.getType())) {
-            reply.write(new NavButton(new ActionItem("mutant", "mutant"), "http://" + ip + ":" + port
-                  + "/mutant"))
-                  reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRATETO, "ip", ip))
-                  reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRADEFROM, "ip", ip))
-                  reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdSTOP))
-                  reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdUPGRADE))
-                  reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdDIE))
-                  reply.write(new AssetActionToInvoke(Agents.agent(name).url, ref, cmdCSCRIPT))
-                  reply.write(PageServices.methodButton(ref, meth("pubKey")))
-                  reply.write(PageServices.methodButton(ref, meth("resetSecurity")))
-                  reply.write(PageServices.methodButton(ref, meth("accept")))
+            //TODO 1-1 when in the remote network, proxy automatically via the dyndns
+            val homeurl = "http://" + ip + ":" + port + "/mutant"
+            reply.write(new NavButton(new ActionItem("mutant", "mutant"), homeurl))
+            // TODO 1-1 remove this test proxy
+            reply.write(new NavButton(new ActionItem("proxied", "proxied"), razie.Agent.proxy(homeurl).makeActionUrl))
+            
+            reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRATETO, "ip", ip))
+            reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRADEFROM, "ip", ip))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdSTOP))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdUPGRADE))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdDIE))
+            reply.write(new AssetActionToInvoke(Agents.agent(name).url, ref, cmdCSCRIPT))
+            reply.write(PageServices.methodButton(ref, meth("pubKey")))
+            reply.write(PageServices.methodButton(ref, meth("resetSecurity")))
+            reply.write(PageServices.methodButton(ref, meth("accept")))
          }
 
          reply.close();

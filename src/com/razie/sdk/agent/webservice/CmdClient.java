@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import com.razie.agent.webservice.RazClientSocket;
 import com.razie.pub.assets.AssetLocation;
 import com.razie.pub.base.log.Log;
 
@@ -30,7 +31,7 @@ public class CmdClient {
 
     public String execute(String cmd, String args) {
         try {
-            XRazClientSocket server = new XRazClientSocket(hostname, port);
+            RazClientSocket server = new RazClientSocket(hostname, port);
             server.setSoTimeout(30000);
 
             DataInputStream in = new DataInputStream(server.getInputStream());

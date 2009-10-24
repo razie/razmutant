@@ -87,7 +87,7 @@ object MutantMain {
          }
          
          mainAgent = new MutantAgentJ(Agents.me(), Agents.homeCloud());
-	      mainAgent.getThreadContext().enter()
+	      mainAgent.getContext().enter()
          // initializing the agent will change the root nostatics...
          NoStatics.put(classOf[Devices], d);
 
@@ -147,7 +147,7 @@ object MutantMain {
          mainAgent register new com.razie.mutant.AgentDebugService
          mainAgent register new SampleScalaAgentService
 
-         mainAgent keepOnTrucking
+         mainAgent join
       }
  
       def init() = {

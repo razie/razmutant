@@ -7,7 +7,7 @@ import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.assets.AssetActionToInvoke;
 import com.razie.pub.assets.AssetBrief;
 import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetMgr.Meta;
+import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.TimeOfDay;
@@ -42,7 +42,7 @@ public class DiagAsset extends CoolAsset {
         // if not reg yet, reg the class as soa
             AgentHttpService.registerSoaAsset(DiagAsset.class);
 
-        InventoryAssetMgr.registerAsset(this, new Meta(META, "", this.getClass().getName(),
+        InventoryAssetMgr.instance().registerAsset(this, new Meta(META, "", this.getClass().getName(),
                 ProxyInventory.class.getName()));
     }
 

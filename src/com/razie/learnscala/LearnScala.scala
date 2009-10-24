@@ -67,6 +67,7 @@ class AScalaExtension extends ABaseJavaClass {
    def justScalaOpt (x:String*) = {
       println ("More scala printing: ")
       x.foreach (println)
+      takesOptionalArgs (x:_*)
    }
 }
 

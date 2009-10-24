@@ -75,18 +75,12 @@ public class AgentDb implements SdkAsset {
         return dbImpl(dbname);
     }
 
-    // TODO delete this once compilation succeeds
-    public static String deleteme(String dbname) {
-//        return dbImpl(dbname);
-        return null;
-    }
-
     public static AgentDb reload(String dbname) {
         dbs.remove(dbname);
         return db(dbname);
     }
 
-    /** TODO factory here */
+    /** TODO 2-1 factory here */
     protected static AgentDb dbImpl(String dbname) {
         if (!dbs.containsKey(dbname)) {
             XmlDb xdb = new XmlDb();
@@ -145,7 +139,7 @@ public class AgentDb implements SdkAsset {
         Log.logThis("SYNC_DB name=" + dbname + " fromHost=" + fromHost);
 //        if (mutant.isUp()) {
         if (AgentHandle.DeviceStatus.UP.equals(fromHost.status)) {
-            // all good - can go there
+            // TODO 2-1 change to ATI
             String url = "http://" + fromHost.ip + ":"
                     + fromHost.port + "/mutant/local/xdb_" + remotedbname + ".xml";
             XmlDb remotedb = new XmlDb();

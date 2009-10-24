@@ -7,7 +7,7 @@ import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.agent.AgentService;
-import com.razie.pub.assets.AssetMgr.Meta;
+import com.razie.pub.assets.Meta;
 import com.razie.pub.base.AttrAccess;
 import com.razie.pub.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
@@ -16,11 +16,11 @@ import com.razie.pub.comms.Agents;
 import com.razie.pub.events.PostOffice;
 
 /**
- * lifecycle listneer to upgrade databases as they're open...
+ * TODO 1-1 docs
+ * 
+ * TODO 1-1 make this nostatic - right now uses a static singleton !!!
  * 
  * @author razvanc
- * @version $Id$
- * 
  */
 public class AgentDbService extends AgentService {
     public static int            curVersion = 3;

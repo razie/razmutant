@@ -13,7 +13,7 @@ import com.razie.pub.assets.AssetActionToInvoke;
 import com.razie.pub.assets.AssetBrief;
 import com.razie.pub.assets.AssetKey;
 import com.razie.pub.assets.AssetLocation;
-import com.razie.pub.assets.AssetMgr.Meta;
+import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.TimeOfDay;
@@ -69,7 +69,7 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         // if not reg yet, reg the class as soa
             AgentHttpService.registerSoaAsset(NewXmlAssetType.class);
 
-        InventoryAssetMgr.registerAsset(this, new Meta(META, "", NewXmlAssetType.class.getName(),
+        InventoryAssetMgr.instance().registerAsset(this, new Meta(META, "", NewXmlAssetType.class.getName(),
                 ProxyInventory.class.getName()));
     }
 

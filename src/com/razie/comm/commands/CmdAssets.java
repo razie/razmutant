@@ -83,7 +83,7 @@ public class CmdAssets extends ListAssets {
          socket.auth(LightAuth.PermType.PUBLIC);
          String sref = HttpUtils.fromUrlEncodedString(parms.getProperty("ref"));
          AssetKey ref = AssetKey.fromString(sref);
-         MediaUtils.browse(protocol, ref, out);
+         MediaUtils.browse(protocol, ref, parms.getProperty("type"), out);
          out.close();
          return new StreamConsumedReply();
       } else if ("invcmd".equals(cmdName)) {

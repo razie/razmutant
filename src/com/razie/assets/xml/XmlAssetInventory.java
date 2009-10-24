@@ -14,7 +14,7 @@ import com.razie.media.ToDeleteMediaInventory;
 import com.razie.pub.assets.AssetBrief;
 import com.razie.pub.assets.AssetKey;
 import com.razie.pub.assets.AssetLocation;
-import com.razie.pub.assets.AssetMgr.Meta;
+import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;

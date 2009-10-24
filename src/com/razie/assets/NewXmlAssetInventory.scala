@@ -9,7 +9,8 @@ import com.razie.pub.resources._
 import com.razie.pub.assets._
 import com.razie.assets._
 import org.w3c.dom.Element;
-  
+
+/** TODO 2 FUNC implement */
 class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
    val clsName : String = "?"
    
@@ -50,8 +51,7 @@ class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
      * need the full asset - often i can get around by just a proxy brief
      */
     override def getBrief(ref:AssetKey ):AssetBrief  = {
-//      // use the list to prevent idiotic issues with duplicates...shift happens...
-      val x = AgentDb.deleteme("links")
+      // use the list to prevent idiotic issues with duplicates...shift happens...
       val links = AgentDb.db("links").xml().listEntities("/db/link[@url='" + ref.getId() + "']");
 
       if (links.size() > 0) 
@@ -88,7 +88,7 @@ class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
     }
     
     /** initialize this instance for use with this Meta */
-    override def init (meta:AssetMgr.Meta) = {}
+    override def init (meta:Meta) = {}
 
    /**
     * destroy, deallocate and remove the asset - must implement auth&auth itself

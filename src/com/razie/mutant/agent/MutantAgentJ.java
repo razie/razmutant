@@ -44,14 +44,14 @@ public class MutantAgentJ extends FullAgent {
 	 */
 	public synchronized MutantAgentJ onInit() {
 	   super.onInit();
-      getThreadContext().enter();
+      getContext().enter();
 
       MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
       
 		// initialize rest in separate thread to speed up startup response time
 		new Thread(new Runnable() {
 			public void run() {
-      getThreadContext().enter();
+      getContext().enter();
 	   register(new AgentDbService());
 			}
 		}).start();

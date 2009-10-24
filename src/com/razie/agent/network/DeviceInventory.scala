@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import com.razie.pub.UnknownRtException;
 import com.razie.pub.assets._
 import com.razie.assets._
-import com.razie.pub.assets.AssetMgr.Meta;
+import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
@@ -100,7 +100,7 @@ object DeviceStuff {
     val sCLASS = "Device";
     val AMETA:ActionItem       = new ActionItem(sCLASS, "device");
 
-	val META = new AssetMgr.Meta(AMETA, "", classOf[DeviceScala].getName(),
+	val META = new Meta(AMETA, "", classOf[DeviceScala].getName(),
 	    	      classOf[DeviceInventory].getName());
 
      val hostCOMMANDS = Array(DeviceStuff.cmdUPGRADETO, DeviceStuff.cmdUPGRADEFROM,
