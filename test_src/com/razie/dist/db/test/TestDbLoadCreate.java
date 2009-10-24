@@ -30,7 +30,7 @@ public class TestDbLoadCreate extends TestCase {
 			AgentCloud group = new AgentCloud(me);
 			agent = new scala.razie.SimpleAgent(me, group).onInit();
 
-			agent.getThreadContext().enter();
+			agent.getContext().enter();
 
 			InventoryAssetMgr.init(new InventoryAssetMgr());
 			// give them time to update cloud status

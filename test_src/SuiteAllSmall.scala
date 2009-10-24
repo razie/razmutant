@@ -11,14 +11,13 @@ object SuiteAllSmallMain extends Application {
    junit.textui.TestRunner.run (new SuiteAllSmall())
 }
 
-/** TODO this is sooooooooooooo messed up... */
+/** one suite to rule them all - run all tests in all shared projects */
 class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
   
   // this is where you list the tests...
    addTest(SuitePub.suite());
    addTest(new SuitePubs());
    addTest(SuiteUpnp.suite());
-   // TODO add these tests too
    addTest(SuiteActionables.suite());
    addTest(SuiteAssets.suite());
    addTest(SuiteAgent.suite());
