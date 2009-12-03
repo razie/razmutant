@@ -2,12 +2,13 @@ package com.razie.dist.db;
 
 import org.w3c.dom.Element;
 
-import com.razie.pub.assets.AssetMgr;
+import razie.JAS;
+import razie.assets.Meta;
+
 import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.agent.AgentService;
-import com.razie.pub.assets.Meta;
 import com.razie.pub.base.AttrAccess;
 import com.razie.pub.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
@@ -31,8 +32,8 @@ public class AgentDbService extends AgentService {
             throw new IllegalStateException("ERR_SVC_INIT AgentDbSrevice already initialized!");
         }
 
-        AssetMgr.instance().register(new Meta(AgentDb.META, "", AgentDb.class.getName(), DbInventory.class
-                .getName()));
+        JAS.register(new Meta(AgentDb.META, "", AgentDb.class.getName(), DbInventory.class
+                .getName(), ""));
         AgentHttpService.registerSoaAsset(AgentDb.class);
     }
 
