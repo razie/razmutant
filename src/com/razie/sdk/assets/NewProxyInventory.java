@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+import razie.assets.AssetBase;
+import razie.assets.AssetBrief;
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+import razie.assets.AssetMap;
+
 import com.razie.assets.FileInventory;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetLocation;
 import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.log.Log;
 
@@ -22,33 +25,32 @@ import com.razie.pub.base.log.Log;
  */
 public class NewProxyInventory extends FileInventory {
 
-    Map<AssetKey, SdkAsset> assets = new HashMap<AssetKey, SdkAsset>();
+    Map<AssetKey, AssetBase> assets = new HashMap<AssetKey, AssetBase>();
 
     public NewProxyInventory() {
         Log.logThis("INIT proxyiinv");
     }
 
     /** find this inventory in assetmgr and register each object */
-    public void register(AssetKey k, SdkAsset o) {
+    public void register(AssetKey k, AssetBase o) {
         assets.put(k, o);
     }
 
     /** use the base and add details */
-    public Map<AssetKey, AssetBrief> find(String type, AssetLocation env, boolean recurse) {
-        Map<AssetKey, AssetBrief> ret = new HashMap<AssetKey, AssetBrief>();
+    public AssetMap queryAll(String meta, AssetLocation env, boolean recurse, AssetMap ret) {
 
         for (AssetKey k : assets.keySet())
-            if (k.getType().equals(type))
+            if (k.getType().equals(meta))
                 ret.put(k, assets.get(k).getBrief());
 
         return ret;
     }
 
     public AssetBrief getBrief(AssetKey ref) {
-        return get(ref).getBrief();
+        return getAsset(ref).getBrief();
     }
 
-    public SdkAsset get(AssetKey ref) {
+    public AssetBase getAsset(AssetKey ref) {
         return assets.get(ref);
     }
 
