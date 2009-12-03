@@ -2,20 +2,21 @@ package com.razie.sdk.assets;
 
 import org.w3c.dom.Element;
 
+import razie.JAS;
+import razie.assets.AssetActionToInvoke;
+import razie.assets.AssetBrief;
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+import razie.assets.Meta;
+import razie.assets.ProxyInventory;
+
 import com.razie.agent.network.Device;
 import com.razie.agent.network.Devices;
 import com.razie.assets.CoolAsset;
-import com.razie.assets.InventoryAssetMgr;
-import com.razie.assets.ProxyInventory;
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.AgentHttpService;
-import com.razie.pub.assets.AssetActionToInvoke;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetLocation;
-import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.ScriptContext;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.TimeOfDay;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.ActionToInvoke;
@@ -24,11 +25,12 @@ import com.razie.pub.draw.DrawSequence;
 import com.razie.pub.draw.DrawStream;
 import com.razie.pub.draw.Drawable;
 import com.razie.pub.draw.HttpDrawStream;
-import com.razie.pub.draw.widgets.DrawLater;
+import com.razie.pub.draw.Renderer.Technology;
 import com.razie.pub.draw.widgets.DrawToString;
 import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
 import com.razie.pub.resources.RazIcons;
+import com.razie.pub.webui.DrawLater;
 import com.razie.pubstage.life.Breather;
 import com.razie.sdk.assets.providers.MutantProvider;
 
@@ -67,18 +69,18 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         this.key = ref;
 
         // if not reg yet, reg the class as soa
-            AgentHttpService.registerSoaAsset(NewXmlAssetType.class);
+        AgentHttpService.registerSoaAsset(NewXmlAssetType.class);
 
-        InventoryAssetMgr.instance().registerAsset(this, new Meta(META, "", NewXmlAssetType.class.getName(),
-                ProxyInventory.class.getName()));
+        JAS.manage(this, new Meta(META, "", NewXmlAssetType.class.getName(),
+                ProxyInventory.class.getName(), ""));
     }
 
     public AssetBrief getBrief() {
         super.getBrief();
-        this.brief.setName("");
-        this.brief.setBriefDesc(sayboo());
-        this.brief.setLargeDesc("");
-        return this.brief;
+        this.brief().setName("");
+        this.brief().setBriefDesc(sayboo());
+        this.brief().setLargeDesc("");
+        return this.brief();
     }
 
     @SoaMethod(descr = "say boo")
@@ -144,7 +146,7 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         if (Agents.getMyHostName().equals(myHost)) {
             return "I'm here already...!";
         } else {
-            AssetActionToInvoke action = new AssetActionToInvoke(Devices.device(myHost).getUrl(),
+            AssetActionToInvoke action = JAS.aati(Devices.device(myHost).getUrl(),
                     new AssetKey(sCLASS, this.key.getId(), AssetLocation.mutantEnv(myHost)), new ActionItem(
                             "jump"), "host", Agents.getMyHostName());
             String result = (String) action.act(null);
@@ -201,10 +203,10 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         }
     };
 
-    /** play a given asset with a preferred player */
-    public Drawable paint(ScriptContext ctx) {
+    @Override
+    public Object render(Technology t, DrawStream stream) {
         ActionToInvoke ati = new AssetActionToInvoke(Agents.instance().me().url, this.getKey(), DETAILS);
-        return new DrawSequence(super.paint(ctx), new DrawLater(ati));
+        return new DrawSequence(super.render(t, stream), new DrawLater(ati));
     }
 
     /** play a given asset with a preferred player */
