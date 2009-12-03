@@ -9,24 +9,25 @@ import com.razie.pub.resources._
 import com.razie.pub.assets._
 import com.razie.assets._
 import org.w3c.dom.Element;
+import razie.assets._
 
 /** TODO 2 FUNC implement */
-class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
+class NewXmlAssetInventory extends BaseInventory {
    val clsName : String = "?"
    
     /** get an asset by key - it should normally be AssetBase or SdkAsset */
-    override def get(ref:AssetKey) = {"" /* TODO actually implement this */}
+    override def getAsset(ref:AssetKey) = {"" /* TODO actually implement this */}
 
    /**
     * @param link
     * @return
     */
    private def brief(link:RazElement ):AssetBrief  ={
-      val b = new AssetBrief();
+      val b = new AssetBriefImpl();
 
-      b.setKey(new AssetKey(clsName, link a "key", new AssetLocation()));
+      b.setKey(new AssetKey(clsName, link a "key"));
       b.player = "internet";
-      b.setFileName("");
+//      b.setFileName("");
       //b.setLocalDir(url);
       b.setBriefDesc(link.a("type"));
       b.setLargeDesc(link.a("desc"));
@@ -61,10 +62,7 @@ class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
    }
 
   /** list all assets of the given type at the given location */
-    override def xfind(ttype:String, env:AssetLocation, recurse:Boolean)
-    :scala.collection.mutable.Map[AssetKey, AssetBrief] = {
-      val ret = new scala.collection.mutable.HashMap[AssetKey, AssetBrief]()
-
+   override def queryAll(meta:String, env:AssetLocation , recurse:Boolean , ret:AssetMap) : AssetMap = {
       AgentDb.db(clsName).xml().listEntities("/db/" + clsName)
       for (val link <- (AgentDb.db(clsName).xml()).asInstanceOf[RazElement].xpl("/db/" + clsName)) {
          val b = brief(link);
@@ -83,7 +81,7 @@ class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
     override def getSupportedActions(ref:AssetKey ):Array[ActionItem] = {MyStatics.DFLTCMDS}
 
     /** get some extra details about an asset */
-    override def details(brief:AssetBrief ):Drawable = {
+    override def getDetails(brief:AssetBrief ):Drawable = {
       new DrawText("?")
     }
     
@@ -95,7 +93,7 @@ class NewXmlAssetInventory extends BaseInventory with ScalaInventory {
     * 
     * TODO include in main inv interface as CRUD ops
     */
-   override def delete(asset:AssetKey ) = { }
+//   override def delete(asset:AssetKey ):Unit = {}
 
 }
 
