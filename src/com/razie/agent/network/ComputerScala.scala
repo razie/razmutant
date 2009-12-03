@@ -13,9 +13,11 @@ import com.razie.pub.comms.LightAuth.PermType
 import com.razie.pub.base._
 import com.razie.pub.base.data._
 import com.razie.pub.media._
-import com.razie.pub.util._
+//import com.razie.pub.util._
 import com.razie.pub.agent._
 import com.razie.pubstage.comms._
+import razie.assets._
+import razie.agent.pres._
 
 
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
@@ -33,7 +35,8 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
          val reply = new DrawList();
          out.open(reply);
 
-         if (Computer.Type.LAPTOP.equals(this.getType()) || Computer.Type.DESKTOP.equals(this.getType())) {
+         if (Computer.Type.LAPTOP.equals(this.getType()) || Computer.Type.DESKTOP.equals(this.getType())
+             || Computer.Type.SERVER.equals(this.getType())) {
             //TODO 1-1 when in the remote network, proxy automatically via the dyndns
             val homeurl = "http://" + ip + ":" + port + "/mutant"
             reply.write(new NavButton(new ActionItem("mutant", "mutant"), homeurl))
@@ -73,7 +76,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
       val f = new DrawForm ( 
             cmdRSCRIPT, 
             new AssetActionToInvoke(Agents.agent(name).url, ref, cmdRSCRIPT),
-            new AttrAccess.Impl ("language:String=scala,script:script=<write here>"))
+            new AttrAccessImpl ("language:String=scala,script:script=<write here>"))
       f
    }
 
