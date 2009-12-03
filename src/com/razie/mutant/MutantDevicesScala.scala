@@ -2,6 +2,7 @@ package com.razie.mutant
 
 import com.razie.agent.network._
 import com.razie.pub.assets._
+import razie.assets._
 
 class MutantDevicesScala extends MutantDevices {
     
