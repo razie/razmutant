@@ -9,15 +9,16 @@ import java.util.Properties;
 
 import org.w3c.dom.Element;
 
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+import razie.assets.FileAssetBrief;
+
 import com.razie.agent.AgentConfig;
 import com.razie.media.MediaUtils;
 import com.razie.media.SeriesInventory;
 import com.razie.pub.FileUtils;
 import com.razie.pub.agent.AgentFileService;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetLocation;
-import com.razie.pub.assets.AssetMgr;
+import com.razie.pub.assets.JavaAssetMgr;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
 import com.razie.pub.base.data.XmlDoc;
@@ -34,7 +35,6 @@ import com.razie.pub.draw.JsonDrawStream;
 import com.razie.pub.draw.SimpleDrawStream;
 import com.razie.pub.draw.Renderer.Technology;
 import com.razie.pub.draw.widgets.DrawToString;
-import com.razie.pub.http.SocketCmdHandler;
 import com.razie.pub.http.StreamConsumedReply;
 import com.razie.pub.lightsoa.SoaService;
 import com.razie.pubstage.comms.HtmlContents;
@@ -90,7 +90,7 @@ public class CmdAssets extends ListAssets {
          socket.auth(LightAuth.PermType.CONTROL);
          String cmd = parms.getProperty("cmd");
          AssetKey ref = AssetKey.fromString(parms.getProperty("ref"));
-         Object d = AssetMgr.doAction(cmd, ref, new ScriptContext.Impl(parms));
+         Object d = JavaAssetMgr.doAction(cmd, ref, new ScriptContext.Impl(parms));
          out.write(d == null ? "<NULL>" : d);
          out.close();
          return new StreamConsumedReply();
@@ -133,7 +133,7 @@ public class CmdAssets extends ListAssets {
 
    private String saveJpg(AssetKey ref, String url) {
       // 1. make up the picture's name
-      AssetBrief movie = AssetMgr.brief(ref);
+      FileAssetBrief movie = (FileAssetBrief)JavaAssetMgr.brief(ref);
 
       // TODO the remote paths come here without a / - fix that!
       if (movie.getLocalDir().startsWith("/")) {
@@ -192,7 +192,7 @@ public class CmdAssets extends ListAssets {
 
    /** play a given asset with a preferred player */
    private Object playLocal(String player, AssetKey ref) {
-      Object o = AssetMgr.doAction("play/" + player, ref, (ScriptContext) null);
+      Object o = JavaAssetMgr.doAction("play/" + player, ref, (ScriptContext) null);
       return o;
    }
 
