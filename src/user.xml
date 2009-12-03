@@ -115,8 +115,8 @@
 			</table>
 		</page.manage>
 
-		<page.assets code="com.razie.assets.presentation.PageAssets" />
-		<page.services code="com.razie.pub.agent.PageServices" />
+		<page.assets code="razie.assets.pres.PageAssets" />
+		<page.services code="razie.agent.pres.PageServices" />
 		<page.razie.index>
 			<script lang="js">"RAZIE " </script>
 			<script lang="js">presentation.page("page.media.index")
