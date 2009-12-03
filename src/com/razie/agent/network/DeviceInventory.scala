@@ -6,8 +6,6 @@ import org.w3c.dom.Element;
 
 import com.razie.pub.UnknownRtException;
 import com.razie.pub.assets._
-import com.razie.assets._
-import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
@@ -24,13 +22,14 @@ import com.razie.agent.network._
 import com.razie.pub.resources._
 import com.razie.pub.agent._
 import com.razie.pub.lightsoa._
+import razie.assets._
 
 /**
  *  TODO comment
  */
-class DeviceInventory extends AssetInventory with com.razie.assets.ScalaInventory {
+class DeviceInventory extends BaseInventory {
 
-  override def get(ref:AssetKey):AnyRef = 
+  override def getAsset(ref:AssetKey):AnyRef = 
      Devices.device (ref.getId)
 
    override def getBrief(ref:AssetKey ) : AssetBrief = {
@@ -38,10 +37,7 @@ class DeviceInventory extends AssetInventory with com.razie.assets.ScalaInventor
    }
 
     /** list all assets of the given type at the given location */
-    override def xfind(ttype:String, env:AssetLocation, recurse:Boolean)
-    :scala.collection.mutable.Map[AssetKey, AssetBrief] = {
-      var ret = new scala.collection.mutable.HashMap[AssetKey, AssetBrief]()
-     
+   override def queryAll(meta:String, env:AssetLocation , recurse:Boolean , ret:AssetMap) : AssetMap = {
       val m = Devices.getInstance().copyOfDevices()
       val iter = m.values.iterator
      
@@ -59,7 +55,7 @@ class DeviceInventory extends AssetInventory with com.razie.assets.ScalaInventor
        case "gigi" => null
        case _ => {
            // TODO make this more efficient and extend to all assets
-    	   new HttpSoaBinding (get(ref), "kuku").invoke(cmd, ctx)
+    	   new HttpSoaBinding (getAsset(ref), "kuku").invoke(cmd, ctx)
           }
        }
    }
@@ -68,7 +64,7 @@ class DeviceInventory extends AssetInventory with com.razie.assets.ScalaInventor
      if (Devices.device(ref.getId()).getPort().length > 0) DeviceStuff.hostCOMMANDS else Array()
 
     /** get some extra details about an asset */
-   override def details(asset:AssetBrief ) : Drawable = { 
+   override def getDetails(asset:AssetBrief ) : Drawable = { 
      Devices.device(asset.getKey.getId) match {
        case null => 
 //                out.write(new DrawError("Cannot find device info for " + who));
@@ -101,7 +97,7 @@ object DeviceStuff {
     val AMETA:ActionItem       = new ActionItem(sCLASS, "device");
 
 	val META = new Meta(AMETA, "", classOf[DeviceScala].getName(),
-	    	      classOf[DeviceInventory].getName());
+	    	      classOf[DeviceInventory].getName(), "razie");
 
      val hostCOMMANDS = Array(DeviceStuff.cmdUPGRADETO, DeviceStuff.cmdUPGRADEFROM,
            DeviceStuff.cmdSTOP,DeviceStuff.cmdUPGRADE,DeviceStuff.cmdDIE)
