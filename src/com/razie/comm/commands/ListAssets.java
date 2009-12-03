@@ -5,8 +5,9 @@ import java.util.Properties;
 
 import org.w3c.dom.Element;
 
+import razie.assets.AssetKey;
+
 import com.razie.media.config.MediaConfig;
-import com.razie.pub.assets.AssetKey;
 import com.razie.pub.base.data.XmlDoc.Reg;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;
