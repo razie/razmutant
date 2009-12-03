@@ -4,11 +4,13 @@ import junit.framework.TestCase;
 
 import org.json.JSONObject;
 
-import com.razie.assets.InventoryAssetMgr;
+import razie.assets.InventoryAssetMgr;
+
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.Agent;
-import com.razie.pub.agent.AgentFileService;
+import com.razie.pub.assets.JavaAssetMgr;
 import com.razie.pub.base.AttrAccess;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.AgentHandle;
@@ -28,11 +30,11 @@ public class TestDbLoadCreate extends TestCase {
 	public void setUp() {
 		if (newdbname == null) {
 			AgentCloud group = new AgentCloud(me);
-			agent = new scala.razie.SimpleAgent(me, group).onInit();
+			agent = new razie.SimpleAgent(me, group).onInit();
 
 			agent.getContext().enter();
 
-			InventoryAssetMgr.init(new InventoryAssetMgr());
+			JavaAssetMgr.init(new InventoryAssetMgr());
 			// give them time to update cloud status
 			try {
 				Thread.sleep(150);
@@ -57,7 +59,7 @@ public class TestDbLoadCreate extends TestCase {
 	public void test2Add() {
 		AgentDb db = AgentDb.db(newdbname);
 		db.xml().add("/db", "node1",
-				new AttrAccess.Impl("attr1", "val1", "attr2", "val2"));
+				new AttrAccessImpl("attr1", "val1", "attr2", "val2"));
 		db.save(false, true);
 
 		db = AgentDb.reload(newdbname);
@@ -78,7 +80,7 @@ public class TestDbLoadCreate extends TestCase {
 	public void test4Sync() {
 		AgentDb db = AgentDb.db(newdbname);
 		db.xml().add("/db/node1", "newnode",
-				new AttrAccess.Impl("attr3", "newval3"));
+				new AttrAccessImpl("attr3", "newval3"));
 		db.xml().setAttr("/db/node1", "attr1", "newval1");
 		db.save(false, true);
 
@@ -101,7 +103,7 @@ public class TestDbLoadCreate extends TestCase {
 		db.xml().add(
 				"/db",
 				"anode",
-				new AttrAccess.Impl("msec", String.valueOf(System
+				new AttrAccessImpl("msec", String.valueOf(System
 						.currentTimeMillis())));
 		db.save(false, true);
 	}
