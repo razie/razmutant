@@ -3,7 +3,7 @@ package com.razie.dist.db.test;
 import junit.framework.TestCase;
 
 import com.razie.dist.db.XmlDb;
-import com.razie.pub.base.AttrAccess;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.log.Log;
 
 public class TestXmlDb extends TestCase {
@@ -24,7 +24,7 @@ public class TestXmlDb extends TestCase {
     public void test2Add() {
         XmlDb db = new XmlDb();
         db.initialize("");
-        db.add("/db", "node1", new AttrAccess.Impl("attr1", "val1", "attr2", "val2"));
+        db.add("/db", "node1", new AttrAccessImpl("attr1", "val1", "attr2", "val2"));
 
         XmlDb db2 = new XmlDb();
         db2.initialize("");
@@ -37,8 +37,8 @@ public class TestXmlDb extends TestCase {
     public void test4Update() {
         XmlDb db = new XmlDb();
         db.initialize("");
-        db.add("/db", "node1", new AttrAccess.Impl("attr1", "val1", "attr2", "val2"));
-        db.add("/db/node1", "newnode", new AttrAccess.Impl("attr3", "newval3"));
+        db.add("/db", "node1", new AttrAccessImpl("attr1", "val1", "attr2", "val2"));
+        db.add("/db/node1", "newnode", new AttrAccessImpl("attr3", "newval3"));
 
         XmlDb db2 = new XmlDb();
         db2.initialize("");
@@ -54,14 +54,14 @@ public class TestXmlDb extends TestCase {
     public void test4Remove() {
         XmlDb db = new XmlDb();
         db.initialize("");
-        db.add("/db", "node1", new AttrAccess.Impl("attr1", "val1", "attr2", "val2"));
-        db.add("/db/node1", "newnode", new AttrAccess.Impl("attr3", "newval3"));
+        db.add("/db", "node1", new AttrAccessImpl("attr1", "val1", "attr2", "val2"));
+        db.add("/db/node1", "newnode", new AttrAccessImpl("attr3", "newval3"));
 
         XmlDb db2 = new XmlDb();
         db2.initialize("");
         db2.applyDiffs(0, 1, db.getDiffs(0, 1));
 
-        db.delete("/db/node1", "newnode", new AttrAccess.Impl("attr3", "newval3"));
+        db.delete("/db/node1", "newnode", new AttrAccessImpl("attr3", "newval3"));
         db2.applyDiffs(1, 2, db.getDiffs(1, 2));
 
         assertTrue(db2.listEntities("/db/node1/newnode").size() == 0);
