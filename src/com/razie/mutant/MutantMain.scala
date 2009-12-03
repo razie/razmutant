@@ -12,7 +12,6 @@ import com.razie.pub.agent.Agent
 import com.razie.agent.Version
 import com.razie.agent._
 import com.razie.agent.network.Devices
-import com.razie.mutant.agent.MutantAgentJ
 import com.razie.agent.network.MutantDevices
 import com.razie.sdk.config.UserConfig
 import com.razie.assets._
@@ -27,11 +26,12 @@ import com.razie.agent.network._
 import com.razie.pub.plugin._
 import com.razie.pub.comms._
 import com.razie.pub.agent._
+import razie.assets._
 
 /** starts the mutant agent. */
 object MutantMain {
   
-   var mainAgent:MutantAgentJ=null;
+   var mainAgent:MutantAgent=null;
 
    /** smart selection of the IP to use from the list of current IPs */
    def selectip () : String = {
@@ -70,7 +70,7 @@ object MutantMain {
          startup (testing)
       }
 
-      def startup(testing : boolean) = {
+      def startup(testing : Boolean) = {
 		
          // intialize the main agent...assuming name is the same as hostname
          MutantDevices.init(new MutantDevicesScala(), Agents.findMyHostName(testing), selectip);
@@ -86,7 +86,7 @@ object MutantMain {
             case e:Exception => Log.logThis("WARN_PLAYGROUND_NOT_FOUND", e);
          }
          
-         mainAgent = new MutantAgentJ(Agents.me(), Agents.homeCloud());
+         mainAgent = new MutantAgent(Agents.me(), Agents.homeCloud());
 	      mainAgent.getContext().enter()
          // initializing the agent will change the root nostatics...
          NoStatics.put(classOf[Devices], d);
@@ -158,7 +158,7 @@ object MutantMain {
          UserConfig init;
          AssetsConfig getInstance;
          
-         InventoryAssetMgr init new RazieAssetMgr
+         AssetMgr init new FullAssetMgr
         
          Devices getInstance;
 
