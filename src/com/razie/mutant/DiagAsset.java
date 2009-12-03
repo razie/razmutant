@@ -1,15 +1,15 @@
 package com.razie.mutant;
 
+import razie.JAS;
+import razie.assets.AssetActionToInvoke;
+import razie.assets.AssetBrief;
+import razie.assets.AssetKey;
+import razie.assets.Meta;
+import razie.assets.ProxyInventory;
+
 import com.razie.assets.CoolAsset;
-import com.razie.assets.InventoryAssetMgr;
-import com.razie.assets.ProxyInventory;
 import com.razie.pub.agent.AgentHttpService;
-import com.razie.pub.assets.AssetActionToInvoke;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.Meta;
 import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.ScriptContext;
 import com.razie.pub.base.TimeOfDay;
 import com.razie.pub.comms.ActionToInvoke;
 import com.razie.pub.comms.Agents;
@@ -17,12 +17,13 @@ import com.razie.pub.draw.DrawSequence;
 import com.razie.pub.draw.DrawStream;
 import com.razie.pub.draw.Drawable;
 import com.razie.pub.draw.HttpDrawStream;
-import com.razie.pub.draw.widgets.DrawLater;
+import com.razie.pub.draw.Renderer.Technology;
 import com.razie.pub.draw.widgets.DrawToString;
 import com.razie.pub.lightsoa.SoaAsset;
 import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
 import com.razie.pub.resources.RazIcons;
+import com.razie.pub.webui.DrawLater;
 
 /**
  * auto-registering diagnostic asset - use to test remotes, management, etc
@@ -40,34 +41,34 @@ public class DiagAsset extends CoolAsset {
         super(new AssetKey (sCLASS, key));
 
         // if not reg yet, reg the class as soa
-            AgentHttpService.registerSoaAsset(DiagAsset.class);
+        AgentHttpService.registerSoaAsset(DiagAsset.class);
 
-        InventoryAssetMgr.instance().registerAsset(this, new Meta(META, "", this.getClass().getName(),
-                ProxyInventory.class.getName()));
+        JAS.manage(this, new Meta(META, "", this.getClass().getName(),
+                ProxyInventory.class.getName(), ""));
     }
 
     public AssetBrief getBrief() {
         super.getBrief();
-        this.brief.setName("");
-        this.brief.setBriefDesc(sayboo());
-        this.brief.setLargeDesc("");
-        return this.brief;
+        this.brief().setName("");
+        this.brief().setBriefDesc(sayboo());
+        this.brief().setLargeDesc("");
+        return this.brief();
     }
 
     @SoaMethod(descr = "say boo")
     public String sayboo() {
-            return "Hi, I'm the DiagAsset key: " + this.getKey().toSimpleString();
+            return "Hi, I'm the DiagAsset key: " + this.getKey().toString();
     }
 
     @SoaMethod(descr = "say boo", args={"msg"})
     public String sayboo2(String msg) {
-            return "Hi, I'm the DiagAsset key: " + this.getKey().toSimpleString()+" msg="+msg;
+            return "Hi, I'm the DiagAsset key: " + this.getKey().toString()+" msg="+msg;
     }
 
-    /** play a given asset with a preferred player */
-    public Drawable paint(ScriptContext ctx) {
+    @Override
+    public Object render(Technology t, DrawStream stream) {
         ActionToInvoke ati = new AssetActionToInvoke(Agents.instance().me().url, this.getKey(), DETAILS);
-        return new DrawSequence(super.paint(ctx), new DrawLater(ati));
+        return new DrawSequence(super.render(t, stream), new DrawLater(ati));
     }
 
     /** play a given asset with a preferred player */
