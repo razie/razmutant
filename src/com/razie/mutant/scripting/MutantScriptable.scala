@@ -7,7 +7,7 @@ import com.razie.pub.base._
 import com.razie.pub.base.data._
 import com.razie.pub.draw.widgets._
 import com.razie.pub.lightsoa._
-
+import razie.assets._
 
 /** this is present in the scriptable contexts as "mutant" - it is a collection of all mutant capability in regards to scripting. 
  
