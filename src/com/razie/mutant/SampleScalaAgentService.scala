@@ -18,14 +18,14 @@ class SampleScalaAgentService extends AgentService {
 
     /** the second initialization phase: the agent is starting up */
     override def onStartup() : Unit = {
-      razie.Log.logThis("SCALA service onstartup");
+      razie.Log("SCALA service onstartup");
 
       AgentHttpService.registerSoa(new HttpSoaBinding(this));
     }
 
     /** the agent needs to shutdown this service. You must join() all threads and return to agent. */
     override def onShutdown() : Unit = {
-      razie.Log.logThis("SCALA service onshutdown");
+      razie.Log("SCALA service onshutdown");
     }
 
     @SoaMethod(descr = "no parms")
