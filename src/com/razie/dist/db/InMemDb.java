@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.razie.pub.base.AttrAccess;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.data.Pair;
 
 /**
@@ -22,7 +23,7 @@ import com.razie.pub.base.data.Pair;
 public class InMemDb implements DistDoc {
     public String      name;
     public int         version = 0;
-    private AttrAccess attrs   = new AttrAccess.Impl();
+    private AttrAccess attrs   = new AttrAccessImpl();
    private List<Pair> diffs   = new ArrayList<Pair>();
     private int lastSyncVersion=0;
 
