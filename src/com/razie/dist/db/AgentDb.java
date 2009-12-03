@@ -10,15 +10,18 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+import razie.assets.AssetBase;
+import razie.assets.AssetBrief;
+import razie.assets.AssetBriefImpl;
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+
 import com.razie.pub.UnknownRtException;
 import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetLocation;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.AttrAccess;
-import com.razie.pub.base.files.SSFilesRazie;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;
@@ -27,8 +30,6 @@ import com.razie.pub.draw.DrawStream;
 import com.razie.pub.lightsoa.SoaAsset;
 import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
-import com.razie.sdk.assets.SdkAsset;
-import com.razie.sdk.assets.SdkAssetTag;
 
 /**
  * each agent maintains a database - this is distributed and synchronized between agents
@@ -46,7 +47,7 @@ import com.razie.sdk.assets.SdkAssetTag;
  * 
  */
 @SoaAsset(meta = "AgentDb.razie", descr = "simple xml distributed agent database")
-public class AgentDb implements SdkAsset {
+public class AgentDb implements AssetBase {
     public static String           EVT_NEWDB    = "newdb.AgentDb";
     public static String           EVT_UPDATEDB = "updatedb.AgentDb";
     public static String           EVT_REMOVEDB = "removedb.AgentDb";
@@ -177,7 +178,7 @@ public class AgentDb implements SdkAsset {
      * @return map of <dbname,version>
      */
     public static AttrAccess listLocalDb() {
-        AttrAccess map = new AttrAccess.Impl();
+        AttrAccess map = new AttrAccessImpl();
         File[] files = new File (AgentFileService.getInstance().basePath()).listFiles(
               new java.io.FilenameFilter() {
            public boolean accept(File dir, String name) {
@@ -213,8 +214,14 @@ public class AgentDb implements SdkAsset {
         out.write (xml().xmlize(null));
     }
 
+    @Override
     public AssetBrief getBrief() {
-        AssetBrief b = new AssetBrief();
+      return brief(); 
+    }
+    
+    @Override
+    public AssetBrief brief() {
+        AssetBriefImpl b = new AssetBriefImpl();
         b.setKey(getKey());
 
         // b.setIcon(stream.getAttribute("icon"));
@@ -225,15 +232,12 @@ public class AgentDb implements SdkAsset {
         return b;
     }
 
-    public AssetKey getKey() {
+    public AssetKey key() {
         return key;
     }
 
-    public List<SdkAssetTag> getTags() {
-        return Collections.EMPTY_LIST;
-    }
-
-    public void setTags(List<SdkAssetTag> tags) {
+    public AssetKey getKey() {
+        return key;
     }
 
 }
