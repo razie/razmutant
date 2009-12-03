@@ -1,34 +1,33 @@
 package com.razie.dist.db;
 
-import java.util.HashMap;
-import java.util.Map;
+import razie.assets.AssetBase;
+import razie.assets.AssetBrief;
+import razie.assets.AssetBrief$;
+import razie.assets.AssetBriefImpl;
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+import razie.assets.AssetMap;
 
-import com.razie.assets.AssetsInventory;
-import com.razie.pub.assets.AssetBrief;
-import com.razie.pub.assets.AssetKey;
-import com.razie.pub.assets.AssetLocation;
+import com.razie.assets.FileInventory;
 import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.AttrAccess;
 import com.razie.pub.comms.Agents;
-import com.razie.sdk.assets.SdkAsset;
 
 /**
  * links are saved in "links" database
  * 
  */
-public class DbInventory extends AssetsInventory {
+public class DbInventory extends FileInventory {
 
 	public DbInventory() {
 	}
 
 	/** use the base and add details */
-	public Map<AssetKey, AssetBrief> find(String type, AssetLocation env,
-			boolean recurse) {
-		Map<AssetKey, AssetBrief> ret = new HashMap<AssetKey, AssetBrief>();
+   public AssetMap queryAll(String meta, AssetLocation env, boolean recurse, AssetMap ret) {
 
 		AttrAccess aa = AgentDb.listLocalDb();
 		for (String link : aa.getPopulatedAttr()) {
-			AssetBrief b = new AssetBrief();
+			AssetBriefImpl b = new AssetBriefImpl();
 
 			b.setKey(new AssetKey(AgentDb.sCLASS, link, AssetLocation
 					.mutantEnv(Agents.getMyHostName(), "")));
@@ -43,7 +42,7 @@ public class DbInventory extends AssetsInventory {
 	}
 
 	public AssetBrief getBrief(AssetKey ref) {
-		AssetBrief b = new AssetBrief();
+		AssetBriefImpl b = new AssetBriefImpl();
 		b.setKey(ref);
 
 		// b.setIcon(stream.getAttribute("icon"));
@@ -63,9 +62,9 @@ public class DbInventory extends AssetsInventory {
 	}
 
 	@Override
-	public SdkAsset get(AssetKey ref) {
+	public AssetBase getAsset(AssetKey ref) {
 		return AgentDb.db(ref.getId());
 	}
 
-	private static final ActionItem[] defaultCmds = { AssetBrief.DELETE };
+	private static final ActionItem[] defaultCmds = { AssetBrief$.MODULE$.DELETE() };
 }
