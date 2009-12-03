@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.razie.pub.base.AttrAccess;
+import com.razie.pub.base.AttrAccessImpl;
 import com.razie.pub.base.data.RiXmlUtils;
 import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.log.Log;
@@ -54,10 +55,10 @@ public class XmlDb extends XmlDoc implements DistDoc {
         this.document.appendChild(this.root);
         this.root = this.document.getDocumentElement();
 
-        this.getEntity("/db").appendChild(make("settings", new AttrAccess.Impl("ver", "0")));
+        this.getEntity("/db").appendChild(make("settings", new AttrAccessImpl("ver", "0")));
         this.getEntity("/db/settings").setAttribute("lastsyncver", "0");
         this.getEntity("/db/settings").appendChild(
-                make("diffs", new AttrAccess.Impl("someattr", "somevalue")));
+                make("diffs", new AttrAccessImpl("someattr", "somevalue")));
         this.needsSave = true;
     }
 
@@ -78,7 +79,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * via DOM...
      */
     public void add(String parentPath, String tagName, Object... pairs) {
-        add(parentPath, tagName, new AttrAccess.Impl(pairs));
+        add(parentPath, tagName, new AttrAccessImpl(pairs));
     }
 
     /**
@@ -157,14 +158,14 @@ public class XmlDb extends XmlDoc implements DistDoc {
     }
 
     Element Change(String parentPath, String tagName, AttrAccess aa, boolean remove) {
-        Element diff = make("diff", new AttrAccess.Impl("parentPath", parentPath, "tagName", tagName,
+        Element diff = make("diff", new AttrAccessImpl("parentPath", parentPath, "tagName", tagName,
                 "remove", (remove ? "y" : "n")));
         diff.appendChild(make("newnode", aa));
         return diff;
     }
 
     Element Change(String parentPath, String attr, String newval) {
-        return make("diff", new AttrAccess.Impl("parentPath", parentPath, "attr", attr, "newval", newval));
+        return make("diff", new AttrAccessImpl("parentPath", parentPath, "attr", attr, "newval", newval));
     }
 
     /**
@@ -174,7 +175,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
     public boolean prepareForSave() {
         if (this.changes.size() > 0) {
             Element diffs = getEntity("/db/settings/diffs");
-            Element diff = make("diff", new AttrAccess.Impl("ver", this.getAttr("/db/settings/@ver"),
+            Element diff = make("diff", new AttrAccessImpl("ver", this.getAttr("/db/settings/@ver"),
                     "tstamp", String.valueOf(System.currentTimeMillis())));
             diffs.appendChild(diff);
 
@@ -221,7 +222,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
             for (int ver = myver + 1; ver <= srcver; ver++) {
                 String tstamp = source.getAttr("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
                         + "']/@tstamp");
-                Element newdiff = make("diff", new AttrAccess.Impl("ver", String.valueOf(ver), "tstamp",
+                Element newdiff = make("diff", new AttrAccessImpl("ver", String.valueOf(ver), "tstamp",
                         tstamp));
                 diffs.appendChild(newdiff);
 
@@ -230,8 +231,8 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     if (diff.hasAttribute("tagName") && diff.hasAttribute("remove")
                             && diff.getAttribute("remove").equals("y")) {
                         Element node = XmlDoc.listEntities(diff, "newnode").get(0);
-                        AttrAccess aa = new AttrAccess.Impl();
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        AttrAccess aa = new AttrAccessImpl();
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName"),
                                 "remove", diff.getAttribute("remove")));
                         Element nn = make("newnode");
@@ -249,7 +250,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     } else if (diff.hasAttribute("tagName")) {
                         Element node = XmlDoc.listEntities(diff, "newnode").get(0);
                         Element newnode = make(diff.getAttribute("tagName"));
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName")));
                         Element nn = make("newnode");
                         for (int a = 0; a < node.getAttributes().getLength(); a++) {
@@ -264,7 +265,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     } else {
                         this.getEntity(diff.getAttribute("parentPath")).setAttribute(
                                 diff.getAttribute("attr"), diff.getAttribute("newval"));
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "attr", diff.getAttribute("attr"), "newval",
                                 diff.getAttribute("newval")));
                         newdiff.appendChild(d);
@@ -313,7 +314,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
             for (int ver = myver + 1; ver <= srcver; ver++) {
                 String tstamp = source.getAttr("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
                         + "']/@tstamp");
-                Element newdiff = make("diff", new AttrAccess.Impl("ver", String.valueOf(ver), "tstamp",
+                Element newdiff = make("diff", new AttrAccessImpl("ver", String.valueOf(ver), "tstamp",
                         tstamp));
                 diffs.appendChild(newdiff);
 
@@ -322,8 +323,8 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     if (diff.hasAttribute("tagName") && diff.hasAttribute("remove")
                             && diff.getAttribute("remove").equals("y")) {
                         Element node = XmlDoc.listEntities(diff, "newnode").get(0);
-                        AttrAccess aa = new AttrAccess.Impl();
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        AttrAccess aa = new AttrAccessImpl();
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName"),
                                 "remove", diff.getAttribute("remove")));
                         Element nn = make("newnode");
@@ -341,7 +342,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     } else if (diff.hasAttribute("tagName")) {
                         Element node = XmlDoc.listEntities(diff, "newnode").get(0);
                         Element newnode = make(diff.getAttribute("tagName"));
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName")));
                         Element nn = make("newnode");
                         for (int a = 0; a < node.getAttributes().getLength(); a++) {
@@ -356,7 +357,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                     } else {
                         this.getEntity(diff.getAttribute("parentPath")).setAttribute(
                                 diff.getAttribute("attr"), diff.getAttribute("newval"));
-                        Element d = make("diff", new AttrAccess.Impl("parentPath", diff
+                        Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "attr", diff.getAttribute("attr"), "newval",
                                 diff.getAttribute("newval")));
                         newdiff.appendChild(d);
