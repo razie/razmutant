@@ -2,6 +2,8 @@ package com.razie.assets.xml;
 
 import java.util.List;
 
+import com.razie.pub.assets.*;
+
 import org.w3c.dom.Element;
 
 import razie.assets.AllOfType;
@@ -9,7 +11,6 @@ import razie.assets.AssetBrief;
 import razie.assets.AssetBrief$;
 import razie.assets.AssetBriefImpl;
 import razie.assets.AssetImpl;
-import razie.assets.AssetInventory;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.AssetMap;
@@ -27,7 +28,7 @@ import com.razie.pub.resources.RazIcons;
 /**
  * links are saved in "links" database
  */
-public class XmlAssetInventory implements AssetInventory {
+public class XmlAssetInventory extends JavaAssetInventoryBase implements JavaAssetInventory {
    String clsName;
 
    /** use the base and add details */
