@@ -1,6 +1,6 @@
 package com.razie.learnscala
 
-//object LearnScalaExamples extends Application {
+object LearnScalaExamples extends Application {
 //  ifYieldsValue(-4)
 //
 //  def ifYieldsValue (x:Int) = {
@@ -12,4 +12,4 @@ package com.razie.learnscala
 //    println(abs)
 //    println(absfun)
 //  }
-//}
+}

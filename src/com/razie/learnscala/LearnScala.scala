@@ -1,6 +1,7 @@
 package com.razie.learnscala
 
 object LearnScala extends Application {
+   
    println (typecasting) 
 
    folding
@@ -10,10 +11,20 @@ object LearnScala extends Application {
    doregexp("@john")
    doregexp("john")
 
-   // TODO broken in scala 2.8
+   var traceIsOn = false
+   var i = 0
+   def trace ( f: => Any) = if (traceIsOn) println (f)
+   def inc () = { i = i+ 1; i }
+  
    
-//   val cc : AScalaExtension = (new AScalaExtension)
-//   cc.takesOptionalArgs ("itsi", "bitsi", "spider")
+   trace ( "trace: " + inc )
+   trace ( "trace: " + inc )
+   trace ( "trace: " + inc )
+   traceIsOn=true
+   trace ( "trace: " + inc )
+   
+   val cc : AScalaExtension = (new AScalaExtension)
+   cc.takesOptionalArgs ("itsi", "bitsi", "spider")
 
    // this particular one doesn't quite work
    implicit def itos (x:java.lang.Integer):String = String.valueOf(x)

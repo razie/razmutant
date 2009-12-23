@@ -50,6 +50,7 @@ public class NewProxyInventory extends FileInventory {
         return getAsset(ref).getBrief();
     }
 
+    @Override
     public AssetBase getAsset(AssetKey ref) {
         return assets.get(ref);
     }
