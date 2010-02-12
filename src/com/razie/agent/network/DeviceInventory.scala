@@ -6,15 +6,15 @@ import org.w3c.dom.Element;
 
 import com.razie.pub.UnknownRtException;
 import com.razie.pub.assets._
-import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.ScriptContext;
+import razie.base.ActionItem;
+import razie.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
 import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.log.Log;
-import com.razie.pub.comms.ActionToInvoke;
-import com.razie.pub.draw._;
-import com.razie.pub.draw.DrawList;
-import com.razie.pub.draw.widgets.NavButton;
+import razie.base._
+import razie.draw._;
+import razie.draw.DrawList;
+import razie.draw.widgets.NavButton;
 import com.razie.sdk.finders.AssetFinder
 
 import com.razie.agent.network._
@@ -50,48 +50,31 @@ class DeviceInventory extends BaseInventory {
       }
 
     /** execute command on asset. the asset can be local or remote */
-   override def doAction(cmd:String , ref:AssetKey , ctx:ScriptContext ):Object = {
-     cmd match {
-       case "gigi" => null
-       case _ => {
-           // TODO make this more efficient and extend to all assets
-    	   new HttpSoaBinding (getAsset(ref), "kuku").invoke(cmd, ctx)
-          }
-       }
-   }
+//   override def doAction(cmd:String , ref:AssetKey , ctx:ScriptContext ):Object = {
+//     cmd match {
+//       case "gigi" => null
+//       case _ => {
+//           // TODO make this more efficient and extend to all assets
+//    	   new HttpSoaBinding (getAsset(ref), "kuku").invoke(cmd, ctx)
+//          }
+//       }
+//   }
 
    override def getSupportedActions(ref:AssetKey ) : Array[ActionItem] = 
      if (Devices.device(ref.getId()).getPort().length > 0) DeviceStuff.hostCOMMANDS else Array()
-
-    /** get some extra details about an asset */
-   override def getDetails(asset:AssetBrief ) : Drawable = { 
-     Devices.device(asset.getKey.getId) match {
-       case null => 
-//                out.write(new DrawError("Cannot find device info for " + who));
-         throw new IllegalArgumentException ("Cannot find device info for " + asset.getKey);
-       case x => {
-         val out = new DrawSequence();
-         val o = x.render (Renderer.Technology.HTML, out);
-         if (o != null) out.write(o)
-
-         out
-         }
-     } 
-   }
-
     
     /** initialize this instance for use with this Meta */
    override def init(meta:Meta ) = {}
 }
 
 object DeviceStuff {
-    val cmdDEVICEINFO  = new ActionItem("deviceInfo", RazIcons.UNKNOWN);
+    val cmdDEVICEINFO  = new ActionItem("deviceInfo", RazIcons.UNKNOWN.name);
 
-    val cmdUPGRADETO   = new ActionItem("upgradeTo", RazIcons.UPLOAD);
-    val cmdUPGRADEFROM = new ActionItem("upgradeFrom", RazIcons.DOWNLOAD);
-    val cmdSTOP        = new ActionItem("Stop", RazIcons.POWER);
-    val cmdUPGRADE     = new ActionItem("upgrade", RazIcons.UPGRADE);
-    val cmdDIE         = new ActionItem("Die", RazIcons.POWER);
+    val cmdUPGRADETO   = new ActionItem("upgradeTo", RazIcons.UPLOAD.name);
+    val cmdUPGRADEFROM = new ActionItem("upgradeFrom", RazIcons.DOWNLOAD.name);
+    val cmdSTOP        = new ActionItem("Stop", RazIcons.POWER.name);
+    val cmdUPGRADE     = new ActionItem("upgrade", RazIcons.UPGRADE.name);
+    val cmdDIE         = new ActionItem("Die", RazIcons.POWER.name);
 
     val sCLASS = "Device";
     val AMETA:ActionItem       = new ActionItem(sCLASS, "device");

@@ -12,6 +12,12 @@ import org.w3c.dom.Element;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.FileAssetBrief;
+import razie.draw.DrawStream;
+import razie.draw.Drawable;
+import razie.draw.HttpDrawStream;
+import razie.draw.SimpleDrawStream;
+import razie.draw.Technology;
+import razie.draw.widgets.DrawToString;
 
 import com.razie.agent.AgentConfig;
 import com.razie.media.MediaUtils;
@@ -19,22 +25,16 @@ import com.razie.media.SeriesInventory;
 import com.razie.pub.FileUtils;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.assets.JavaAssetMgr;
-import com.razie.pub.base.ScriptContext;
+import razie.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
 import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.data.XmlDoc.Reg;
 import com.razie.pub.base.exceptions.CommRtException;
 import com.razie.pub.comms.Agents;
 import com.razie.pub.comms.AuthException;
-import com.razie.pub.comms.LightAuth;
 import com.razie.pub.comms.MyServerSocket;
-import com.razie.pub.draw.DrawStream;
-import com.razie.pub.draw.Drawable;
-import com.razie.pub.draw.HttpDrawStream;
-import com.razie.pub.draw.JsonDrawStream;
-import com.razie.pub.draw.SimpleDrawStream;
-import com.razie.pub.draw.Renderer.Technology;
-import com.razie.pub.draw.widgets.DrawToString;
+import com.razie.pub.comms.PermType;
+import razie.draw.JsonDrawStream;
 import com.razie.pub.http.StreamConsumedReply;
 import com.razie.pub.lightsoa.SoaService;
 import com.razie.pubstage.comms.HtmlContents;
@@ -64,7 +64,7 @@ public class CmdAssets extends ListAssets {
       DrawStream out;
       try {
          if ("http".equals(protocol)) {
-            out = new HttpDrawStream(socket);
+            out = new HttpDrawStream(socket.from, socket.getOutputStream());
          } else if ("json".equals(protocol)) {
             out = new JsonDrawStream(socket);
          } else {
@@ -75,19 +75,19 @@ public class CmdAssets extends ListAssets {
       }
 
       if ("list".equals(cmdName) || "listAll".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.VIEW);
+         socket.auth(PermType.VIEW);
          list(cmdName, protocol, args, parms, out);
          out.close();
          return new StreamConsumedReply();
       } else if ("browse".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.PUBLIC);
+         socket.auth(PermType.PUBLIC);
          String sref = HttpUtils.fromUrlEncodedString(parms.getProperty("ref"));
          AssetKey ref = AssetKey.fromString(sref);
          MediaUtils.browse(protocol, ref, parms.getProperty("type"), out);
          out.close();
          return new StreamConsumedReply();
       } else if ("invcmd".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.CONTROL);
+         socket.auth(PermType.CONTROL);
          String cmd = parms.getProperty("cmd");
          AssetKey ref = AssetKey.fromString(parms.getProperty("ref"));
          Object d = JavaAssetMgr.doAction(cmd, ref, new ScriptContext.Impl(parms));
@@ -95,14 +95,14 @@ public class CmdAssets extends ListAssets {
          out.close();
          return new StreamConsumedReply();
       } else if ("play".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.CONTROL);
+         socket.auth(PermType.CONTROL);
          String player = parms.getProperty("player");
          AssetKey ref = AssetKey.fromString(parms.getProperty("ref"));
          out.write(playLocal(player, ref));
          out.close();
          return new StreamConsumedReply();
       } else if ("playepisode".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.CONTROL);
+         socket.auth(PermType.CONTROL);
          String player = parms.getProperty("player");
          AssetKey ref = AssetKey.fromString(parms.getProperty("ref"));
          AssetKey series = AssetKey.fromString(parms.getProperty("series"));
@@ -117,7 +117,7 @@ public class CmdAssets extends ListAssets {
          out.close();
          return new StreamConsumedReply();
       } else if ("saveJpg".equals(cmdName)) {
-         socket.auth(LightAuth.PermType.WRITE);
+         socket.auth(PermType.WRITE);
          String[] largess = args.split("&", 2);
          if (largess.length > 1 && largess[1].length() > 0) {
             String[] ss = largess[0].split("/", 2);

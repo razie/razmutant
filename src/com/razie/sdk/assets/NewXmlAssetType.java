@@ -3,6 +3,7 @@ package com.razie.sdk.assets;
 import org.w3c.dom.Element;
 
 import razie.JAS;
+import razie.base.*;
 import razie.assets.AssetActionToInvoke;
 import razie.assets.AssetBrief;
 import razie.assets.AssetKey;
@@ -15,18 +16,18 @@ import com.razie.agent.network.Devices;
 import com.razie.assets.CoolAsset;
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.AgentHttpService;
-import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.AttrAccessImpl;
+import razie.base.ActionItem;
+import razie.base.AttrAccessImpl;
+import razie.draw.DrawSequence;
+import razie.draw.DrawStream;
+import razie.draw.Drawable;
+import razie.draw.HttpDrawStream;
+import razie.draw.Technology;
+import razie.draw.widgets.DrawToString;
+
 import com.razie.pub.base.TimeOfDay;
 import com.razie.pub.base.log.Log;
-import com.razie.pub.comms.ActionToInvoke;
 import com.razie.pub.comms.Agents;
-import com.razie.pub.draw.DrawSequence;
-import com.razie.pub.draw.DrawStream;
-import com.razie.pub.draw.Drawable;
-import com.razie.pub.draw.HttpDrawStream;
-import com.razie.pub.draw.Renderer.Technology;
-import com.razie.pub.draw.widgets.DrawToString;
 import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
 import com.razie.pub.resources.RazIcons;
@@ -225,9 +226,9 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         return ME;
     }
 
-    public ActionItem              DETAILS  = new ActionItem("details", RazIcons.UNKNOWN);
-    public ActionItem              status   = new ActionItem("JUMPING JACK", RazIcons.UNKNOWN);
-    public static final ActionItem ME       = new ActionItem("Jumper", RazIcons.UNKNOWN);
+    public ActionItem              DETAILS  = new ActionItem("details", RazIcons.UNKNOWN.name());
+    public ActionItem              status   = new ActionItem("JUMPING JACK", RazIcons.UNKNOWN.name());
+    public static final ActionItem ME       = new ActionItem("Jumper", RazIcons.UNKNOWN.name());
 
     public String[]                messages = { "I'm just fine...", "You're kind'a nasty",
             "What a freaking nut...it's huge!", "Where's my nut?", "Did you see my nuts?", "Jumper is HAPPY!" };

@@ -16,7 +16,6 @@ import com.razie.agent.network.MutantDevices
 import com.razie.sdk.config.UserConfig
 import com.razie.assets._
 import com.razie.mutant._
-import com.razie.mutant.MutantDarkTheme
 
 import com.razie.media.config.MediaConfig
 import com.razie.pub.media.players.PlayerRegistryScala

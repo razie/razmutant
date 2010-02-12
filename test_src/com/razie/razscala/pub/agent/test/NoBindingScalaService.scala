@@ -6,7 +6,7 @@ import com.razie.pub.lightsoa.SoaService
 import com.razie.pub.lightsoa.SoaMethod
 import com.razie.pub.lightsoa.SoaStreamable
 import com.razie.pub.lightsoa.HttpSoaBinding
-import com.razie.pub.draw.DrawStream
+import razie.draw.DrawStream
 
 /** just a sample agent service written in SCALA */
 @SoaService(name = "testservice", descr = "sample scala service" )

@@ -20,9 +20,10 @@ import razie.assets.QueryCriteria;
 
 import com.razie.dist.db.AgentDb;
 import com.razie.media.ScalaMediaInventoryBik;
-import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.ScriptContext;
-import com.razie.pub.draw.Drawable;
+import razie.base.ActionItem;
+import razie.draw.Drawable;
+
+import razie.base.ScriptContext;
 import com.razie.pub.resources.RazIcons;
 
 /**
@@ -97,12 +98,6 @@ public class XmlAssetInventory extends JavaAssetInventoryBase implements JavaAss
    }
 
    private static final ActionItem[] defaultCmds = { AssetBrief$.MODULE$.PLAY(), AssetBrief$.MODULE$.DELETE() };
-
-   @Override
-   public Drawable getDetails(AssetBrief asset) {
-      // TODO Auto-generated method stub
-      return null;
-   }
 
    @Override
    public Object doAction(String cmd, AssetKey ref, ScriptContext ctx) {

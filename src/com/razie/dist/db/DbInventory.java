@@ -9,8 +9,8 @@ import razie.assets.AssetLocation;
 import razie.assets.AssetMap;
 
 import com.razie.assets.FileInventory;
-import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.AttrAccess;
+import razie.base.ActionItem;
+import razie.base.AttrAccess;
 import com.razie.pub.comms.Agents;
 
 /**

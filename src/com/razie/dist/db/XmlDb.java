@@ -14,8 +14,8 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.razie.pub.base.AttrAccess;
-import com.razie.pub.base.AttrAccessImpl;
+import razie.base.AttrAccess;
+import razie.base.AttrAccessImpl;
 import com.razie.pub.base.data.RiXmlUtils;
 import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.log.Log;

@@ -8,8 +8,8 @@ import org.json.JSONException;
 import razie.assets.AssetBrief;
 import razie.assets.AssetBrief$;
 import razie.assets.AssetMap;
+import razie.draw.DrawList;
 
-import com.razie.pub.draw.DrawList;
 
 /**
  * utility to serialize from/into different formats

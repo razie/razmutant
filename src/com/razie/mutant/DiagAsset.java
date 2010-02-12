@@ -6,19 +6,19 @@ import razie.assets.AssetBrief;
 import razie.assets.AssetKey;
 import razie.assets.Meta;
 import razie.assets.ProxyInventory;
+import razie.base.ActionItem;
+import razie.base.ActionToInvoke;
+import razie.draw.DrawSequence;
+import razie.draw.DrawStream;
+import razie.draw.Drawable;
+import razie.draw.HttpDrawStream;
+import razie.draw.Technology;
+import razie.draw.widgets.DrawToString;
 
 import com.razie.assets.CoolAsset;
 import com.razie.pub.agent.AgentHttpService;
-import com.razie.pub.base.ActionItem;
 import com.razie.pub.base.TimeOfDay;
-import com.razie.pub.comms.ActionToInvoke;
 import com.razie.pub.comms.Agents;
-import com.razie.pub.draw.DrawSequence;
-import com.razie.pub.draw.DrawStream;
-import com.razie.pub.draw.Drawable;
-import com.razie.pub.draw.HttpDrawStream;
-import com.razie.pub.draw.Renderer.Technology;
-import com.razie.pub.draw.widgets.DrawToString;
 import com.razie.pub.lightsoa.SoaAsset;
 import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
@@ -82,7 +82,7 @@ public class DiagAsset extends CoolAsset {
         return new DrawToString("It is " + TimeOfDay.calcvalue());
     }
 
-    public ActionItem              DETAILS  = new ActionItem("details", RazIcons.UNKNOWN);
+    public ActionItem              DETAILS  = new ActionItem("details", RazIcons.UNKNOWN.name());
 
     public ActionItem whatAreYouDoing() {
         return META;

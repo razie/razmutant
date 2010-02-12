@@ -6,10 +6,10 @@ import com.razie.agent.network._
 
 import com.razie.pub.resources._
 import com.razie.pub.lightsoa._
-import com.razie.pub.draw._
-import com.razie.pub.draw.widgets._
+import razie.draw._
+import razie.draw.widgets._
 import com.razie.pub.comms._
-import com.razie.pub.comms.LightAuth.PermType
+import com.razie.pub.comms.PermType
 import com.razie.pub.base._
 import com.razie.pub.base.data._
 import com.razie.pub.media._
@@ -18,6 +18,7 @@ import com.razie.pub.agent._
 import com.razie.pubstage.comms._
 import razie.assets._
 import razie.agent.pres._
+import razie.base._
 
 
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
@@ -29,7 +30,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    def port = getPort
    def name = getName
 
-   override def render(t:Renderer.Technology , out:DrawStream ) : AnyRef = {
+   override def render(t:Technology , out:DrawStream ) : AnyRef = {
          super.render (t,out)
 
          val reply = new DrawList();
@@ -80,7 +81,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
       f
    }
 
-   @SoaMethod(descr = "run a given script on the given machine", args=Array("language", "script"))//TODO , perm = LightAuth.PermType.ADMIN)
+   @SoaMethod(descr = "run a given script on the given machine", args=Array("language", "script") , perm = PermType.ADMIN)
    def runscript (language:String,script:String) = {
       val scr = ScriptFactory.make(language, script)
       val res = scr.eval(ScriptContext.Impl.global()).toString()
@@ -89,7 +90,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    }
 
    // TODO move to razplay and inject as valueadd
-   @SoaMethod(descr = "generate local security codes", args=Array("password"))//TODO, perm = LightAuth.PermType.ADMIN)
+   @SoaMethod(descr = "generate local security codes", args=Array("password"), perm = PermType.ADMIN)
    def resetSecurity (password:String) = {
       LightAuth.instance.resetSecurity (password)
    }
@@ -125,7 +126,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
 
    override def toString = if (this.handle != null) "handle="+this.handle.toString else "key="+this.ref.toString 
 
-   final val cmdCSCRIPT      = new ActionItem("capturescript", RazIcons.UNKNOWN);
-   final val cmdRSCRIPT      = new ActionItem("runscript", RazIcons.UNKNOWN);
+   final val cmdCSCRIPT      = new ActionItem("capturescript", RazIcons.UNKNOWN.name);
+   final val cmdRSCRIPT      = new ActionItem("runscript", RazIcons.UNKNOWN.name);
 
 }

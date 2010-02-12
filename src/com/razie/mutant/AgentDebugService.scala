@@ -8,8 +8,8 @@ import com.razie.pub.lightsoa.SoaService
 import com.razie.pub.lightsoa.SoaMethod
 import com.razie.pub.lightsoa.SoaStreamable
 import com.razie.pub.lightsoa.HttpSoaBinding
-import com.razie.pub.draw._
-import com.razie.pub.draw.widgets._
+import razie.draw._
+import razie.draw.widgets._
 
 import com.razie.assets._
 

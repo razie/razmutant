@@ -6,7 +6,7 @@ import com.razie.pub.lightsoa.SoaService
 import com.razie.pub.lightsoa.SoaMethod
 import com.razie.pub.lightsoa.SoaStreamable
 import com.razie.pub.lightsoa.HttpSoaBinding
-import com.razie.pub.draw.DrawStream
+import razie.draw.DrawStream
 import com.razie.pub.base.log._
 
 /** ensure that shared drives stay shared, every time the mutant starts - sometimes windows loses the shares of external drives 

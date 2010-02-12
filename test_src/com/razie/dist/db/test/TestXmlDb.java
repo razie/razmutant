@@ -3,7 +3,7 @@ package com.razie.dist.db.test;
 import junit.framework.TestCase;
 
 import com.razie.dist.db.XmlDb;
-import com.razie.pub.base.AttrAccessImpl;
+import razie.base.AttrAccessImpl;
 import com.razie.pub.base.log.Log;
 
 public class TestXmlDb extends TestCase {

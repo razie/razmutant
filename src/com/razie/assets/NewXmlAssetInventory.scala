@@ -1,14 +1,15 @@
 package com.razie.assets
 
 import com.razie.dist.db._
-import com.razie.pub.draw._
+import razie.draw._
 import com.razie.pub.base.data._
-import com.razie.pub.draw.widgets._
+import razie.draw.widgets._
 import com.razie.pub.base._
 import com.razie.pub.resources._
 import com.razie.pub.assets._
 import com.razie.assets._
 import org.w3c.dom.Element;
+import razie.base._
 import razie.assets._
 
 /** TODO 2 FUNC implement */
@@ -80,11 +81,6 @@ class NewXmlAssetInventory extends BaseInventory {
 
     override def getSupportedActions(ref:AssetKey ):Array[ActionItem] = {MyStatics.DFLTCMDS}
 
-    /** get some extra details about an asset */
-    override def getDetails(brief:AssetBrief ):Drawable = {
-      new DrawText("?")
-    }
-    
     /** initialize this instance for use with this Meta */
     override def init (meta:Meta) = {}
 

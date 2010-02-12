@@ -5,9 +5,10 @@ import com.razie.agent.webservice._
 import com.razie.pub.assets._
 import com.razie.pub.base._
 import com.razie.pub.base.data._
-import com.razie.pub.draw.widgets._
+import razie.draw.widgets._
 import com.razie.pub.lightsoa._
 import razie.assets._
+import razie.base._
 
 /** this is present in the scriptable contexts as "mutant" - it is a collection of all mutant capability in regards to scripting. 
  

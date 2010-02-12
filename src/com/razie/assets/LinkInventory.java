@@ -15,8 +15,8 @@ import razie.assets.FileAssetBriefImpl;
 
 import com.razie.dist.db.AgentDb;
 import com.razie.media.ScalaMediaInventoryBik;
-import com.razie.pub.base.ActionItem;
-import com.razie.pub.base.AttrAccessImpl;
+import razie.base.ActionItem;
+import razie.base.AttrAccessImpl;
 import com.razie.pub.resources.RazIcons;
 
 /**
@@ -93,6 +93,6 @@ public class LinkInventory extends ScalaMediaInventoryBik {
        return playAsset("internet", new AssetImpl(getBrief(ref)));
     }
 
-    public static final ActionItem    cmdUPDATESERIES = new ActionItem("updateseries", RazIcons.POWER);
+    public static final ActionItem    cmdUPDATESERIES = new ActionItem("updateseries", RazIcons.POWER.name());
     private static final ActionItem[] defaultCmds     = { AssetBrief$.MODULE$.PLAY(), AssetBrief$.MODULE$.DELETE() };
 }

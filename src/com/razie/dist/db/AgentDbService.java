@@ -9,7 +9,7 @@ import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.agent.AgentService;
-import com.razie.pub.base.AttrAccess;
+import razie.base.AttrAccess;
 import com.razie.pub.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;

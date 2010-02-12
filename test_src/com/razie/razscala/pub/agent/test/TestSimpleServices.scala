@@ -5,9 +5,9 @@
 package com.razie.razscala.pub.agent.test;
 
 import com.razie.pub.agent.Agent;
-import com.razie.pub.base.ActionItem;
+import razie.base.ActionItem;
 import com.razie.pub.base.log.Log;
-import com.razie.pub.comms.ActionToInvoke;
+import razie.base.ActionToInvoke;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.ServiceActionToInvoke;
 import com.razie.pub.agent.test.TestAgentBase;
