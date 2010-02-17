@@ -30,7 +30,8 @@ import razie.assets._
 /** starts the mutant agent. */
 object MutantMain {
   
-   var mainAgent:MutantAgent=null;
+   var mainAgent:MutantAgent=null
+   var useLocalIP = false
 
    /** smart selection of the IP to use from the list of current IPs */
    def selectip () : String = {
@@ -41,7 +42,7 @@ object MutantMain {
 
       // 1. favor the home network
       val homenet = cfg xpa "/config/network[@home='true']/@ipPrefix"
-      addresses.find (_.startsWith(homenet) && homenet != "") match {
+      val toUse = addresses.find (_.startsWith(homenet) && homenet != "") match {
          case Some(x) => x
          case None => {
                // 2. favor a known network
@@ -52,10 +53,16 @@ object MutantMain {
                   case None =>
                      // 3. i give up: where am i?
                      // translate the stupid ipv6 localhost to ipv4
-                     if ("0:0:0:0:0:0:0:1%1".equals(addresses.head)) "127.0.0.1" else addresses.head
+                     if ("0:0:0:0:0:0:0:1%1".equals(addresses.head)) "127.0.0.1" 
+                     else addresses.head
                }
             }
          }
+      razie.Log ("SELECTED_IP: "+toUse+" from list: "+addresses.mkString(","))
+      if (useLocalIP) {
+         razie.Log ("WARN_SELECTED_IP: 127.0.0.1 because of command line argument \"localhost\"")
+         "127.0.0.1"
+      } else toUse
       }
    
       def main(args : Array[String]) : Unit = {
@@ -64,7 +71,8 @@ object MutantMain {
          Log.program = "Mutant Version " + Version.getVersion();
          Log.logThis("Mutant starting: " + Log.program);
         
-         val testing = (args.length > 0 && args(0).equals("test"));
+         val testing = args contains "test"
+         useLocalIP = args contains "localhost"
 
          startup (testing)
       }
