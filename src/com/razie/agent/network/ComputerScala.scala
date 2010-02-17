@@ -20,6 +20,10 @@ import razie.assets._
 import razie.agent.pres._
 import razie.base._
 
+object SS {
+  val cmdKEYBOARD = new ActionItem("keyboard", "keyboard.png");
+  val cmdMOUSEPAD = new ActionItem("mousepad", "mouse.png");
+}
 
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
  * @author razvanc
@@ -33,7 +37,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    override def render(t:Technology , out:DrawStream ) : AnyRef = {
          super.render (t,out)
 
-         val reply = new DrawList();
+         val reply = new DrawTable();
          out.open(reply);
 
          if (Computer.Type.LAPTOP.equals(this.getType()) || Computer.Type.DESKTOP.equals(this.getType())
@@ -50,6 +54,9 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdUPGRADE))
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdDIE))
             reply.write(new AssetActionToInvoke(Agents.agent(name).url, ref, cmdCSCRIPT))
+            reply.closeRow
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "robot", SS.cmdKEYBOARD))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "robot", SS.cmdMOUSEPAD))
             reply.write(PageServices.methodButton(ref, meth("pubKey")))
             reply.write(PageServices.methodButton(ref, meth("resetSecurity")))
             reply.write(PageServices.methodButton(ref, meth("accept")))

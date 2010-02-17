@@ -27,7 +27,7 @@ class DeviceScala (key:AssetKey) extends Impl(key) {
    }
 
    //    /** get some extra details about an asset */
-//   override def getDetails(asset:AssetBrief ) : Drawable = { 
+//   override def getDetails(asset:AssetBrief ) : Drawable3 = { 
 //     Devices.device(asset.getKey.getId) match {
 //       case null => 
 ////                out.write(new DrawError("Cannot find device info for " + who));
