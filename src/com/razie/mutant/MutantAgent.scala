@@ -14,6 +14,7 @@ import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.webui.MutantPresentation;
 import com.razie.pub.base.data._
 import com.razie.pub.base._
+import com.razie.sdk.config._
 
 object MutantAgent {
    /**
@@ -42,7 +43,7 @@ class MutantAgent (myHandle:AgentHandle , homeGroup:AgentCloud ) extends SimpleA
       super.onInit();
       getContext().enter();
 
-      MutantPresentation.addPresentation(MutantPresentation.XMLDOC);
+      MutantPresentation.addPresentation(UserConfig.XMLDOC);
       
       // initialize rest in separate thread to speed up startup response time
       razie.Threads.fork {

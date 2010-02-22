@@ -20,8 +20,8 @@ import com.razie.pub.webui.MutantPresentation;
  * @since $Date: 2007/07/11 20:10:25 $
  */
 public class UserConfig extends XmlDoc {
-	public static final String DFLT_CATALOG = "/user.xml";
-	public static final String XMLDOC = MutantPresentation.XMLDOC;
+	public static final String DFLT_CATALOG = "/cfg/user.xml";
+	public static final String XMLDOC = "user.xml";
 
 	public URL getConfigUrl() {
 		return getClass().getResource(DFLT_CATALOG);
@@ -34,8 +34,7 @@ public class UserConfig extends XmlDoc {
 	public static class Factory implements IXmlDocFactory {
 		public XmlDoc make() {
 			UserConfig singleton = new UserConfig();
-			singleton.load(XMLDOC, singleton.getClass().getResource(
-					DFLT_CATALOG));
+			singleton.load(XMLDOC, singleton.getClass().getResource(DFLT_CATALOG));
 			// XmlDoc.docAdd(XMLDOC, singleton);
 			return singleton;
 		}

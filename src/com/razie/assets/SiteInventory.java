@@ -45,7 +45,7 @@ public class SiteInventory extends ScalaMediaInventoryBik {
     public AssetBrief getBrief(AssetKey ref) {
         AssetBrief b = super.getBrief(ref);
         FileAssetBrief fb = (FileAssetBrief)b;
-        b.setIcon("/mutant/pics/bb_mov_.png");
+        b.setIcon("/public/pics/bb_mov_.png");
 
         fb.setFileName("");
         fb.setLocalDir(ref.getId());

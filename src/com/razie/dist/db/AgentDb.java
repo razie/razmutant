@@ -54,7 +54,7 @@ public class AgentDb implements AssetBase {
     public static String           EVT_REMOVEDB = "removedb.AgentDb";
 
     public static String           sCLASS       = "AgentDb.razie";
-    public static final ActionItem META         = new ActionItem(sCLASS, "/mutant/pics/documents.png");
+    public static final ActionItem META         = new ActionItem(sCLASS, "/public/pics/documents.png");
 
     static Map<String, AgentDb>    dbs          = new HashMap<String, AgentDb>();
 

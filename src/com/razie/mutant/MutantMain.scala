@@ -171,7 +171,7 @@ object MutantMain {
 
          try {
             RazIconRes.init();
-            RazIconRes.getPictureService = "/mutant/pics/";
+            RazIconRes.getPictureService = "/public/pics/";
          } catch {
             case e : IOException =>
                throw new RuntimeException(e);

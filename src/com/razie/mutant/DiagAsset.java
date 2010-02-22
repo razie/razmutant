@@ -35,7 +35,7 @@ import com.razie.pub.webui.DrawLater;
 @SoaAsset(meta = DiagAsset.sCLASS, descr = "diagnostic asset")
 public class DiagAsset extends CoolAsset {
     public static final String     sCLASS    = "Diag.razie";
-    public static final ActionItem META      = new ActionItem(sCLASS, "/mutant/pics/IceAgeScrat.png");
+    public static final ActionItem META      = new ActionItem(sCLASS, "/public/pics/IceAgeScrat.png");
 
     public DiagAsset(String key) {
         super(new AssetKey (sCLASS, key));

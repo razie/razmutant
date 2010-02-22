@@ -8,27 +8,33 @@ import com.razie.pub.lightsoa.SoaService
 import com.razie.pub.lightsoa.SoaMethod
 import com.razie.pub.lightsoa.SoaStreamable
 import com.razie.pub.lightsoa.HttpSoaBinding
+import com.razie.pub.base._
 import razie.draw._
 import razie.draw.widgets._
 
 import com.razie.assets._
 
-/** just a sample agent service written in SCALA */
-//TODO @SoaService(){val name = "debug", val descr = "agent debug service" }
-@SoaService(name = "debug", descr = "agent debug service")
+/** all kinds of debug tools */
+@SoaService(name = "debug", descr = "agent debug service", bindings = Array("http") )
 class AgentDebugService extends AgentService {
 
-    /** the second initialization phase: the agent is starting up */
-    override def onStartup() : Unit = {
-      razie.Log("SCALA service onstartup");
+   @SoaMethod(descr = "produce stack trace")
+   @SoaStreamable
+   def stacktrace (out:DrawStream):Unit = {
+     printstacktrace (out, null)
+   }
 
-      AgentHttpService.registerSoa(new HttpSoaBinding(this));
-    }
+   @SoaMethod(descr = "stack trace without known threads")
+   @SoaStreamable
+   def stacktraceuser (out:DrawStream):Unit = {
+     printstacktrace (out, "Cyber")
+   }
 
-    /** the agent needs to shutdown this service. You must join() all threads and return to agent. */
-    override def onShutdown() : Unit = {
-      razie.Log("SCALA service onshutdown");
-    }
+   @SoaMethod(descr = "print all http args from the client")
+   def httpArgs () = 
+      razie.Draw.attrList (
+         ExecutionContext.instance().getAttr("httpattrs").asInstanceOf[razie.base.AttrAccess]
+         )
 
     /** print a full thread dump on the stream */
    private def printstacktrace (out:DrawStream, excl:String):Unit = {
@@ -52,19 +58,5 @@ class AgentDebugService extends AgentService {
 
         out.write(new DrawText("\n"));
       }
-
-    
-   @SoaMethod(descr = "produce stack trace")
-   @SoaStreamable
-   def stacktrace (out:DrawStream):Unit = {
-     printstacktrace (out, null)
-   }
-
-   @SoaMethod(descr = "stack trace without known threads")
-   @SoaStreamable
-   def stacktraceuser (out:DrawStream):Unit = {
-     printstacktrace (out, "Cyber")
-   }
-
     
 }

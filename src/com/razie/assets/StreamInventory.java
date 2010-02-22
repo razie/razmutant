@@ -45,7 +45,7 @@ public class StreamInventory extends ScalaMediaInventoryBik {
         AssetBrief b = super.getBrief(ref);
         ((FileAssetBrief)b).setFileName("");
         ((FileAssetBrief)b).setLocalDir(ref.getLocation().toHttp());
-        b.setIcon("/mutant/pics/bb_mov_.png");
+        b.setIcon("/public/pics/bb_mov_.png");
         return b;
     }
 

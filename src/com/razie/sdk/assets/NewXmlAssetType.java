@@ -45,7 +45,7 @@ import com.razie.sdk.assets.providers.MutantProvider;
 public class NewXmlAssetType extends CoolAsset implements Breather {
     public static final String     sCLASS    = "Jumper.razie";
     public static String           EVT_SMTH  = "newdb.Jumper";
-    public static final ActionItem META      = new ActionItem(sCLASS, "/mutant/pics/IceAgeScrat.png");
+    public static final ActionItem META      = new ActionItem(sCLASS, "/public/pics/IceAgeScrat.png");
 
     // the jumper will only come alive the first time on this host...i need this until i implement
     // negociation

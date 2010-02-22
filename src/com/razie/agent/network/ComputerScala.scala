@@ -13,7 +13,6 @@ import com.razie.pub.comms.PermType
 import com.razie.pub.base._
 import com.razie.pub.base.data._
 import com.razie.pub.media._
-//import com.razie.pub.util._
 import com.razie.pub.agent._
 import com.razie.pubstage.comms._
 import razie.assets._
@@ -21,8 +20,8 @@ import razie.agent.pres._
 import razie.base._
 
 object SS {
-  val cmdKEYBOARD = new ActionItem("keyboard", "keyboard.png");
-  val cmdMOUSEPAD = new ActionItem("mousepad", "mouse.png");
+  val cmdKEYBOARD = new ActionItem("keyboard", "/public/pics/keyboard.png");
+  val cmdMOUSEPAD = new ActionItem("mousepad", "/public/pics/mouse.png");
 }
 
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
@@ -48,8 +47,8 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
             // TODO 1-1 remove this test proxy
             reply.write(new NavButton(new ActionItem("proxied", "proxied"), razie.Agent.proxy(homeurl).makeActionUrl))
             
-            reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRATETO, "ip", ip))
-            reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRADEFROM, "ip", ip))
+            reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRATETO, "ip", ip, "forced", "false"))
+            //reply.write(new ServiceActionToInvoke("control", Device.cmdUPGRADEFROM, "ip", ip))
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdSTOP))
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdUPGRADE))
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", Device.cmdDIE))
@@ -59,7 +58,9 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
             reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "robot", SS.cmdMOUSEPAD))
             reply.write(PageServices.methodButton(ref, meth("pubKey")))
             reply.write(PageServices.methodButton(ref, meth("resetSecurity")))
-            reply.write(PageServices.methodButton(ref, meth("accept")))
+            reply.write(PageServices.methodButton(ref, meth("accept"), razie.AI("accept", "Befriend", "accept this client device into my cloud")))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", razie.AI("Backup")))
+            reply.write(new ServiceActionToInvoke(Agents.agent(name).url, "control", razie.AI("Restore")))
          }
 
          reply.close();
