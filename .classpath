@@ -11,7 +11,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/scalatest"/>
 	<classpathentry kind="lib" path="/razpub/lib/json.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/razie"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/20widgets"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/razbase"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

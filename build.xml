@@ -1,37 +1,249 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="razmutant">
-    <import file="../razie/base-build.xml"/>
+    <property file="../razbase/razie.properties"/>
+    <!--property name="basedir" value="${workspace.dir}"/-->
+    <property name="w" value="${workspace.dir}"/>
+    <property name="m" value="${mutant.dir}"/>
+    <import   file="${w}/razbase/base-build.xml"/>
 
+    <!-- project specifics -->
     <path id="depy.path">
-        <pathelement location="../razmedia/bin"/>
-        <pathelement location="../razagent/bin"/>
-        <pathelement location="../razpubs/bin"/>
-        <pathelement location="../razupnp/lib/clink170.jar"/>
-        <pathelement location="../razupnp/lib/xercesImpl290.jar"/>
-        <pathelement location="../razupnp/lib/xml-apis290.jar"/>
-        <pathelement location="../razpub/lib/mime-util.jar"/>
+        <pathelement location="../razbase/bin/"/>
+        <pathelement location="../razbase/lib/json.jar"/>
+        <pathelement location="../20widgets/bin/"/>
+        <pathelement location="../razweb/bin/"/>
+        <pathelement location="../razweb/lib/mime-util.jar"/>
+        <pathelement location="../scripster/bin/"/>
         <pathelement location="../razpub/lib/log4j-1.2.7.jar"/>
         <pathelement location="../razpub/lib/js.jar"/>
         <pathelement location="../razpub/lib/bcprov-jdk16-143.jar"/>
         <pathelement location="../razpub/bin"/>
-        <pathelement location="../20widgets/bin/"/>
-        <pathelement location="../razie/bin/"/>
-        <pathelement location="../razie/lib/json.jar"/>
+        <pathelement location="../razupnp/lib/clink170.jar"/>
+        <pathelement location="../razupnp/lib/xercesImpl290.jar"/>
+        <pathelement location="../razupnp/lib/xml-apis290.jar"/>
+        <pathelement location="../razpubs/bin"/>
+        <pathelement location="../razagent/bin"/>
+        <pathelement location="../razmedia/bin"/>
+        <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
+    </path>
+
+
+   <!-- mutant global stuff -->
+
+    <target name="clean-all">
+        <ant target="clean" dir="${w}/razbase/"/>
+        <ant target="clean" dir="${w}/20widgets/"/>
+        <ant target="clean" dir="${w}/20widgets-swing/"/>
+        <ant target="clean" dir="${w}/razweb/"/>
+        <ant target="clean" dir="${w}/scripster/"/>
+        <ant target="clean" dir="${w}/razpub/"/>
+        <ant target="clean" dir="${w}/razupnp/"/>
+        <ant target="clean" dir="${w}/razpubs/"/>
+        <ant target="clean" dir="${w}/razagent/"/>
+        <ant target="clean" dir="${w}/razmedia/"/>
+        <ant target="clean" dir="${w}/razmutant/"/>
+        <ant target="clean" dir="${w}/razplay/"/>
+        <ant target="clean" dir="${w}/blinkie/"/>
+    </target>
+
+    <target name="build-all">
+        <ant target="build" dir="${w}/razbase/"/>
+        <ant target="build" dir="${w}/20widgets/"/>
+        <ant target="build" dir="${w}/20widgets-swing/"/>
+        <ant target="build" dir="${w}/razweb/"/>
+        <ant target="build" dir="${w}/scripster/"/>
+        <ant target="build" dir="${w}/razpub/"/>
+        <ant target="build" dir="${w}/razupnp/"/>
+        <ant target="build" dir="${w}/razpubs/"/>
+        <ant target="build" dir="${w}/razagent/"/>
+        <ant target="build" dir="${w}/razmedia/"/>
+        <ant target="build" dir="${w}/razmutant/"/>
+        <ant target="build" dir="${w}/razplay/"/>
+        <ant target="build" dir="${w}/blinkie/"/>
+    </target>
+
+    <target name="jar-all">
+        <ant target="jar-only" dir="${w}/razbase/"/>
+        <ant target="jar-only" dir="${w}/20widgets/"/>
+        <ant target="jar-only" dir="${w}/20widgets-swing/"/>
+        <ant target="jar-only" dir="${w}/razweb/"/>
+        <ant target="jar-only" dir="${w}/scripster/"/>
+        <ant target="jar-only" dir="${w}/razpub/"/>
+        <ant target="jar-only" dir="${w}/razupnp/"/>
+        <ant target="jar-only" dir="${w}/razpubs/"/>
+        <ant target="jar-only" dir="${w}/razagent/"/>
+        <ant target="jar-only" dir="${w}/razmedia/"/>
+        <ant target="jar-only" dir="${w}/razmutant/"/>
+        <ant target="jar-only" dir="${w}/razplay/"/>
+        <ant target="jar-only" dir="${w}/blinkie/"/>
+    </target>
+
+    <target name="play">
+        <ant target="build" dir="${w}/razagent/"/>
+        <ant target="build" dir="${w}/razmedia/"/>
+        <ant target="build" dir="${w}/razmutant/"/>
+        <ant target="build" dir="${w}/razplay/"/>
+        <ant target="build" dir="${w}/blinkie/"/>
+    </target>
+
+    <target name="pub">
+        <ant target="build" dir="${w}/razbase/"/>
+        <ant target="build" dir="${w}/20widgets/"/>
+        <ant target="build" dir="${w}/20widgets-swing/"/>
+        <ant target="build" dir="${w}/razweb/"/>
+        <ant target="build" dir="${w}/scripster/"/>
+        <ant target="build" dir="${w}/razpub/"/>
+        <ant target="build" dir="${w}/razupnp/"/>
+        <ant target="build" dir="${w}/razpubs/"/>
+    </target>
+
+    <target name="build-fsc">
+        <ant target="build-fsc" dir="${w}/razbase/"/>
+        <ant target="build-fsc" dir="${w}/20widgets/"/>
+        <ant target="build-fsc" dir="${w}/20widgets-swing/"/>
+        <ant target="build-fsc" dir="${w}/razweb/"/>
+        <ant target="build-fsc" dir="${w}/scripster/"/>
+        <ant target="build-fsc" dir="${w}/razpub/"/>
+        <ant target="build-fsc" dir="${w}/razupnp/"/>
+        <ant target="build-fsc" dir="${w}/razpubs/"/>
+        <ant target="build-fsc" dir="${w}/razagent/"/>
+        <ant target="build-fsc" dir="${w}/razmedia/"/>
+        <ant target="build-fsc" dir="${w}/razmutant/"/>
+        <ant target="build-fsc" dir="${w}/razplay/"/>
+        <ant target="build-fsc" dir="${w}/blinkie/"/>
+        <fsc shutdown="true"/>
+    </target>
+
+    <target name="all" depends="clean-all,build-all">
+    </target>
+
+    <path id="mutant.classpath">
+        <pathelement location="${w}/razwebdev"/>
+        <pathelement location="${w}/blinkie/bin"/>
+        <pathelement location="${w}/razplay/bin"/>
+        <pathelement location="${w}/razmutant/bin"/>
+        <pathelement location="${w}/razmedia/bin"/>
+        <pathelement location="${w}/razagent/bin"/>
+        <pathelement location="${w}/razpubs/bin"/>
+        <pathelement location="${w}/razupnp/bin"/>
+        <pathelement location="${w}/razupnp/lib/clink170.jar"/>
+        <pathelement location="${w}/razupnp/lib/xercesImpl290.jar"/>
+        <pathelement location="${w}/razupnp/lib/xml-apis290.jar"/>
+        <pathelement location="${w}/razpub/lib/log4j-1.2.7.jar"/>
+        <pathelement location="${w}/razpub/lib/js.jar"/>
+        <pathelement location="${w}/razpub/lib/bcprov-jdk16-143.jar"/>
+        <pathelement location="${w}/razpub/bin"/>
+        <pathelement location="${w}/scripster/bin"/>
+        <pathelement location="${w}/razweb/lib/mime-util.jar"/>
+        <pathelement location="${w}/razweb/bin"/>
+        <pathelement location="${w}/20widgets/bin/"/>
+        <pathelement location="${w}/razbase/bin/"/>
+        <pathelement location="${w}/razbase/lib/json.jar"/>
+        <pathelement location="${scala.home}/lib/scala-library.jar"/>
         <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
     </path>
 
     <target name="run">
-        <echo message="Running ${ant.project.name}: ${ant.file}"/>
-
-        <java classname="razie.draw.test.TestMe">
-            <classpath refid="test.classpath" />
+        <java classname="com.razie.mutant.JavaMutantMain" 
+              dir="${w}/razmutant/bin" fork="yes">
+            <classpath refid="mutant.classpath" />
+            <arg value="-Xmx128m"/>
         </java>
     </target>
 
-    <target name="all">
-        <ant     target="all" dir="../razmedia/"/>
-        <antcall target="clean"/>
-        <antcall target="build"/>
+
+    <target name="dist">
+        <mkdir  dir="${m}"/>
+        <mkdir  dir="${m}/lib"/>
+        <mkdir  dir="${m}/plugins"/>
+        <mkdir  dir="${m}/cfg"/>
+
+        <delete dir="${m}/upgrade"/>
+        <mkdir  dir="${m}/upgrade"/>
+        <mkdir  dir="${m}/upgrade/lib"/>
+        <mkdir  dir="${m}/upgrade/plugins"/>
+        <mkdir  dir="${m}/upgrade/cfg"/>
+
+        <tstamp>
+           <format property="stamp" pattern="yyyy/MM/dd hh:mm aa" />
+        </tstamp>
+        <echo message="${stamp}" file="timestamp.txt"/>
+
+        <jar file="timestamp.txt" 
+             destfile="${m}/upgrade/razpub.jar"/>
+        <jar basedir="${w}/razbase/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/20widgets/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/20widgets-swing/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/razweb/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/scripster/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/razpub/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/razpubs/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+        <jar basedir="${w}/razupnp/bin" 
+             destfile="${m}/upgrade/razpub.jar" update="true" />
+
+        <jar file="timestamp.txt" 
+             destfile="${m}/upgrade/razmutant.jar"/>
+        <jar basedir="${w}/razagent/bin" 
+             destfile="${m}/upgrade/razmutant.jar" update="true" />
+        <jar basedir="${w}/razmedia/bin" 
+             destfile="${m}/upgrade/razmutant.jar" update="true" />
+        <jar basedir="${w}/razmutant/bin" 
+             destfile="${m}/upgrade/razmutant.jar" update="true" />
+        <jar basedir="${w}/razplay/bin" 
+             destfile="${m}/upgrade/razmutant.jar" update="true" />
+
+        <copy todir="${m}/upgrade/lib" flatten="yes">
+          <fileset dir="${w}/." includes="*/lib/*.jar"/>
+        </copy>
+        <copy todir="${m}/upgrade">
+          <fileset dir="${w}" includes="*/src/xdb_*.xml"/>
+          <fileset dir="${w}/razmutant/src" includes="*.cmd,*.sh"/>
+        </copy>
+        <copy todir="${m}/upgrade/cfg">
+          <fileset dir="${w}/razagent/src/cfg"   includes="agent.xml"/>
+          <fileset dir="${w}/razagent/src/cfg"   includes="assets.xml"/>
+          <fileset dir="${w}/razagent/src/cfg"   includes="template_agent.xml"/>
+          <fileset dir="${w}/razmedia/src/cfg"   includes="media.xml"/>
+          <fileset dir="${w}/razmutant/src/cfg"  includes="user.xml"/>
+        </copy>
+
+        <copy file="${w}/razbase/src/log4j.properties" todir="${m}/upgrade" />
+        <copy file="${w}/razmutant/src/README.txt" todir="${m}/upgrade" />
+
+        <copy todir="${m}/upgrade/lib">
+          <fileset dir="${scala.home}/lib" includes="scala-library.jar"/>
+          <fileset dir="${scala.home}/lib" includes="scala-compiler.jar"/>
+        </copy>
+
+        <!-- the plugins -->
+        <ant target="build" dir="${w}/blinkie/"/>
+        <jar basedir="${w}/blinkie/bin" 
+             destfile="${m}/upgrade/plugins/plugin_blinkie.jar" />
+        <copy file="${w}/blinkie/src/plugins/plugin_blinkie.xml" 
+              todir="${m}/upgrade/plugins" />
+
+        <!-- upgrade the existing one -->
+        <copy todir="${m}">
+          <fileset dir="${m}/upgrade" includes="*"/>
+        </copy>
+        <copy todir="${m}/lib">
+          <fileset dir="${m}/upgrade/lib" includes="*"/>
+        </copy>
+        <copy todir="${m}/plugins">
+          <fileset dir="${m}/upgrade/plugins" includes="*"/>
+        </copy>
+        <copy todir="${m}/cfg">
+          <fileset dir="${m}/upgrade/cfg" includes="*"/>
+        </copy>
+
     </target>
 
 </project>
+
