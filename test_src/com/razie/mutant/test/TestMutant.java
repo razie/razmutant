@@ -44,5 +44,5 @@ public class TestMutant extends TestCase {
         return HttpUtils.fromUrlEncodedString(encoded);
     }
 
-    static final Log logger = Log.Factory.create(TestMutant.class.getName());
+    static final Log logger = Log.factory.create(TestMutant.class.getName());
 }

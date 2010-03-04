@@ -108,6 +108,6 @@ public class TestDbLoadCreate extends TestCase {
 		db.save(false, true);
 	}
 
-	static final Log logger = Log.Factory.create(TestDbLoadCreate.class
+	static final Log logger = Log.factory.create(TestDbLoadCreate.class
 			.getName());
 }

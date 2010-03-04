@@ -67,5 +67,5 @@ public class TestXmlDb extends TestCase {
         assertTrue(db2.listEntities("/db/node1/newnode").size() == 0);
     }
 
-    static final Log logger = Log.Factory.create(TestXmlDb.class.getName());
+    static final Log logger = Log.factory.create(TestXmlDb.class.getName());
 }

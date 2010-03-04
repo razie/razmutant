@@ -37,5 +37,5 @@ public class TestCmdAssets extends TestMutant {
         assertTrue(result.contains(MOVIEREF));
     }
 
-    static final Log logger = Log.Factory.create(TestCmdAssets.class.getName());
+    static final Log logger = Log.factory.create(TestCmdAssets.class.getName());
 }

@@ -56,5 +56,5 @@ public class TestCmdNetwork extends TestMutant {
         assertTrue(result, result.contains(Agents.getMyHostName()));
     }
 
-    static final Log logger = Log.Factory.create(TestCmdNetwork.class.getName());
+    static final Log logger = Log.factory.create(TestCmdNetwork.class.getName());
 }

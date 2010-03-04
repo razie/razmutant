@@ -25,5 +25,5 @@ public class TestCmdControl extends TestMutant {
         assertTrue(result, result.contains("HTTP_CLIENT_IP"));
     }
 
-    static final Log logger = Log.Factory.create(TestCmdControl.class.getName());
+    static final Log logger = Log.factory.create(TestCmdControl.class.getName());
 }
