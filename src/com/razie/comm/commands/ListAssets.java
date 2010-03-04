@@ -108,6 +108,6 @@ public abstract class ListAssets extends SocketCmdHandler.Impl {
       }
    }
 
-   static final Log logger = Log.Factory.create("assets", ListAssets.class.getName());
+   static final Log logger = Log.factory.create("assets", ListAssets.class.getName());
 
 }

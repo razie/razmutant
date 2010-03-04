@@ -22,6 +22,7 @@ import razie.base._
 object SS {
   val cmdKEYBOARD = new ActionItem("keyboard", "/public/pics/keyboard.png");
   val cmdMOUSEPAD = new ActionItem("mousepad", "/public/pics/mouse.png");
+  
 }
 
 /** this is the actual implementation for assets Device which are laptop/desktop (can run an agent) 
@@ -36,7 +37,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    override def render(t:Technology , out:DrawStream ) : AnyRef = {
          super.render (t,out)
 
-         val reply = new DrawTable();
+         val reply = razie.Draw.layoutTable
          out.open(reply);
 
          if (Computer.Type.LAPTOP.equals(this.getType()) || Computer.Type.DESKTOP.equals(this.getType())
@@ -67,7 +68,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
 
          // TODO inject this
          out.write("Folders:");
-         val folders = new DrawTable(0, 3);
+         val folders = razie.Draw.layoutTable (3)()
          out.open(folders);
          MediaServerService.browseFolders(name, folders);
          folders.close();

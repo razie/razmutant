@@ -65,7 +65,7 @@ public class TempFilesRazie extends SSFilesRazie {
 		}
 	}
 
-	public static final Log logger = Log.Factory.create("", TempFilesRazie.class
+	public static final Log logger = Log.factory.create("", TempFilesRazie.class
 			.getName());
 
 	/**

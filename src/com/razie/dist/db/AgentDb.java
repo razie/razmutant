@@ -187,8 +187,6 @@ public class AgentDb implements AssetBase {
            }
         });
            
-//           SSFilesRazie.listFiles(AgentFileService.getInstance().basePath(),
-//                new SSFilesRazie.RegExpFileFilter("xdb_.*\\.xml"), false);
         for (File f : files) {
             String dbname = f.getName().replaceAll("\\.xml", "");
             dbname = dbname.replaceAll("^xdb_", "");

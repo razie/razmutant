@@ -72,5 +72,5 @@ public class CmdClient {
         return lastResult;
     }
 
-    static final Log logger = Log.Factory.create(CmdClient.class.getName());
+    static final Log logger = Log.factory.create(CmdClient.class.getName());
 }

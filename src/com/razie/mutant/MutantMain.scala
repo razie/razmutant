@@ -26,6 +26,7 @@ import com.razie.pub.plugin._
 import com.razie.pub.comms._
 import com.razie.pub.agent._
 import razie.assets._
+import razie.scripting._
 
 /** starts the mutant agent. */
 object MutantMain {

@@ -1,6 +1,7 @@
 
 THIS FILE is maintained in the source code, DO NOT modify the copy in the distribution!
 
+NOTE - for installation, see below.
 
 Mutant Jukebox
 ==============
@@ -61,10 +62,10 @@ See http://wiki.homecloud.ca/installing, as well.
 1.1. install jdk/jre 1.6.0_14 (or higher) and set JAVA_HOME env var...
 1.2 alternatively, modify the mutant.cmd to set the JAVA_HOME right there, although it makes sense to have one set in OS
 
-2. edit the agent.xml file, the clouds/cloud section with your hosts and network info, including location of media on each computer
+2. edit the cfg/agent.xml file, the clouds/cloud section with your hosts and network info.
 2.1. ignore the proxy and other settings if you don't plan to open its port in the firewall (see SECURITY ISSUES below)
 
-2.2. edit the media.xml file - the local media directories must be shared via windows and accessible
+2.2. edit the cfg/media.xml file, location of media on each computer - the local media directories must be shared via windows and accessible
 
 3. to play ISO files, install daemon tools and edit the path in user.xml
 	make sure there is a default system player (WMP) for inserting movie DVDs, 

@@ -22,7 +22,9 @@ if EXIST %MUTANTDIR%\upgrade\razmutant.jar (
    move %MUTANTDIR%\upgrade\*.txt %MUTANTDIR%\
    move %MUTANTDIR%\upgrade\lib\*.jar %MUTANTDIR%\lib
    move %MUTANTDIR%\upgrade\plugins\* %MUTANTDIR%\plugins
+   move %MUTANTDIR%\upgrade\cfg\* %MUTANTDIR%\cfg
    goto st
 ) 
 
 :quit
+

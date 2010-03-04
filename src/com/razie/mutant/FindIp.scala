@@ -10,7 +10,7 @@ object FindIp {
   
   def list() = {
     val nes =  NetworkInterface.getNetworkInterfaces()
-    var li = razie.MList[String]()
+    var li = razie.Listi[String]()
     
     while (nes.hasMoreElements) {
       val ne=nes.nextElement
