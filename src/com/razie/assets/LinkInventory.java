@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.assets;
 
 import java.util.List;
@@ -29,7 +34,7 @@ public class LinkInventory extends ScalaMediaInventoryBik {
     /** use the base and add details */
     public AssetMap queryAll(String meta, AssetLocation env, boolean recurse, AssetMap ret) {
 
-        for (Element link : AgentDb.db("links").xml().listEntities("/db/link")) {
+        for (Element link : AgentDb.db("links").xml().xpl("/db/link")) {
             AssetBrief b = brief(link);
             ret.put(b.getKey(), b);
         }
@@ -69,7 +74,7 @@ public class LinkInventory extends ScalaMediaInventoryBik {
 
     public AssetBrief getBrief(AssetKey ref) {
         // use the list to prevent idiotic issues with duplicates...shit hapens...
-        List<Element> links = AgentDb.db("links").xml().listEntities(
+        List<Element> links = AgentDb.db("links").xml().xpl(
                 "/db/link[@url='" + ref.getId() + "']");
 
         if (links.size() > 0) {

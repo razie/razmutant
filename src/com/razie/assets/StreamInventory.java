@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.assets;
 
 import org.w3c.dom.Element;
@@ -22,7 +27,7 @@ public class StreamInventory extends ScalaMediaInventoryBik {
 
     public AssetMap queryAll(String type, AssetLocation env, boolean recurse, AssetMap ret) {
 
-        for (Element stream : AgentDb.db("streams").xml().listEntities("/db/streams/stream")) {
+        for (Element stream : AgentDb.db("streams").xml().xpl("/db/streams/stream")) {
             FileAssetBriefImpl b = new FileAssetBriefImpl();
 
             String url = stream.getAttribute("url");

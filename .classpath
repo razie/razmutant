@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="/razxml/dist/razxml.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test_src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razagent"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razmedia"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razpub"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/razpubs"/>
 	<classpathentry kind="con" path="ch.epfl.lamp.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/scalatest"/>
@@ -13,5 +13,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/20widgets"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razbase"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/razupnp"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/razweb"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scripster"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

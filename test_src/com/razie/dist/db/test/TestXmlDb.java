@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.dist.db.test;
 
 import junit.framework.TestCase;
@@ -30,7 +35,7 @@ public class TestXmlDb extends TestCase {
         db2.initialize("");
         db2.applyDiffs(0, 1, db.getDiffs(0, 1));
 
-        String s = db2.getAttr("/db/node1/@attr1");
+        String s = db2.xpa("/db/node1/@attr1");
         assertTrue("val1".equals(s));
     }
 
@@ -47,7 +52,7 @@ public class TestXmlDb extends TestCase {
         db.setAttr("/db/node1", "attr1", "newval1");
         db2.applyDiffs(1, 2, db.getDiffs(1, 2));
 
-        String s = db2.getAttr("/db/node1/@attr1");
+        String s = db2.xpa("/db/node1/@attr1");
         assertTrue("newval1".equals(s));
     }
 
@@ -64,7 +69,7 @@ public class TestXmlDb extends TestCase {
         db.delete("/db/node1", "newnode", new AttrAccessImpl("attr3", "newval3"));
         db2.applyDiffs(1, 2, db.getDiffs(1, 2));
 
-        assertTrue(db2.listEntities("/db/node1/newnode").size() == 0);
+        assertTrue(db2.xpl("/db/node1/newnode").size() == 0);
     }
 
     static final Log logger = Log.factory.create(TestXmlDb.class.getName());

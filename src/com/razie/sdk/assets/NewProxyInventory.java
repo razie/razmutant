@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.sdk.assets;
 
 import java.util.HashMap;
@@ -10,9 +15,9 @@ import razie.assets.AssetBrief;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.AssetMap;
+import razie.base.data.XmlDoc;
 
 import com.razie.assets.FileInventory;
-import com.razie.pub.base.data.XmlDoc;
 import com.razie.pub.base.log.Log;
 
 /**
@@ -56,10 +61,10 @@ public class NewProxyInventory extends FileInventory {
     }
 
     static void init(XmlDoc file) {
-        for (Element e : file.listEntities("/config/newassets/assets")) {
+        for (Element e : file.xpl("/config/newassets/assets")) {
             String xpath = e.getAttribute("xpath");
 
-            for (Element o : file.listEntities(xpath)) {
+            for (Element o : file.xpl(xpath)) {
 
             }
         }

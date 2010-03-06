@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.assets
 
 import com.razie.dist.db._
@@ -54,7 +59,7 @@ class NewXmlAssetInventory extends BaseInventory {
      */
     override def getBrief(ref:AssetKey ):AssetBrief  = {
       // use the list to prevent idiotic issues with duplicates...shift happens...
-      val links = AgentDb.db("links").xml().listEntities("/db/link[@url='" + ref.getId() + "']");
+      val links = AgentDb.db("links").xml().xpl("/db/link[@url='" + ref.getId() + "']");
 
       if (links.size() > 0) 
          brief(links.get(0));
@@ -64,7 +69,7 @@ class NewXmlAssetInventory extends BaseInventory {
 
   /** list all assets of the given type at the given location */
    override def queryAll(meta:String, env:AssetLocation , recurse:Boolean , ret:AssetMap) : AssetMap = {
-      AgentDb.db(clsName).xml().listEntities("/db/" + clsName)
+      AgentDb.db(clsName).xml().xpl("/db/" + clsName)
       for (val link <- (AgentDb.db(clsName).xml()).asInstanceOf[RazElement].xpl("/db/" + clsName)) {
          val b = brief(link);
          ret.put(b.getKey(), b);

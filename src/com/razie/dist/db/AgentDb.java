@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.dist.db;
 
 import java.io.File;
@@ -162,8 +167,8 @@ public class AgentDb implements AssetBase {
                 }
             } else {
                 // it's brand new...
-                Element settings = remotedb.getEntity("/db/settings");
-                settings.setAttribute("lastsyncver", String.valueOf(remotedb.getAttr("/db/settings/@ver")));
+                Element settings = remotedb.xpe("/db/settings");
+                settings.setAttribute("lastsyncver", String.valueOf(remotedb.xpa("/db/settings/@ver")));
 
                 dbs.put(dbname, new AgentDb(dbname, remotedb));
                 db(dbname).save(true, notifyOthers);
@@ -193,7 +198,7 @@ public class AgentDb implements AssetBase {
             XmlDb x = new XmlDb();
             try {
                 x.load(dbname, f.toURL());
-                String ver = x.getAttr("/db/settings/@ver");
+                String ver = x.xpa("/db/settings/@ver");
                 map.setAttr(dbname, ver);
             } catch (MalformedURLException e) {
                 Log.logThis("couldn't open local xdb: " + dbname, e);

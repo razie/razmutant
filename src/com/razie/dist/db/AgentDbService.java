@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.dist.db;
 
 import org.w3c.dom.Element;
@@ -10,7 +15,7 @@ import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.agent.AgentService;
 import razie.base.AttrAccess;
-import com.razie.pub.base.data.RiXmlUtils;
+import razie.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;

@@ -1,8 +1,7 @@
-/*
- * $Id: RiCatalog.java,v 1.3 2007/07/11 20:10:25 razie Exp $
- * 
- * Copyright 2006 - 2007 The Members of the OSS through Java(TM) Initiative. All rights reserved.
- * Use is subject to license terms.
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
  */
 package com.razie.dist.db;
 
@@ -16,15 +15,15 @@ import org.w3c.dom.NodeList;
 
 import razie.base.AttrAccess;
 import razie.base.AttrAccessImpl;
-import com.razie.pub.base.data.RiXmlUtils;
-import com.razie.pub.base.data.XmlDoc;
+import razie.base.data.XmlDoc;
+
+import razie.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
 
 /**
  * represents an updateable xml document, includes a list of changes and sync() capability
  * 
  * @author razvanc
- * 
  */
 public class XmlDb extends XmlDoc implements DistDoc {
     public static final String ATTR_NAME     = "name";
@@ -55,9 +54,9 @@ public class XmlDb extends XmlDoc implements DistDoc {
         this.document.appendChild(this.root);
         this.root = this.document.getDocumentElement();
 
-        this.getEntity("/db").appendChild(make("settings", new AttrAccessImpl("ver", "0")));
-        this.getEntity("/db/settings").setAttribute("lastsyncver", "0");
-        this.getEntity("/db/settings").appendChild(
+        this.xpe("/db").appendChild(make("settings", new AttrAccessImpl("ver", "0")));
+        this.xpe("/db/settings").setAttribute("lastsyncver", "0");
+        this.xpe("/db/settings").appendChild(
                 make("diffs", new AttrAccessImpl("someattr", "somevalue")));
         this.needsSave = true;
     }
@@ -67,7 +66,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * via DOM...
      */
     public void add(String parentPath, String tagName, AttrAccess aa) {
-        Element e = getEntity(parentPath);
+        Element e = xpe(parentPath);
         Element child = make(tagName, aa);
         e.appendChild(child);
         this.changes.add(Change(parentPath, tagName, aa));
@@ -99,7 +98,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * TODO support a set of IDs for matching, not just one...
      */
     private void internalDelete(String parentPath, String tagName, AttrAccess aa) {
-        Element p = getEntity(parentPath);
+        Element p = xpe(parentPath);
         NodeList nodes = p.getElementsByTagName(tagName);
         String aname = aa.getPopulatedAttr().iterator().next();
         String avalue = (String) aa.getAttr(aname);
@@ -117,7 +116,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * via DOM...
      */
     public void setAttr(String parentPath, String attrnm, String value) {
-        Element e = getEntity(parentPath);
+        Element e = xpe(parentPath);
         e.setAttribute(attrnm, value);
         // TODO handle value null
         // TODO optimize and do not add a change if there's no actual change in value
@@ -130,7 +129,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * via DOM...
      */
     public void setAttr(String parentPath, Object... pairs) {
-        Element e = getEntity(parentPath);
+        Element e = xpe(parentPath);
         for (int i = 0; i < pairs.length / 2; i++) {
             String name = (String) pairs[2 * i];
             String value = pairs[2 * i + 1].toString();
@@ -174,8 +173,8 @@ public class XmlDb extends XmlDoc implements DistDoc {
      */
     public boolean prepareForSave() {
         if (this.changes.size() > 0) {
-            Element diffs = getEntity("/db/settings/diffs");
-            Element diff = make("diff", new AttrAccessImpl("ver", this.getAttr("/db/settings/@ver"),
+            Element diffs = xpe("/db/settings/diffs");
+            Element diff = make("diff", new AttrAccessImpl("ver", this.xpa("/db/settings/@ver"),
                     "tstamp", String.valueOf(System.currentTimeMillis())));
             diffs.appendChild(diff);
 
@@ -195,7 +194,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
     private void checkandincver() {
         if (this.changes.size() == 1) {
             // inc the ver
-            Element settings = getEntity("/db/settings");
+            Element settings = xpe("/db/settings");
             int myver = Integer.parseInt(settings.getAttribute("ver"));
             settings.setAttribute("ver", String.valueOf(myver + 1));
         }
@@ -205,9 +204,9 @@ public class XmlDb extends XmlDoc implements DistDoc {
      * TODO somehow notify the master that the copy has been updated...
      */
     protected void syncfrom(XmlDb source) {
-        int srcver = Integer.parseInt(source.getAttr("/db/settings/@ver"));
-        int myver = Integer.parseInt(getAttr("/db/settings/@ver"));
-        int mylsver = Integer.parseInt(getAttr("/db/settings/@lastsyncver"));
+        int srcver = Integer.parseInt(source.xpa("/db/settings/@ver"));
+        int myver = Integer.parseInt(xpa("/db/settings/@ver"));
+        int mylsver = Integer.parseInt(xpa("/db/settings/@lastsyncver"));
         if (srcver == myver) {
             Log.logThis("two db syncd identically");
         } else if (srcver < myver) {
@@ -218,19 +217,19 @@ public class XmlDb extends XmlDoc implements DistDoc {
                 Log.logThis("WARN_DB_CONFLICT BOTH DB CHANGED - CONFLICT");
             }
 
-            Element diffs = getEntity("/db/settings/diffs");
+            Element diffs = xpe("/db/settings/diffs");
             for (int ver = myver + 1; ver <= srcver; ver++) {
-                String tstamp = source.getAttr("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
+                String tstamp = source.xpa("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
                         + "']/@tstamp");
                 Element newdiff = make("diff", new AttrAccessImpl("ver", String.valueOf(ver), "tstamp",
                         tstamp));
                 diffs.appendChild(newdiff);
 
-                for (Element diff : source.listEntities("/db/settings/diffs/diff[@ver='"
+                for (Element diff : source.xpl("/db/settings/diffs/diff[@ver='"
                         + String.valueOf(ver) + "']/diff")) {
                     if (diff.hasAttribute("tagName") && diff.hasAttribute("remove")
                             && diff.getAttribute("remove").equals("y")) {
-                        Element node = XmlDoc.listEntities(diff, "newnode").get(0);
+                        Element node = XmlDoc.xpl(diff, "newnode").get(0);
                         AttrAccess aa = new AttrAccessImpl();
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName"),
@@ -248,7 +247,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                                 .internalDelete(diff.getAttribute("parentPath"),
                                         diff.getAttribute("tagName"), aa);
                     } else if (diff.hasAttribute("tagName")) {
-                        Element node = XmlDoc.listEntities(diff, "newnode").get(0);
+                        Element node = XmlDoc.xpl(diff, "newnode").get(0);
                         Element newnode = make(diff.getAttribute("tagName"));
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName")));
@@ -261,9 +260,9 @@ public class XmlDb extends XmlDoc implements DistDoc {
                         }
                         d.appendChild(nn);
                         newdiff.appendChild(d);
-                        this.getEntity(diff.getAttribute("parentPath")).appendChild(newnode);
+                        this.xpe(diff.getAttribute("parentPath")).appendChild(newnode);
                     } else {
-                        this.getEntity(diff.getAttribute("parentPath")).setAttribute(
+                        this.xpe(diff.getAttribute("parentPath")).setAttribute(
                                 diff.getAttribute("attr"), diff.getAttribute("newval"));
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "attr", diff.getAttribute("attr"), "newval",
@@ -273,7 +272,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                 }
             }
 
-            Element settings = getEntity("/db/settings");
+            Element settings = xpe("/db/settings");
             settings.setAttribute("ver", String.valueOf(srcver));
             settings.setAttribute("lastsyncver", String.valueOf(srcver));
         }
@@ -297,9 +296,9 @@ public class XmlDb extends XmlDoc implements DistDoc {
     public void applyDiffs(int fromVersion, int toVersion, String sdiffs) {
         XmlDoc source = XmlDoc.createFromString("diffs", sdiffs);
 
-        int srcver = Integer.parseInt(source.getAttr("/db/settings/@ver"));
-        int myver = Integer.parseInt(getAttr("/db/settings/@ver"));
-        int mylsver = Integer.parseInt(getAttr("/db/settings/@lastsyncver"));
+        int srcver = Integer.parseInt(source.xpa("/db/settings/@ver"));
+        int myver = Integer.parseInt(xpa("/db/settings/@ver"));
+        int mylsver = Integer.parseInt(xpa("/db/settings/@lastsyncver"));
         if (srcver == myver) {
             Log.logThis("two db syncd identically");
         } else if (srcver < myver) {
@@ -310,19 +309,19 @@ public class XmlDb extends XmlDoc implements DistDoc {
                 Log.logThis("WARN_DB_CONFLICT BOTH DB CHANGED - CONFLICT");
             }
 
-            Element diffs = getEntity("/db/settings/diffs");
+            Element diffs = xpe("/db/settings/diffs");
             for (int ver = myver + 1; ver <= srcver; ver++) {
-                String tstamp = source.getAttr("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
+                String tstamp = source.xpa("/db/settings/diffs/diff[@ver='" + String.valueOf(ver)
                         + "']/@tstamp");
                 Element newdiff = make("diff", new AttrAccessImpl("ver", String.valueOf(ver), "tstamp",
                         tstamp));
                 diffs.appendChild(newdiff);
 
-                for (Element diff : source.listEntities("/db/settings/diffs/diff[@ver='"
+                for (Element diff : source.xpl("/db/settings/diffs/diff[@ver='"
                         + String.valueOf(ver) + "']/diff")) {
                     if (diff.hasAttribute("tagName") && diff.hasAttribute("remove")
                             && diff.getAttribute("remove").equals("y")) {
-                        Element node = XmlDoc.listEntities(diff, "newnode").get(0);
+                        Element node = XmlDoc.xpl(diff, "newnode").get(0);
                         AttrAccess aa = new AttrAccessImpl();
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName"),
@@ -340,7 +339,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                                 .internalDelete(diff.getAttribute("parentPath"),
                                         diff.getAttribute("tagName"), aa);
                     } else if (diff.hasAttribute("tagName")) {
-                        Element node = XmlDoc.listEntities(diff, "newnode").get(0);
+                        Element node = XmlDoc.xpl(diff, "newnode").get(0);
                         Element newnode = make(diff.getAttribute("tagName"));
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "tagName", diff.getAttribute("tagName")));
@@ -353,9 +352,9 @@ public class XmlDb extends XmlDoc implements DistDoc {
                         }
                         d.appendChild(nn);
                         newdiff.appendChild(d);
-                        this.getEntity(diff.getAttribute("parentPath")).appendChild(newnode);
+                        this.xpe(diff.getAttribute("parentPath")).appendChild(newnode);
                     } else {
-                        this.getEntity(diff.getAttribute("parentPath")).setAttribute(
+                        this.xpe(diff.getAttribute("parentPath")).setAttribute(
                                 diff.getAttribute("attr"), diff.getAttribute("newval"));
                         Element d = make("diff", new AttrAccessImpl("parentPath", diff
                                 .getAttribute("parentPath"), "attr", diff.getAttribute("attr"), "newval",
@@ -365,7 +364,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
                 }
             }
 
-            Element settings = getEntity("/db/settings");
+            Element settings = xpe("/db/settings");
             settings.setAttribute("ver", String.valueOf(srcver));
             settings.setAttribute("lastsyncver", String.valueOf(srcver));
         }
@@ -379,13 +378,13 @@ public class XmlDb extends XmlDoc implements DistDoc {
         diffsdb.persistInFile = false;
         diffsdb.initialize("diffs_" + this.name);
 
-        diffsdb.setAttr("/db/settings/@ver", getAttr("/db/settings/@ver"));
-        diffsdb.setAttr("/db/settings/@lastsyncver", getAttr("/db/settings/@lastsyncver"));
+        diffsdb.setAttr("/db/settings/@ver", xpa("/db/settings/@ver"));
+        diffsdb.setAttr("/db/settings/@lastsyncver", xpa("/db/settings/@lastsyncver"));
 
-        Element diffs = diffsdb.getEntity("/db/settings/diffs");
+        Element diffs = diffsdb.xpe("/db/settings/diffs");
 
         for (int ver = fromVersion+1; ver <= toVersion; ver++) {
-            Element d = this.getEntity("/db/settings/diffs/diff[@ver='" + String.valueOf(ver) + "']");
+            Element d = this.xpe("/db/settings/diffs/diff[@ver='" + String.valueOf(ver) + "']");
 
             // mean bastard - don't have all the diffs...
             if (d == null)
@@ -413,7 +412,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
     }
 
     public int getLocalVersion() {
-        int myver = Integer.parseInt(getAttr("/db/settings/@ver"));
+        int myver = Integer.parseInt(xpa("/db/settings/@ver"));
         return myver;
     }
 
@@ -425,7 +424,7 @@ public class XmlDb extends XmlDoc implements DistDoc {
     }
 
     public int getLastSyncVersion() {
-        int myver = Integer.parseInt(getAttr("/db/settings/@lastsyncver"));
+        int myver = Integer.parseInt(xpa("/db/settings/@lastsyncver"));
         return myver;
     }
 

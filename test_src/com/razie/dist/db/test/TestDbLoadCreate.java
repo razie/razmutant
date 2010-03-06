@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.dist.db.test;
 
 import junit.framework.TestCase;
@@ -63,7 +68,7 @@ public class TestDbLoadCreate extends TestCase {
 		db.save(false, true);
 
 		db = AgentDb.reload(newdbname);
-		String s = db.xml().getAttr("/db/node1/@attr1");
+		String s = db.xml().xpa("/db/node1/@attr1");
 		assertTrue("val1".equals(s));
 	}
 
@@ -73,7 +78,7 @@ public class TestDbLoadCreate extends TestCase {
 		AgentDb.sync(syncdbname, Agents.me(), newdbname, true);
 
 		AgentDb db = AgentDb.db(syncdbname);
-		String s = db.xml().getAttr("/db/node1/@attr1");
+		String s = db.xml().xpa("/db/node1/@attr1");
 		assertTrue("val1".equals(s));
 	}
 
@@ -87,7 +92,7 @@ public class TestDbLoadCreate extends TestCase {
 		AgentDb.sync(syncdbname, Agents.me(), newdbname, true);
 
 		AgentDb sdb = AgentDb.db(syncdbname);
-		String s = sdb.xml().getAttr("/db/node1/@attr1");
+		String s = sdb.xml().xpa("/db/node1/@attr1");
 		assertTrue("newval1".equals(s));
 	}
 

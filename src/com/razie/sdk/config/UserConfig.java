@@ -1,15 +1,14 @@
-/*
- * $Id: RiCatalog.java,v 1.3 2007/07/11 20:10:25 razie Exp $
- * 
- * Copyright 2006 - 2007 The Members of the OSS through Java(TM) Initiative. All rights reserved.
- * Use is subject to license terms.
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
  */
 package com.razie.sdk.config;
 
 import java.net.URL;
 
-import com.razie.pub.base.data.XmlDoc;
-import com.razie.pub.webui.MutantPresentation;
+import razie.base.data.XmlDoc;
+
 
 /**
  * to load the config for the OM RI - all request types and other entities are
@@ -31,7 +30,7 @@ public class UserConfig extends XmlDoc {
 		Reg.registerFactory(XMLDOC, new Factory());
 	}
 
-	public static class Factory implements IXmlDocFactory {
+	public static class Factory implements XmlDoc.IXmlDocFactory {
 		public XmlDoc make() {
 			UserConfig singleton = new UserConfig();
 			singleton.load(XMLDOC, singleton.getClass().getResource(DFLT_CATALOG));

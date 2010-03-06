@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.comm.commands;
 
 import java.io.File;
@@ -6,11 +11,11 @@ import java.util.Properties;
 import org.w3c.dom.Element;
 
 import razie.assets.AssetKey;
+import razie.base.data.XmlDoc.Reg;
 import razie.draw.DrawStream;
 import razie.draw.widgets.DrawToString;
 
 import com.razie.media.config.MediaConfig;
-import com.razie.pub.base.data.XmlDoc.Reg;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;
@@ -36,7 +41,7 @@ public abstract class ListAssets extends SocketCmdHandler.Impl {
    
       if (location.length() <= 0 && ("Movie".equals(type) || "Series".equals(type))) {
          // now it's interesting - if location not present, get my defaults
-         for (Element e : Reg.doc(MediaConfig.MEDIA_CONFIG).listEntities(
+         for (Element e : Reg.doc(MediaConfig.MEDIA_CONFIG).xpl(
                  "/config/storage/host[@name='" + Agents.me().name + "']/media")) {
             location = e.getAttribute("localdir");
    

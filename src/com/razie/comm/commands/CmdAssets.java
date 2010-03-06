@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.comm.commands;
 
 import java.io.File;
@@ -12,9 +17,13 @@ import org.w3c.dom.Element;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.FileAssetBrief;
+import razie.base.ScriptContext;
+import razie.base.data.XmlDoc;
+import razie.base.data.XmlDoc.Reg;
 import razie.draw.DrawStream;
 import razie.draw.Drawable;
 import razie.draw.HttpDrawStream;
+import razie.draw.JsonDrawStream;
 import razie.draw.SimpleDrawStream;
 import razie.draw.Technology;
 import razie.draw.widgets.DrawToString;
@@ -25,16 +34,12 @@ import com.razie.media.SeriesInventory;
 import com.razie.pub.FileUtils;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.assets.JavaAssetMgr;
-import razie.base.ScriptContext;
 import com.razie.pub.base.data.HttpUtils;
-import com.razie.pub.base.data.XmlDoc;
-import com.razie.pub.base.data.XmlDoc.Reg;
-import com.razie.pub.base.exceptions.CommRtException;
 import com.razie.pub.comms.Agents;
 import com.razie.pub.comms.AuthException;
+import com.razie.pub.comms.CommRtException;
 import com.razie.pub.comms.MyServerSocket;
 import com.razie.pub.comms.PermType;
-import razie.draw.JsonDrawStream;
 import com.razie.pub.http.StreamConsumedReply;
 import com.razie.pub.lightsoa.SoaService;
 import com.razie.pubstage.comms.HtmlContents;
@@ -201,7 +206,7 @@ public class CmdAssets extends ListAssets {
       String myip = Agents.me().ip;
 
       // i'm sure it's up:
-      Element e = Reg.doc(AgentConfig.AGENT_CONFIG).getEntity(
+      Element e = Reg.doc(AgentConfig.AGENT_CONFIG).xpe(
               "/config/clouds/cloud/*[@name='" + remoteHost + "']");
       String remoteIp = Agents.agent(remoteHost).ip;
       String remoteUrl = Agents.agent(remoteHost).url;
@@ -220,7 +225,7 @@ public class CmdAssets extends ListAssets {
       // now, find remote drive mappings
       // TODO find an idea to use unique paths and replace them on the fly
       // when needed or something
-      for (Element maping : XmlDoc.listEntities(e, "media")) {
+      for (Element maping : XmlDoc.xpl(e, "media")) {
          if (maping.hasAttribute("remote")) {
             String s1 = maping.getAttribute("localdir").replaceAll("\\\\", "/");
             String s2 = "//" + remoteHost + "/" + maping.getAttribute("remote");

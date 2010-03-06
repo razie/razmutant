@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.assets.xml;
 
 import java.util.List;
@@ -41,7 +46,7 @@ public class XmlAssetInventory extends JavaAssetInventoryBase implements JavaAss
      return r;
    }
    public AssetMap queryAll(String meta, AssetLocation env, boolean recurse, AssetMap ret) {
-      for (Element link : AgentDb.db(clsName).xml().listEntities("/db/" + clsName)) {
+      for (Element link : AgentDb.db(clsName).xml().xpl("/db/" + clsName)) {
          AssetBrief b = brief(link);
          ret.put(b.getKey(), b);
       }
@@ -80,7 +85,7 @@ public class XmlAssetInventory extends JavaAssetInventoryBase implements JavaAss
 
    public AssetBrief getBrief(AssetKey ref) {
       // use the list to prevent idiotic issues with duplicates...shit hapens...
-      List<Element> links = AgentDb.db("links").xml().listEntities("/db/link[@url='" + ref.getId() + "']");
+      List<Element> links = AgentDb.db("links").xml().xpl("/db/link[@url='" + ref.getId() + "']");
 
       if (links.size() > 0) {
          return brief(links.get(0));

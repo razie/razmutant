@@ -21,7 +21,7 @@
         <pathelement location="../razupnp/lib/clink170.jar"/>
         <pathelement location="../razupnp/lib/xercesImpl290.jar"/>
         <pathelement location="../razupnp/lib/xml-apis290.jar"/>
-        <pathelement location="../razpubs/bin"/>
+        <pathelement location="../razupnp/bin"/>
         <pathelement location="../razagent/bin"/>
         <pathelement location="../razmedia/bin"/>
         <pathelement location="${scala.home}/lib/scala-compiler.jar"/>

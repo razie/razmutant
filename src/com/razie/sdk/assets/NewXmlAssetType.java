@@ -1,23 +1,22 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.sdk.assets;
 
 import org.w3c.dom.Element;
 
 import razie.JAS;
-import razie.base.*;
 import razie.assets.AssetActionToInvoke;
 import razie.assets.AssetBrief;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.Meta;
 import razie.assets.ProxyInventory;
-
-import com.razie.agent.network.Device;
-import com.razie.agent.network.Devices;
-import com.razie.assets.CoolAsset;
-import com.razie.dist.db.AgentDb;
-import com.razie.pub.agent.AgentHttpService;
 import razie.base.ActionItem;
-import razie.base.AttrAccessImpl;
+import razie.base.ActionToInvoke;
+import razie.base.life.Breather;
 import razie.draw.DrawSequence;
 import razie.draw.DrawStream;
 import razie.draw.Drawable;
@@ -25,6 +24,11 @@ import razie.draw.HttpDrawStream;
 import razie.draw.Technology;
 import razie.draw.widgets.DrawToString;
 
+import com.razie.agent.network.Device;
+import com.razie.agent.network.Devices;
+import com.razie.assets.CoolAsset;
+import com.razie.dist.db.AgentDb;
+import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.base.TimeOfDay;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.Agents;
@@ -32,7 +36,6 @@ import com.razie.pub.lightsoa.SoaMethod;
 import com.razie.pub.lightsoa.SoaStreamable;
 import com.razie.pub.resources.RazIcons;
 import com.razie.pub.webui.DrawLater;
-import com.razie.pubstage.life.Breather;
 import com.razie.sdk.assets.providers.MutantProvider;
 
 /**
@@ -171,7 +174,7 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
         // jumper is persisted when it jumps...
         AgentDb db = AgentDb.db("assets");
 
-        Element jumper = db.xml().getEntity("/db/" + sCLASS);
+        Element jumper = db.xml().xpe("/db/" + sCLASS);
         if (jumper != null) {
             db.xml().setAttr("/db/" + sCLASS, "key", "theone", "laps", singleton.laps, "hops",
                     singleton.hops, "myHost", singleton.myHost);
@@ -181,7 +184,7 @@ public class NewXmlAssetType extends CoolAsset implements Breather {
 
     public static void load() {
         AgentDb db = AgentDb.db("assets");
-        Element jumper = db.xml().getEntity("/db/" + sCLASS);
+        Element jumper = db.xml().xpe("/db/" + sCLASS);
 
         if (jumper == null) {
             // this must hapen only once ever...

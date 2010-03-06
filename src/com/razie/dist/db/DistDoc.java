@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____/___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+ */
 package com.razie.dist.db;
 
 /**
@@ -39,7 +44,6 @@ package com.razie.dist.db;
  * TODO future actual conflict resolution, with selectable strategies - not handled yet.
  * 
  * @author razvanc
- * 
  */
 public interface DistDoc {
 	/**
@@ -113,5 +117,4 @@ public interface DistDoc {
 	 * upgrade
 	 */
 	void upgradeFormat(int fromFormatVer, int toFromatVer);
-
 }
