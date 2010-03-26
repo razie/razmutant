@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
+ */
 package com.razie.mutant.scripting
 
 import com.razie.pub.agent._
@@ -9,6 +14,7 @@ import razie.draw.widgets._
 import com.razie.pub.lightsoa._
 import razie.assets._
 import razie.base._
+import razie.base.scripting._
 
 /** this is present in the scriptable contexts as "mutant" - it is a collection of all mutant capability in regards to scripting. 
  
@@ -57,7 +63,7 @@ class MutantScriptable extends AgentService {
   @SoaMethod(descr = "execute script", /*perm=LightAuth.PermType. ADMIN, */args = Array( "script" ))
   def script (script:String) = {
     val scr = ScriptFactory.make(null, script);
-    new DrawToString(scr.eval(ScriptContext.Impl.global()));
+    new DrawToString(scr.eval(ScriptFactory.mkContext()));
   } 
 
   @SoaMethod(descr = "execute script on remote host", args = Array( "host", "script" ))

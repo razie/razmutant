@@ -27,7 +27,7 @@ public class TestMutant extends TestCase {
                                          "http://localhost:" + PORT.toString());
 
     public void setUp() {
-        LightAuth.init(new LightAuth("mutant"));
+        LightAuth.init("mutant");
 
         AgentCloud group = new AgentCloud();
         group.put(me);

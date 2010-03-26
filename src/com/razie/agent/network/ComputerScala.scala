@@ -1,3 +1,8 @@
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
+ */
 package com.razie.agent.network
 
 import com.razie.pub.assets._
@@ -18,6 +23,7 @@ import com.razie.pubstage.comms._
 import razie.assets._
 import razie.agent.pres._
 import razie.base._
+import razie.base.scripting._
 
 object SS {
   val cmdKEYBOARD = new ActionItem("keyboard", "/public/pics/keyboard.png");
@@ -93,7 +99,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    @SoaMethod(descr = "run a given script on the given machine", args=Array("language", "script") , perm = PermType.ADMIN)
    def runscript (language:String,script:String) = {
       val scr = ScriptFactory.make(language, script)
-      val res = scr.eval(ScriptContext.Impl.global()).toString()
+      val res = scr.eval(ScriptFactory mkContext null).toString()
       //      HtmlRenderUtils.textToHtml(res)
       res
    }
@@ -101,7 +107,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    // TODO move to razplay and inject as valueadd
    @SoaMethod(descr = "generate local security codes", args=Array("password"), perm = PermType.ADMIN)
    def resetSecurity (password:String) = {
-      LightAuth.instance.resetSecurity (password)
+      LightAuthBase.instance.resetSecurity (password)
    }
 
    // TODO move to razplay and inject as valueadd
@@ -115,7 +121,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
          var pk = ati.act(null).toString
          // TODO remove this when pubKey returns text, see todo there
          pk =  HtmlContents.justBody(pk)
-         LightAuth.instance.accept (password, this.getHandle, pk)
+         LightAuthBase.instance.accept (password, this.getHandle, pk)
       }
    }
 
@@ -125,7 +131,7 @@ class ComputerScala (ref:AssetKey, ttype:Computer.Type) extends ComputerImpl (re
    def pubKey (/*out:DrawStream*/)= {
    //TODO use mime type when TODO in DeviceInventory.doAction is done...
       if (this.getHandle().name == Agents.me().name) {
-         val pk = LightAuth.instance.pubkey (this.getHandle)
+         val pk = LightAuthBase.instance.pubkey (this.getHandle)
          pk
       } else {
     	  // TODO SECU protect this code

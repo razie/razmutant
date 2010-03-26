@@ -16,5 +16,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/razupnp"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razweb"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scripster"/>
+	<classpathentry kind="lib" path="/razupnp/lib/xercesImpl290.jar"/>
+	<classpathentry kind="lib" path="/razupnp/lib/xml-apis290.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

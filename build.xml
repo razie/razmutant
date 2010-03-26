@@ -24,6 +24,7 @@
         <pathelement location="../razupnp/bin"/>
         <pathelement location="../razagent/bin"/>
         <pathelement location="../razmedia/bin"/>
+        <pathelement location="../razxml/dist/razxml.jar"/>
         <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
     </path>
 
@@ -139,6 +140,7 @@
         <pathelement location="${w}/20widgets/bin/"/>
         <pathelement location="${w}/razbase/bin/"/>
         <pathelement location="${w}/razbase/lib/json.jar"/>
+        <pathelement location="${w}/razxml/dist/razxml.jar"/>
         <pathelement location="${scala.home}/lib/scala-library.jar"/>
         <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
     </path>

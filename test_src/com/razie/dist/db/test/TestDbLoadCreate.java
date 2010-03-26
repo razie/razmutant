@@ -1,7 +1,7 @@
-/**  ____    __    ____  ____  ____/___     ____  __  __  ____
- *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
- *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
- *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
  */
 package com.razie.dist.db.test;
 
@@ -10,16 +10,18 @@ import junit.framework.TestCase;
 import org.json.JSONObject;
 
 import razie.assets.InventoryAssetMgr;
+import razie.base.AttrAccess;
+import razie.base.AttrAccessImpl;
 
 import com.razie.dist.db.AgentDb;
 import com.razie.pub.agent.Agent;
 import com.razie.pub.assets.JavaAssetMgr;
-import razie.base.AttrAccess;
-import razie.base.AttrAccessImpl;
+import com.razie.pub.base.NoStatics;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentCloud;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;
+import com.razie.pub.comms.LightAuth;
 
 public class TestDbLoadCreate extends TestCase {
 	static String newdbname = null;
@@ -34,8 +36,11 @@ public class TestDbLoadCreate extends TestCase {
 
 	public void setUp() {
 		if (newdbname == null) {
+		   NoStatics.resetJVM();
+		   LightAuth.init("mutant");
+		   
 			AgentCloud group = new AgentCloud(me);
-			agent = new razie.SimpleAgent(me, group).onInit();
+			agent = new razie.SimpleAgent(me, group).onInit().onStartup();
 
 			agent.getContext().enter();
 

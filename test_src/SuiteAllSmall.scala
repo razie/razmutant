@@ -1,5 +1,8 @@
-
-
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
+ */
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -23,6 +26,7 @@ class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
    addTest(SuiteAgent.suite());
    addTest(com.razie.SuiteMedia.suite());
    addTest(SuiteDist.suite());
+   addTest(SuiteScripster.suite());
    
    def test1() = 
      // don't touch this line

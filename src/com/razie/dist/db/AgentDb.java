@@ -1,7 +1,7 @@
-/**  ____    __    ____  ____  ____/___     ____  __  __  ____
- *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
- *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
- *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
  */
 package com.razie.dist.db;
 
@@ -147,6 +147,7 @@ public class AgentDb implements AssetBase {
 //        if (mutant.isUp()) {
         if (AgentHandle.DeviceStatus.UP.equals(fromHost.status)) {
             // TODO 2-1 change to ATI
+            // TODO 2-1 change from public to dedicated xdb service to serve these files
             String url = "http://" + fromHost.ip + ":"
                     + fromHost.port + "/mutant/local/xdb_" + remotedbname + ".xml";
             XmlDb remotedb = new XmlDb();

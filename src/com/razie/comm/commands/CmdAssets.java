@@ -1,7 +1,7 @@
-/**  ____    __    ____  ____  ____/___     ____  __  __  ____
- *  (  _ \  /__\  (_   )(_  _)( ___) __)   (  _ \(  )(  )(  _ \           Read
- *   )   / /(__)\  / /_  _)(_  )__)\__ \    )___/ )(__)(  ) _ <     README.txt
- *  (_)\_)(__)(__)(____)(____)(____)___/   (__)  (______)(____/   LICENESE.txt
+/**  ____    __    ____  ____  ____,,___     ____  __  __  ____
+ *  (  _ \  /__\  (_   )(_  _)( ___)/ __)   (  _ \(  )(  )(  _ \           Read
+ *   )   / /(__)\  / /_  _)(_  )__) \__ \    )___/ )(__)(  ) _ <     README.txt
+ *  (_)\_)(__)(__)(____)(____)(____)(___/   (__)  (______)(____/    LICENSE.txt
  */
 package com.razie.comm.commands;
 
@@ -17,9 +17,10 @@ import org.w3c.dom.Element;
 import razie.assets.AssetKey;
 import razie.assets.AssetLocation;
 import razie.assets.FileAssetBrief;
-import razie.base.ScriptContext;
 import razie.base.data.XmlDoc;
 import razie.base.data.XmlDoc.Reg;
+import razie.base.scripting.ScriptContext;
+import razie.base.scripting.ScriptContextImpl;
 import razie.draw.DrawStream;
 import razie.draw.Drawable;
 import razie.draw.HttpDrawStream;
@@ -95,7 +96,7 @@ public class CmdAssets extends ListAssets {
          socket.auth(PermType.CONTROL);
          String cmd = parms.getProperty("cmd");
          AssetKey ref = AssetKey.fromString(parms.getProperty("ref"));
-         Object d = JavaAssetMgr.doAction(cmd, ref, new ScriptContext.Impl(parms));
+         Object d = JavaAssetMgr.doAction(cmd, ref, new ScriptContextImpl(parms));
          out.write(d == null ? "<NULL>" : d);
          out.close();
          return new StreamConsumedReply();

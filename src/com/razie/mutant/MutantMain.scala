@@ -26,7 +26,7 @@ import com.razie.pub.plugin._
 import com.razie.pub.comms._
 import com.razie.pub.agent._
 import razie.assets._
-import razie.scripting._
+import razie.base.scripting._
 
 /** starts the mutant agent. */
 object MutantMain {
@@ -84,7 +84,10 @@ object MutantMain {
          MutantDevices.init(new MutantDevicesScala(), Agents.findMyHostName(testing), selectip);
          val d = Devices.getInstance();
          
-         LightAuth.init(new LightAuth("mutant"))
+      LightAuth.underLockAndKey {
+        LightAuth init "mutant"
+      }
+
 
          // stupid way to decouple the playground...
          try {

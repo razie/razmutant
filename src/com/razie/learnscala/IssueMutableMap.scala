@@ -4,7 +4,7 @@ object IssueMutableMap extends Application {
   
   println("test1--------------")
   println(test1 mkString ",")
-  println (test1.counted mkString ",") 
+//  println (test1.counted mkString ",") 
   
   println("test2--------------")
   println(test2 mkString ",")

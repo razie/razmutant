@@ -23,20 +23,20 @@ public class TestMutantBasic extends TestMutant {
 
     public void testEcho() throws IOException, InterruptedException {
         // send echo command
-        LightAuth.init(new LightAuth("nonmutant"));
+        LightAuth.init("nonmutant");
         ActionToInvoke action = new SimpleActionToInvoke(MYURL, new ActionItem("xxx"));
         String result = (String) action.act(null);
-        LightAuth.init(new LightAuth("mutant"));
+        LightAuth.init("mutant");
 
         assertTrue(result.contains("Echo"));
     }
 
     public void testMainPage() throws IOException, InterruptedException {
         // send echo command
-        LightAuth.init(new LightAuth(""));
+        LightAuth.init("");
         ActionToInvoke action = new SimpleActionToInvoke(MYURL, new ActionItem("mutant"));
         String result = (String) action.act(null);
-        LightAuth.init(new LightAuth("mutant"));
+        LightAuth.init("mutant");
 
         assertTrue(result.contains("Jukebox"));
     }
