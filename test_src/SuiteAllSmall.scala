@@ -22,6 +22,7 @@ class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
    addTest(new SuitePubs());
    addTest(SuiteUpnp.suite());
    addTest(SuiteActionables.suite());
+   addTest(new SuiteWf);
    addTest(SuiteAssets.suite());
    addTest(SuiteAgent.suite());
    addTest(com.razie.SuiteMedia.suite());
