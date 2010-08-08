@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0" >
+	<specVersion>
+		<major>1</major>
+		<minor>0</minor>
+	</specVersion>
+	<actionList>
+		<action>
+			<name>SetTime</name>
+			<argumentList>
+				<argument>
+					<name>NewTime</name>
+					<relatedStateVariable>Time</relatedStateVariable>
+					<direction>in</direction>
+				</argument>
+				<argument>
+					<name>Result</name>
+					<relatedStateVariable>Result</relatedStateVariable>
+					<direction>out</direction>
+				</argument>
+			</argumentList>
+		</action>
+		<action>
+			<name>GetTime</name>
+			<argumentList>
+				<argument>
+					<name>CurrentTime</name>
+					<relatedStateVariable>Time</relatedStateVariable>
+					<direction>out</direction>
+				</argument>
+			</argumentList>
+		</action>
+		<action>
+			<name>Ping</name>
+			<argumentList>
+				<argument>
+					<name>srcHost</name>
+					<relatedStateVariable>G_ARG_Host</relatedStateVariable>
+					<direction>in</direction>
+				</argument>
+				<argument>
+					<name>srcIp</name>
+					<relatedStateVariable>G_ARG_IP</relatedStateVariable>
+					<direction>in</direction>
+				</argument>
+				<argument>
+					<name>srcPort</name>
+					<relatedStateVariable>G_ARG_Port</relatedStateVariable>
+					<direction>in</direction>
+				</argument>
+				<argument>
+					<name>myHost</name>
+					<relatedStateVariable>G_ARG_Host</relatedStateVariable>
+					<direction>out</direction>
+				</argument>
+				<argument>
+					<name>myPort</name>
+					<relatedStateVariable>G_ARG_Port</relatedStateVariable>
+					<direction>out</direction>
+				</argument>
+			</argumentList>
+		</action>
+	</actionList>
+	<serviceStateTable>
+		<stateVariable sendEvents="yes">
+			<name>Time</name>
+			<dataType>string</dataType>
+		</stateVariable>
+		<stateVariable sendEvents="no">
+			<name>Result</name>
+			<dataType>string</dataType>
+		</stateVariable>
+		<stateVariable sendEvents="no">
+			<name>G_ARG_Host</name>
+			<dataType>string</dataType>
+		</stateVariable>
+		<stateVariable sendEvents="no">
+			<name>G_ARG_IP</name>
+			<dataType>string</dataType>
+		</stateVariable>
+		<stateVariable sendEvents="no">
+			<name>G_ARG_Port</name>
+			<dataType>string</dataType>
+		</stateVariable>
+	</serviceStateTable>
+</scpd>

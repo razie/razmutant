@@ -1,0 +1,11 @@
+<!-- registration for all assets and metas in the system TODO breakdown per service -->
+<config>
+
+   <!-- boostrap locations - any assets defined in these locations are picked up and registered upon startup -->
+   <bootstrap>
+      <!-- just annotate the respective asset class with the SoaAsset annotation -->
+      <package name="com.razie.bootstrap.assets.*"/>
+      <class name="com.razie.bootstrap.assets.Network"/>
+   </bootstrap>
+   
+</config>

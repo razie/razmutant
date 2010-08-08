@@ -1,0 +1,84 @@
+package com.razie.assets;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+
+import com.razie.pub.assets.AssetBrief;
+import com.razie.pub.assets.AssetMgr;
+import com.razie.pub.assets.Meta;
+import com.razie.pub.base.ActionItem;
+import com.razie.pub.base.ScriptContext;
+import com.razie.pub.base.log.Log;
+import razie.draw.Drawable3;
+import com.razie.sdk.assets.SdkAsset;
+
+/**
+ * simple inventory for all assets - this is used for smart assets that do not have their own inventories
+ * 
+ * you can define new assets in user.xml and they automatically are managed here. Assets will have
+ * "key" and other attributes. you can add logic via scripting, see "sampleassets" in user.xml
+ * 
+ * @author razvanc
+ */
+public class ProxyInventory implements AssetInventory {
+
+   Map<AssetKey, SdkAsset> assets = new HashMap<AssetKey, SdkAsset>();
+
+   public ProxyInventory() {
+      Log.logThis("INIT proxyiinv");
+   }
+
+   /** find this inventory in assetmgr and register each object */
+   public void register(AssetKey k, SdkAsset o) {
+      assets.put(k, o);
+   }
+
+   /** use the base and add details */
+//   override def query(criteria:QueryCriteria, env:AssetLocation, recurse:boolean, ret:AssetMap) : AssetMap =  {
+//      for (k <- assets.keySet() if (k.getType().equals(type))
+//         ret.put(k, assets.get(k).getBrief());
+//
+//      ret;
+//   }
+
+   public AssetBrief getBrief(AssetKey ref) {
+      return get(ref).getBrief();
+   }
+
+   public SdkAsset get(AssetKey ref) {
+      return assets.get(ref);
+   }
+
+   @Override
+   public Drawable details(AssetBrief asset) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   @Override
+   public Object doAction(String cmd, AssetKey ref, ScriptContext ctx) {
+      if (cmd == null || cmd.length() == 0 || cmd.equals("details")) {
+         Object a = AssetMgr.getAsset(ref);
+         if (a != null && a instanceof AssetImpl) {
+            AssetImpl amovie = (AssetImpl) a;
+            ScriptContext nctx = ctx != null ? ctx : new ScriptContext.Impl(ScriptContext.Impl.global());
+            return amovie.paint(nctx);
+         }
+      }
+      return null;
+   }
+
+   @Override
+   public ActionItem[] getSupportedActions(AssetKey ref) {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   @Override
+   public void init(Meta meta) {
+      // nothing to init
+   }
+}

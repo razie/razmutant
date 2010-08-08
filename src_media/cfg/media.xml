@@ -1,0 +1,171 @@
+
+	<!--
+		Configuration of the media components. KEEP IN MIND: this file is the
+		same on each node in your network When upgrading mutants to/from, this
+		file is also upgraded to/from, so you can add/change hosts etc.
+	-->
+<config>
+	<!--
+		When adding a category, the picture must be inside the mutant jar for
+		now. Also, this pic is ignored - the categories are hardcoded in the
+		listall.html for now... TODO replace this category system with a
+		generic/dynamic tagging system
+	-->
+	<categories>
+		<category name="Kids" subdir="Kids" type="Movie"
+			pic="/mutant/pics/cat_kids.png" />
+		<category name="Family" subdir="Family" type="Movie"
+			pic="/mutant/pics/cat_family.jpg" />
+		<category name="Comedy" subdir="Comedy" type="Movie"
+			pic="/mutant/pics/cat_comedy.jpg" />
+		<category name="Action" subdir="Action" type="Movie"
+			pic="/mutant/pics/cat_action.png" />
+		<category name="Drama" subdir="Drama" type="Movie"
+			pic="/mutant/pics/cat_drama.png" />
+		<category name="Personal" subdir="Personal" type="Movie"
+			pic="/mutant/pics/cat_personal.jpg" />
+		<category name="Science" subdir="Science" type="Movie"
+			pic="/mutant/pics/cat_science.png" />
+		<category name="Sports" subdir="Sports" type="Movie"
+			pic="/mutant/pics/cat_sports.png" />
+		<category name="Horror" subdir="Horror" type="Movie"
+			pic="/mutant/pics/cat_horror.jpg" />
+		<category name="All" type="Movie" pic="/mutant/pics/cat_all.png" />
+		<category name="Rest" type="Movie" pic="/mutant/pics/cat_rest.png" />
+	</categories>
+
+	<!--
+		the list of hosts in your home network name: is the actual name of the
+		box, case sensitive - AS DEFINED in agent.xml media: for each host,
+		map all local media folders when maping media, make sure the remote
+		mapping does not include the two \\ also, remote paths MUST use / not
+		\, fucking windows!!!
+	-->
+	<storage>
+		<host name="Andrei">
+			<media type="Movie" localdir="C:\Video" remote="Video"></media>
+			<media type="Movie" localdir="G:\Media" remote="GMedia" />
+		</host>
+		<host name="razubuntu">
+			<media type="Movie" localdir="/host/Video" remote="video" />
+			<media type="Photo" localdir="/host/Workspaces/Documents"
+				remote="Pictures" />
+		</host>
+		<host name="TorLp-Razvanc">
+			<media type="Movie" localdir="e:\video" remote="video" />
+		</host>
+		<host name="TEST-host">
+			<media type="Movie" localdir="e:\video" remote="video" />
+		</host>
+		<host name="Razie">
+			<media type="Movie" localdir="d:\my videos\other" remote="Videos/Other" />
+			<media type="Movie" localdir="c:\video" remote="Video" />
+			<media type="Movie" localdir="N:\Media" remote="NMedia" />
+			<media type="Movie" localdir="O:\Media" remote="OMedia" />
+			<media type="Photo" localdir="D:\Pictures" remote="Pictures" />
+		</host>
+		<host name="whs">
+			<media type="Movie" localdir="D:\shares\Videos" remote="Videos" />
+			<media type="Photo" localdir="D:\shares\Photos" remote="Photos" />
+			<media type="Music" localdir="D:\shares\Music" remote="Music" />
+		</host>
+		<host name="TORLP-RAZVANC1">
+			<media type="Movie" localdir="c:\video" remote="video" />
+		</host>
+	</storage>
+
+	<!--
+		the players currently supported Players are organized in batches, per
+		platform. A platform is an OS (i.e. windowsxp) or a single host. A
+		host will use the OS defaults. TODO nice inheritance mechanism would
+		be nice Here's the expansion: ${asset.path} - the full remote path to
+		the file, windows style ${asset.smbpath} - full remote path prefixed
+		with smb: for ubuntu ${asset.url} - streaming url - you can stream it
+		from here (generally via the mutant)
+	-->
+	<players>
+		<platform os="windowsxp">
+			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"
+				program="C:\Program Files\VideoLAN\VLC\vlc.exe -f --extraintf rc --rc-host localhost:4449 ${asset.path}">
+				<actionables>
+					<action name="play"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=play" />
+					<action name="pause"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=pause" />
+					<action name="rew"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=rewind" />
+					<action name="fwd"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=fastforward" />
+					<action name="prev"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=prev" />
+					<action name="skip"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=next" />
+					<action name="stop"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=quit" />
+
+					<!--  volume commands are left to windows -->
+
+					<action name="testplay"
+						exec="simple:playkey key=VK_F,ctrl=true,shift=true" />
+					<action name="testplay2"
+						exec="simple:cmdline program=gigi.exe,args=blahblah" />
+				</actionables>
+			</player>
+			<!--  I normally force the VLC player -->
+			<player name="winfile" aliasto="vlc" />
+			<player name="winfileSTANDARD" desc="standard file player, with the default program"
+				class="com.razie.pub.media.players.WinFilePlayer" program="cmd.exe /C ${asset.path}" />
+			<player name="daemon" desc="plays .ISO files"
+				class="com.razie.pub.media.players.PlayerDaemonTools" />
+			<player name="internet" class="com.razie.pub.media.players.InternetPlayer"
+				program="C:\Program Files\Internet Explorer\iexplore.exe" />
+			<player name="winstream" class="com.razie.pub.media.players.WinFilePlayer"
+				program="C:\Program Files\Windows Media Player\wmplayer.exe /fullscreen" />
+			<player name="dvdfolder" class="com.razie.pub.media.players.DvdFolderPlayer" />
+			<player name="SeriesPlayer" class="com.razie.pub.media.players.SeriesPlayer" />
+		</platform>
+		<platform os="ubuntu">
+			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"
+				shell="/bin/sh -c"
+				program="/usr/bin/vlc -f --extraintf='rc' --rc-fake-tty --rc-host=localhost:4449 ${asset.smbpath}">
+				<actionables>
+					<action name="play"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=pause" />
+					<action name="pause"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=pause" />
+					<action name="rew"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=rewind" />
+					<action name="fwd"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=fastforward" />
+					<action name="prev"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=prev" />
+					<action name="skip"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=next" />
+					<action name="stop"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=quit" />
+					<action name="volup"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=volup" />
+					<action name="voldown"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=voldown" />
+					<action name="mute"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=volume 1" />
+
+					<action name="testplay"
+						exec="simple:playkey key=VK_F,ctrl=true,shift=true" />
+					<action name="testplay2"
+						exec="simple:cmdline program=gigi.exe,args=blahblah" />
+				</actionables>
+			</player>
+			<player name="winfile" aliasto="vlc" />
+			<player name="internet" class="com.razie.pub.media.players.InternetPlayer"
+				program="/usr/bin/firefox" />
+			<player name="SeriesPlayer" class="com.razie.pub.media.players.SeriesPlayer" />
+		</platform>
+		<!--  example to override ina single host -->
+		<platform host="notyyubuntu">
+			<player name="daemon" class="com.razie.pub.media.players.PlayerDaemonTools" />
+		</platform>
+	</players>
+
+
+</config>

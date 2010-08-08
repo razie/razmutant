@@ -1,0 +1,34 @@
+<!-- registration for all assets and metas in the system TODO breakdown per service -->
+<plugin desc="some base assets...">
+
+   <!-- boostrap locations - any assets defined in these locations are picked up and registered upon startup -->
+   <bootstrap>
+      <!-- just annotate the respective asset class with the SoaAsset annotation -->
+      <package name="com.razie.bootstrap.assets.*"/>
+      <class name="com.razie.bootstrap.assets.Network"/>
+   </bootstrap>
+   
+	<!-- registration for the assets we support -->
+	<metaspecs>
+		<metaspec name="Stream" icon="/mutant/pics/news.png"
+			inventory="com.razie.assets.StreamInventory" />
+		<metaspec name="Site" icon="/mutant/pics/web.png"
+			inventory="com.razie.assets.SiteInventory" />
+		<metaspec name="Link" icon="/mutant/pics/web.png"
+			inventory="com.razie.assets.LinkInventory" />
+	</metaspecs>
+
+	<!-- 
+		there are many types of asset finders. One basic is provided in the sdk, 
+		which can find files based on extension.
+		
+		the properties for each finder are in a sub-element "finderProps". 
+		"extension" is the only exception since it is so common...	
+		
+		to define your own screwy asset type, put together a finder and a player. 
+		that's it
+	-->
+	<assetfinders>
+	</assetfinders>
+
+</plugin>

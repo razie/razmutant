@@ -1,0 +1,104 @@
+<!-- registration for all assets and metas in the system TODO breakdown per service -->
+<plugin classname="com.razie.pub.media.MediaPlugin">
+
+	<!-- registration for the assets we support -->
+	<metaspecs>
+		<metaspec name="Movie" icon="/mutant/pics/bb_mov_.png"
+			inventory="com.razie.media.assets.MovieInventory" />
+			
+		<metaspec name="Music" icon="/mutant/pics/search_music.png"
+			inventory="com.razie.media.assets.MusicInventory" />
+
+		<metaspec name="Photo" icon="/mutant/pics/gnome-mime-image-x-svg.png"
+			inventory="com.razie.media.assets.PhotoInventory" />
+			
+		<metaspec name="Series" icon="/mutant/pics/bb_mov_.png"
+			inventory="com.razie.media.SeriesInventory" >
+   		<metaassoc stereotype="has" name="SeriesHasItems"    zRef="Movie" aRole="series" zRole="items" />
+		   <metaassoc stereotype="has" name="SeriesHasOldItems" zRef="Movie" aRole="series" zRole="old" />
+   		<metaassoc stereotype="has" name="SeriesHasNewItems" zRef="Movie" aRole="series" zRole="new" />
+		</metaspec>
+	</metaspecs>
+
+	<!-- 
+		there are many types of asset finders. One basic is provided in the sdk, 
+		which can find files based on extension.
+		
+		the properties for each finder are in a sub-element "finderProps". 
+		"extension" is the only exception since it is so common...	
+		
+		to define your own screwy asset type, put together a finder and a player. 
+		that's it
+	-->
+	<assetfinders>
+		<assetfinder type="Movie" name="avi file"
+			icon="/mutant/pics/bb_mov_.png" extension="avi"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="divx file"
+			icon="/mutant/pics/divx.png" extension="divx"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="wmv file"
+			icon="/mutant/pics/bb_mov_.png" extension="wmv"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="mpg file"
+			icon="/mutant/pics/bb_mov_.png" extension="mpg"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="mpeg file"
+			icon="/mutant/pics/bb_mov_.png" extension="mpeg"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="OGM file"
+			icon="/mutant/pics/bb_mov_.png" extension="ogm"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="Matroska file"
+			icon="/mutant/pics/bb_mov_.png" extension="mkv"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="Real Media"
+			icon="/mutant/pics/bb_mov_.png" extension="rm"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="Real Audio"
+			icon="/mutant/pics/bb_mov_.png" extension="ram"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="Flash video"
+			icon="/mutant/pics/bb_mov_.png" extension="flv"
+			finder="com.razie.sdk.finders.AssetFinder" player="vlc" />
+		<assetfinder type="Movie" name="mp4 video"
+			icon="/mutant/pics/bb_mov_.png" extension="mp4"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Movie" name="ts file"
+			icon="/mutant/pics/bb_mov_.png" extension="ts"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile">
+			<!-- ts files are Transport Stream from satellite PVR. 
+				You have to install the VLC viewer to view them and mkv -->
+		</assetfinder>
+		<assetfinder type="Movie" name="DVD image"
+			icon="/mutant/pics/bb_dvd_.png" extension="iso"
+			finder="com.razie.sdk.finders.AssetFinder" player="daemon" />
+		<assetfinder type="Movie" name="DVD folders"
+			icon="/mutant/pics/bb_dvd_.png"
+			finder="com.razie.sdk.finders.DvdFolderFinder" player="dvdfolder">
+			<finderProps extension="" />
+		</assetfinder>
+
+		<assetfinder type="Music" name="mp3 file"
+			icon="/mutant/pics/bb_mov_.png" extension="mp3"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Music" name="wav file"
+			icon="/mutant/pics/bb_mov_.png" extension="wav"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+
+		<assetfinder type="Photo" name="jpeg file"
+			icon="/mutant/pics/bb_mov_.png" extension="jpg"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Photo" name="jpeg file"
+			icon="/mutant/pics/bb_mov_.png" extension="jpeg"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+		<assetfinder type="Photo" name="png file"
+			icon="/mutant/pics/bb_mov_.png" extension="PNG"
+			finder="com.razie.sdk.finders.AssetFinder" player="winfile" />
+
+		<assetfinder type="Series" name="Movie Series"
+			icon="/mutant/pics/bb_mov_.png" extension="series.txt"
+			finder="com.razie.sdk.finders.AssetFinder" player="SeriesPlayer" />
+	</assetfinders>
+
+</plugin>

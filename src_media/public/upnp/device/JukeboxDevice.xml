@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+	<specVersion>
+		<major>1</major>
+		<minor>0</minor>
+	</specVersion>
+	<device>
+		<deviceType>urn:schemas-upnp-org:device:MediaServer:2</deviceType>
+		<friendlyName>Mutant Jukebox2</friendlyName>
+		<manufacturer>Razvan C</manufacturer>
+		<manufacturerURL>http://www.razie.com</manufacturerURL>
+		<modelDescription>Mutant Jukebox MediaServer2</modelDescription>
+		<modelName>Mutant2</modelName>
+		<modelNumber>1.0</modelNumber>
+		<modelURL>http://www.razie.com/mutant</modelURL>
+		<serialNumber>12345678902</serialNumber>
+		<UDN>uuid:3c11f2d2-f62e-11dc-95ff-0800200c9a66</UDN>
+		<UPC>1234567890122</UPC>
+		<iconList>
+			<icon>
+				<mimetype>image/gif</mimetype>
+				<width>48</width>
+				<height>32</height>
+				<depth>8</depth>
+				<url>mutant-icon.gif</url>
+			</icon>
+		</iconList>
+		<serviceList>
+			<service>
+				<serviceType>urn:schemas-upnp-org:service:ContentDirectory:2</serviceType>
+				<serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
+				<controlURL>/upnp/service/ContentDirectory2/control</controlURL>
+				<eventSubURL>/upnp/service/ContentDirectory2/eventSub</eventSubURL>
+				<SCPDURL>/service/ContentDirectory2.xml</SCPDURL>
+			</service>
+			<service>
+				<serviceType>urn:schemas-upnp-org:service:ConnectionManager:2</serviceType>
+				<serviceId>urn:upnp-org:serviceId:ConnectionManager</serviceId>
+				<controlURL>/upnp/service/ConnectionManager2/control</controlURL>
+				<eventSubURL>/upnp/service/ConnectionManager2/eventSub</eventSubURL>
+				<SCPDURL>/service/ConnectionManager2.xml</SCPDURL>
+			</service>
+		</serviceList>
+		<presentationURL>/upnp/presentation2</presentationURL>
+	</device>
+</root>

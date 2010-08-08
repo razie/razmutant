@@ -7,8 +7,6 @@ package com.razie.assets.xml;
 
 import java.util.List;
 
-import com.razie.pub.assets.*;
-
 import org.w3c.dom.Element;
 
 import razie.assets.AllOfType;
@@ -22,13 +20,13 @@ import razie.assets.AssetMap;
 import razie.assets.FileAssetBrief;
 import razie.assets.Meta;
 import razie.assets.QueryCriteria;
+import razie.base.ActionContext;
+import razie.base.ActionItem;
 
 import com.razie.dist.db.AgentDb;
 import com.razie.media.ScalaMediaInventoryBik;
-import razie.base.ActionItem;
-import razie.draw.Drawable3;
-
-import razie.base.scripting.ScriptContext;
+import com.razie.pub.assets.JavaAssetInventory;
+import com.razie.pub.assets.JavaAssetInventoryBase;
 import com.razie.pub.resources.RazIcons;
 
 /**
@@ -105,7 +103,7 @@ public class XmlAssetInventory extends JavaAssetInventoryBase implements JavaAss
    private static final ActionItem[] defaultCmds = { AssetBrief$.MODULE$.PLAY(), AssetBrief$.MODULE$.DELETE() };
 
    @Override
-   public Object doAction(String cmd, AssetKey ref, ScriptContext ctx) {
+   public Object doAction(String cmd, AssetKey ref, ActionContext ctx) {
       // TODO Auto-generated method stub
       return null;
    }

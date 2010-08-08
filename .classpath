@@ -3,8 +3,10 @@
 	<classpathentry kind="lib" path="/razxml/dist/razxml.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test_src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/razagent"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/razmedia"/>
+	<classpathentry kind="src" path="src_media"/>
+	<classpathentry kind="src" path="test_src_media"/>
+	<classpathentry kind="src" path="src_agent"/>
+	<classpathentry kind="src" path="test_src_agent"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/razpub"/>
 	<classpathentry kind="con" path="ch.epfl.lamp.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -18,6 +20,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/scripster"/>
 	<classpathentry kind="lib" path="/razupnp/lib/xercesImpl290.jar"/>
 	<classpathentry kind="lib" path="/razupnp/lib/xml-apis290.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/razwf"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gremlins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

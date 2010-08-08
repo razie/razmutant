@@ -1,0 +1,215 @@
+package com.razie.assets;
+
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.w3c.dom.Element;
+
+import razie.assets.AssetBase;
+import razie.assets.AssetBrief;
+import razie.assets.AssetInventory;
+import razie.assets.AssetKey;
+import razie.assets.AssetLocation;
+import razie.assets.AssetMgr;
+import razie.assets.Meta;
+
+import com.razie.assets.presentation.TempAssetPres;
+import com.razie.pub.assets.AssetPres;
+import com.razie.pub.base.ActionItem;
+import com.razie.pub.base.ScriptContext;
+import com.razie.pub.base.log.Log;
+import razie.draw.Drawable3;
+import com.razie.pub.lightsoa.SoaAsset;
+
+/**
+ * simple inventory-based manager, a proxy for all inventories
+ * 
+ * @author razvanc
+ */
+public class InventoryAssetMgr extends AssetMgr {
+   /**
+    * @associates XInventory
+    * @link aggregationByValue
+    * @stereotype fronts
+    */
+   Map<String, AssetInventory> invByMeta      = new HashMap<String, AssetInventory>();
+   Map<String, AssetInventory> invByJavaClass = new HashMap<String, AssetInventory>();
+   Map<String, Meta>           metaByName     = new HashMap<String, Meta>();
+   ProxyInventory              proxyInv;
+
+   AssetPres         pres           = new TempAssetPres();
+   
+   public static InventoryAssetMgr instance() {
+      return (InventoryAssetMgr)AssetMgr.instance();
+  }
+   
+   @Override
+   public void register(Meta meta) {
+      String classnm = meta.inventory;
+      AssetInventory inv = null;
+
+      if (ProxyInventory.class.getName().equals(classnm)) {
+         // there can be just one - stupid singleton per AssetMgr
+        inv = proxyInventory(); 
+      } 
+      
+      if (invByJavaClass.containsKey(classnm)) {
+         invByMeta.put(meta.id.name, inv = invByJavaClass.get(classnm));
+      } else {
+         try {
+            inv = (AssetInventory) Class.forName(classnm, true, ClassLoader.getSystemClassLoader())
+                  .newInstance();
+            invByJavaClass.put(classnm, inv);
+            invByMeta.put(meta.id.name, inv);
+            Log.logThis("CREATE_INV " + classnm);
+         } catch (Exception e) {
+            Log.logThis("ERR_CANT_CREATE_INV " + classnm, e);
+            return;
+         }
+      }
+      inv.init(meta);
+      metaByName.put(meta.id.name, meta);
+   }
+
+   public ProxyInventory proxyInventory() {
+      if (proxyInv == null) {
+         proxyInv = new ProxyInventory();
+         invByJavaClass.put(ProxyInventory.class.getName(), proxyInv);
+      }
+
+      return proxyInv;
+   }
+
+   /** these assets do not have an inventory - will all use the proxy inventory
+    * 
+    * @param ass
+    * @param meta
+    * @deprecated use razie.Assets.manage(ass, meta)
+    */
+   public void registerAsset(AssetImpl ass, Meta meta) {
+      AssetInventory inv = findInventory(ass.getKey().getType());
+
+      meta.inventory = ProxyInventory.class.getName();
+
+      if (proxyInv == null) {
+         proxyInv = new ProxyInventory();
+         invByJavaClass.put(ProxyInventory.class.getName(), proxyInv);
+      }
+
+      if (inv == null)
+         instance().register(meta);
+
+      proxyInv.register(ass.getKey(), ass);
+   }
+
+   private static void bootstrapclass(String clname) {
+      Class c = null;
+      try {
+         c = Class.forName(clname);
+      } catch (Exception ex) {
+         logger.alarm("ERR_CANT_CREATE_XXX " + clname, ex);
+      }
+
+      Annotation a = c.getAnnotation(SoaAsset.class);
+
+      // register(new Meta(new ActionItem(meta.getAttribute("name"), meta.getAttribute("icon")), "",
+      // meta
+      // .getAttribute("inventory")));
+   }
+
+   // TODO implement this
+   private static void bootstrappackage(String pkg) {
+   }
+
+   /** load all metas and instantiate all inventories */
+   public static void init(InventoryAssetMgr instance) {
+      AssetMgr.init(instance);
+
+      for (Element loc : AssetsConfig.getInstance().listEntities("/config/bootstrap/package")) {
+         bootstrappackage(loc.getAttribute("regexp"));
+      }
+   }
+
+   public boolean hasInventory(String meta) {
+      return invByMeta.get(meta) != null;
+   }
+
+   public AssetInventory findInventory(String meta) {
+      AssetInventory i = invByMeta.get(meta);
+
+      if (i == null)
+         logger.alarm("ERR_ASSET_INV cannot find inventory for meta: " + meta);
+      return i;
+   }
+
+   /** this is the typed version of the base getAsset */
+   public static AssetBase get(AssetKey ref) {
+      return instance().getImpl(ref);
+   }
+   
+   public AssetBase getImpl(AssetKey ref) {
+      Object o = findInventory(ref.getType()).get(ref);
+
+      if (o != null && !(o instanceof AssetBase))
+         throw new IllegalArgumentException("ERR_ASSET_INV inventories should return SdkAsset(s)...this returned "
+               + o.getClass().getName());
+
+      return (AssetBase) o;
+   }
+
+   public static Map<AssetKey, AssetBrief> find(String type, AssetLocation env, boolean recurse) {
+      return instance().findInventory(type).find(type, env, recurse);
+   }
+
+   @Override
+   public Drawable detailsImpl(AssetBrief asset) {
+      return findInventory(asset.getKey().getType()).details(asset);
+   }
+
+   @Override
+   public AssetBrief briefImpl(AssetKey ref) {
+      return findInventory(ref.getType()).getBrief(ref);
+   }
+
+   @Override
+   public ActionItem[] supportedActionsImpl(AssetKey ref) {
+      ActionItem[] ret = findInventory(ref.getType()).getSupportedActions(ref);
+      // check for non-compliant implementations
+      return ret == null ? NOACTIONS : ret;
+   }
+
+   @Override
+   protected Object getAssetImpl(AssetKey key) {
+      return get(key);
+   }
+
+   @Override
+   protected Iterable<String> metasImpl() {
+      return metaByName.keySet();
+   }
+
+   @Override
+   protected Meta metaImpl(String name) {
+      return metaByName.get(name);
+   }
+
+   @Override
+   protected Object doActionImpl(String cmd, AssetKey ref, ScriptContext ctx) {
+      return findInventory(ref.getType()).doAction(cmd, ref, ctx);
+   }
+
+   @Override
+   public Map<AssetKey, AssetBrief> findImpl(String type, AssetLocation env, boolean recurse) {
+      return find(type, env, recurse);
+   }
+
+   static Log logger = Log.Factory.create(InventoryAssetMgr.class.getName());
+
+   @Override
+   public AssetPres presImpl() {
+      return pres;
+   }
+
+   private static final ActionItem[] NOACTIONS = {};
+}

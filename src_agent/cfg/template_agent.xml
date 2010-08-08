@@ -1,0 +1,66 @@
+
+	<!--
+		KEEP IN MIND: this file is the same on each node in your network When
+		upgrading mutants to/from, this file is also upgraded to/from, so you
+		can add/change hosts etc.
+	-->
+<config>
+	<!--
+		Where you installed the mutant. localdir: The localdir of the mutant,
+		please make it is the same on all computers
+	-->
+	<mutant localdir="c:\video\razmutant" sharedsecret="gigi34" />
+
+	<!--
+		the list of clouds. Make sure there's a cloud named "home". Inside the
+		cloud are the hosts: the list of hosts in your home network name: name
+		of this agent/device - SHOULD be the hostname, unless you run more
+		than 1 on a box hostname: is the actual name of the box, case
+		sensitive. It is optional - defaults to $name type:
+		oneof(laptop,desktop,handheld,router,proxy) - use the proper type, i
+		won't look for movies on a router :) media: for each host, map all
+		local media folders when maping media, make sure the remote mapping
+		does not include the two \\ also, remote paths MUST use / not \,
+		f___ing windows!!!
+		
+		NOTE that if you give a device a port number, I assume there's an agent running there...
+	-->
+	<clouds>
+		<cloud name="home">
+			<laptop name="Andrei" os="win" ip="192.168.2.200"
+				port="4444" client="full,ie">
+			</laptop>
+			<laptop name="TorLp-Razvanc" os="win" ip="192.168.2.203"
+				port="4444" client="full,ie">
+			</laptop>
+			<laptop name="TEST-host" hostname="TorLp-Razvanc" os="win" 
+				ip="192.168.2.202" port="4445" client="full,ie">
+			</laptop>
+			<desktop name="Razie" os="win" ip="192.168.2.203" port="4444" client="full,ie">
+			</desktop>
+			<laptop name="TORLP-RAZVANC1" os="win" ip="192.168.2.204" port="4444" client="full,ie">
+			</laptop>
+			<server name="torld-core01" os="SunOS" ip="10.0.110.36" port="4444" client="full,ie">
+			</server>
+			<tablet name="Nokia770" os="2007" ip="192.168.2.205" client="html,js" />
+			<router name="WRT54G" ip="192.168.2.1" />
+			<router name="xxx" ip="192.168.1.1" />
+			<tablet name="PSP" ip="192.168.2.206" client="html,js" />
+			<device name="CofeeMaker" ip="192.168.2.209" client="none" />
+			<!-- stupid hack for proxies....just do it like this for now -->
+			<proxy name="razie.dyndns.org" ip="razie.dyndns.org" />
+		</cloud>
+	</clouds>
+
+	<!--
+		Networks used only to list the current one by subnet mask and add the
+		proxy if running remote. The mutant will figure out on which network
+		the current copy works and use the proxy for the active network. Most
+		people's home networks are in the "192.168.1" ip. I have a screwy
+		setup with both .1 and .2 so I use "192.168." as the prefix... do as
+		you must.
+	-->
+	<network home="true" ipPrefix="192.168."></network>
+	<network home="false" ipPrefix="10.0.150." proxy="razie.dyndns.org" port="4444" />
+
+</config>

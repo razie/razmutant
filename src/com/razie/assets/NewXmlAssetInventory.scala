@@ -80,7 +80,7 @@ class NewXmlAssetInventory extends BaseInventory {
       }
 
     /** execute command on asset. the asset can be local or remote */
-    override def doAction(cmd:String , ref:AssetKey , ctx:ScriptContext ):AnyRef = {
+    override def doAction(cmd:String , ref:AssetKey , ctx:ActionContext ):AnyRef = {
       // delegate "delete to super
       super.doAction (cmd,ref,ctx);
     }

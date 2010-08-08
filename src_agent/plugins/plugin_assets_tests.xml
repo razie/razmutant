@@ -1,0 +1,68 @@
+<!-- registration for all assets and metas in the system TODO breakdown per service -->
+<plugin desc="just playing with asset definitions">
+
+   <!--  TODO load this section -->
+	<newassets>
+		<assets type="sampleassets" xpath="/config/sample/assets/sampleasset" />
+	</newassets>
+	
+	<!-- registration for the assets we support -->
+	<metaspecs>
+      <metaspec name="person" icon="" inventory="com.razie.assets.xml.XmlAssetInventory">
+         <attributes list="nickname,firstname,lastname" />
+         <metaassoc zEnd="person" stereotype="association" name="friend" />
+      </metaspec>
+      <metaspec name="parent" extends="person" icon="" inventory="com.razie.assets.xml.XmlAssetInventory">
+         <metaassoc zEnd="child" stereotype="composition" name="dependent" />
+      </metaspec>
+      <metaspec name="child" extends="person" icon="" inventory="com.razie.assets.xml.XmlAssetInventory">
+      </metaspec>
+      <metaspec name="friend" extends="person" icon="" inventory="com.razie.assets.xml.XmlAssetInventory">
+      </metaspec>
+	</metaspecs>
+      
+	<!-- registration for the assets we support -->
+	<metaspecs>
+		<metaspec name="contact" icon="" inventory="com.razie.assets.xml.XmlAssetInventory">
+			<attributes list="nickname,firstname,lastname" />
+			<attributes list="" />
+		</metaspec>
+		<metaspec name="linktoview" icon=""
+			inventory="com.razie.assets.xml.XmlAssetInventory">
+			<attributes list="url,desc" />
+		</metaspec>
+	</metaspecs>
+	
+   <!--  TODO load this section -->
+	<sample>
+		<assets>
+			<sampleasset type="SampleXmlAsset" icon=""
+				descr="sample xml-defined class">
+				<!--
+					this one has no key, so it's shared across all instances. It's like
+					the class definition!
+				-->
+				<action name="display" icon="" descr="">
+					<script lang="js">
+						"asset displayed:"+asset.getKey().toString()
+					</script>
+				</action>
+			</sampleasset>
+			<sampleasset type="SampleXmlAsset" key="1">
+				<action name="display">
+					<script lang="js">
+						"CUSTOMIZED asset
+						displayed:"+asset.getKey().toString()
+					</script>
+				</action>
+			</sampleasset>
+			<sampleasset type="SampleXmlAsset" key="2"></sampleasset>
+		</assets>
+	</sample>
+
+   <!--  TODO load this section -->
+	<objects>
+		<objectset name="users" type="xmlentity" xpath="/config/users/user" />
+	</objects>
+
+</plugin>

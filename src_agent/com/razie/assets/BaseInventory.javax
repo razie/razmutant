@@ -1,0 +1,62 @@
+package com.razie.assets;
+
+import razie.assets.AssetKey;
+
+import com.razie.pub.assets.AssetBrief;
+import com.razie.pub.assets.AssetMgr;
+import com.razie.pub.base.ActionItem;
+import com.razie.pub.base.ScriptContext;
+import com.razie.pub.comms.ActionToInvoke;
+import razie.draw.DrawList;
+import razie.draw.widgets.NavButton;
+
+/**
+ * just a base inventory with some defaults like delete
+ * 
+ * @author razvanc
+ */
+public abstract class BaseInventory implements AssetInventory {
+
+   /** default handles only delete... */
+   @Override
+   public Object doAction(String cmd, AssetKey ref, ScriptContext ctx) {
+      if (cmd == null || cmd.length() == 0 || cmd.equals("details")) {
+            Object a = AssetMgr.getAsset(ref);
+            if (a != null && a instanceof AssetImpl) {
+               AssetImpl amovie = (AssetImpl) a;
+               ScriptContext nctx = ctx != null ? ctx : new ScriptContext.Impl(ScriptContext.Impl.global());
+               return amovie.paint(nctx);
+            }
+         }
+      else if (cmd.startsWith(AssetBrief.DELETE.name)) {
+         if (ctx == null || !ctx.isPopulated("confirmed")) {
+            return confirmDelete(ref);
+         } else {
+            delete(ref);
+            return "Ok";
+         }
+      }
+
+    return "default-no-goodnik-doAction " + cmd + ", " + ref;
+   }
+
+   protected Object confirmDelete(AssetKey ref) {
+      DrawList list = new DrawList();
+      list.write(new NavButton(ActionItem.WARN, ""));
+      list.write("Confirm deletion below or click BACK...");
+      ActionToInvoke ati = new EntityAction(AssetBrief.DELETE, ref);
+      ati.setAttr("confirmed", "yes");
+      list.write(ati);
+      return list;
+   }
+
+   /**
+    * destroy, deallocate and remove the asset - must implement auth&auth itself
+    * 
+    * TODO include in main inv interface as CRUD ops
+    */
+   public void delete(AssetKey asset) {
+      throw new UnsupportedOperationException("can't delete this " + asset);
+   }
+
+}

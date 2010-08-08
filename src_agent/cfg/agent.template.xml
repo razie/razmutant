@@ -1,0 +1,117 @@
+
+   <!--
+      Agent cloud configuration.
+      
+      See more details at TODO
+   -->
+   
+   <!--
+      KEEP IN MIND: this file is the same on each node in your network When
+      upgrading mutants to/from, this file is also upgraded to/from, so you
+      can add/change hosts etc.
+      
+      This also menas that you need to issue an "upgrade" after editing this file, from that same node,
+      to all others.
+      
+      See more details at TODO
+   -->
+<config>
+   <!--
+      The sharedsecret here is a stupid implementation, just to have the underlying code ready...
+   -->
+
+   <!--
+      the list of clouds. Make sure there's a cloud named "home". Inside the
+      cloud are the hosts: the list of hosts in your home network name: 
+      
+      name of this agent/device - SHOULD be the hostname, unless you run more
+      than 1 on a box 
+      
+      hostname: is the actual name of the box, case sensitive. It is optional - defaults to $name 
+      
+      type: oneof(laptop,desktop,handheld,router,proxy) - use the proper type, i
+      won't look for movies on a router :) 
+      
+      more: for each host, map all
+      local media folders when maping media, in media.xml
+      
+      make sure the remote mapping does NOT include the two \\ also, remote paths MUST use / not \,
+      f___ing windows!!!
+      
+      NOTE that if you give a device a port number, I assume there's an agent running there...
+   -->
+   <clouds name="'$UNAME's clouds">
+      <!--  TODO need to implement cloud stamp and device signature for ID -->
+      
+      <!--  the most important of all: the home cloud  -->
+      <cloud name="home" stamp="home" sharesecret="gigi43">
+         <$CTYPE name="whs" os="windowsxp" ip=""
+             client="full,ie" 
+             localdir="c:\video\razmutant" icon="/public/Acer_Aspire_H340.jpg">
+         </$CTYPE>
+         <desktop name="Razie" os="windowsxp" ip=""
+             port="" client="full,ie"  localdir="c:\video\razmutant" 
+             disable="JukeboxUpnpService" >
+         </desktop>
+         <laptop name="Andrei" os="windowsxp" ip=""
+            port="4444" client="full,ie" signature="Andrei" 
+            localdir="c:\video\razmutant" 
+             disable="JukeboxUpnpService" >
+         </laptop>
+         <laptop name="TorLp-Razvanc" os="windowsxp" ip="192.168.2.202"
+            port="4444" client="full,ie" signature="TorLp-Razvanc" 
+            localdir="c:\video\razmutant">
+         </laptop>
+         <laptop name="razubuntu" os="ubuntu" ip=""
+            port="4444" client="full,ie" signature="ubuntu" 
+            localdir="/host/Video/razmutant">
+         </laptop> 
+         <laptop name="TEST-host" hostname="TorLp-Razvanc" os="windowsxp"  
+                 ip="192.168.2.203" port="4445" client="full,ie"  localdir="c:\video\razmutant">
+         </laptop>
+         <laptop name="TORLP-RAZVANC1" os="windowsxp" ip="192.168.2.204" port="4444" 
+                 client="full,ie" localdir="c:\video\razmutant"
+             disable="JukeboxUpnpService" >
+         </laptop>
+         <server name="torld-core01" os="SunOS" ip="10.0.110.36" port="4444" 
+                 client="full,ie" localdir="c:\video\razmutant"
+             disable="JukeboxUpnpService" >
+         </server>
+         <tablet name="Nokia770" os="2007" ip="192.168.2.205" client="html,js" />
+         <router name="WRTa160N" ip="192.168.2.1" />
+         <router name="AcanacModem" ip="192.168.1.1" />
+         <tablet name="PSP" ip="192.168.2.206" client="html,js" />
+         <device name="CofeeMaker" ip="192.168.2.207" client="none" />
+         <!-- stupid hack for proxies....just do it like this for now -->
+         <proxy name="razie.dyndns.org" ip="razie.dyndns.org" />
+      </cloud>
+      <!--  TODO need to add social aspect: friend clouds with shared stuff -->
+      <cloud name="work" stamp="work">
+         <laptop name="TorLp-Razvanc"/>
+         <laptop name="TEST-host" />
+         <laptop name="TORLP-RAZVANC1" />
+         <server name="torld-core01" />
+         <tablet name="Nokia770" />
+      </cloud>
+      <cloud name="friends" stamp="razie'sfriends">
+         <laptop name="TorLp-Razvanc"/>
+         <laptop name="TEST-host" />
+         <laptop name="TORLP-RAZVANC1" />
+         <server name="torld-core01" />
+         <tablet name="Nokia770" />
+      </cloud>
+   </clouds>
+
+   <!--
+      Networks used only to list the current one by subnet mask and add the
+      proxy if running remote. The mutant will figure out on which network
+      the current copy works and use the proxy for the active network. Most
+      people's home networks are in the "192.168.1" ip. I have a screwy
+      setup with both .1 and .2 so I use "192.168." as the prefix... do as
+      you must.
+   -->
+   <network name="home" home="true" 
+            ipPrefix="192.168." proxy="razie.dyndns.org"/>
+   <network name="work" home="false" ipPrefix="10.0.150." />
+
+</config>

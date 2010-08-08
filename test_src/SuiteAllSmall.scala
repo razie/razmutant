@@ -27,7 +27,7 @@ class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
    addTest(SuiteAgent.suite());
    addTest(com.razie.SuiteMedia.suite());
    addTest(SuiteDist.suite());
-   addTest(SuiteScripster.suite());
+   addTest(new SuiteScripster());
    
    def test1() = 
      // don't touch this line
@@ -35,6 +35,6 @@ class SuiteAllSmall () extends junit.framework.TestSuite(classOf[XNada]) {
      
 }
 
-class XNada extends junit.framework.TestCase {
+class XNadaSuiteAllSmall extends junit.framework.TestCase {
  def testNada : Unit =  {}
 }

@@ -1,0 +1,66 @@
+package com.razie.assets;
+
+import java.util.Map;
+
+import com.razie.pub.agent._
+import com.razie.pub.assets._
+import com.razie.pub.base.ScriptContext;
+import com.razie.pub.base.log.Log;
+import com.razie.pub.comms.LightAuth;
+import com.razie.pub.draw._
+import com.razie.pub.draw.Renderer.Technology
+import com.razie.pub.lightsoa._
+
+object AssetServicekk {
+   
+   /** list some assets directly to the output stream */
+   def listLocal(ttype:String , location:String , recurse:boolean , out:DrawStream ) {
+      HttpAssetSoaBinding.listLocal (ttype, location, recurse, out)
+   }
+
+   final val logger = Log.Factory.create("", classOf[AssetServicekk].getName());
+}
+
+/**
+ * a command listener listens to commands, executes them and returns an object
+ * 
+ * @author razvanc
+ * 
+ */
+@SoaService(name = "assets", bindings = Array("http"), descr = "asset ecosystem and services")
+class AssetServicekk extends AgentService {
+
+   override def onStartup() = { }
+
+   /** list some assets directly to the output stream */
+   @SoaMethod(descr = "list assets of type to stream", perm = LightAuth.PermType.VIEW, args = Array( "type", "location",
+         "recurse" ))
+   @SoaStreamable
+   def listLocal(out:DrawStream , ttype:String , location:String , recurse:String ) = 
+      AssetService.listLocal(ttype, location, java.lang.Boolean.parseBoolean(recurse), out);
+
+   @SoaMethod(descr = "details for the given asset", perm = LightAuth.PermType.VIEW, args = Array( "ref", "series" ))
+   def details(ref:String , series:String ) : AnyRef = {
+      val kref = AssetKey.fromString(ref)
+      val ks = if (series == null ) null else AssetKey.fromString(series)
+      val amovie = AssetMgr.getAsset(kref)
+
+      val ctx = new ScriptContext.Impl(ScriptContext.Impl.global());
+      if (ks != null)
+         ctx.set("series", ks)
+
+      if (amovie.isInstanceOf[Asset])
+         amovie.asInstanceOf[Asset].paint(ctx)
+      else if (amovie.isInstanceOf[Drawable] || amovie.isInstanceOf[DrawableSource]) {
+         val ds = new DrawSequence()
+         val o = Renderer.Helper.draw(amovie, Renderer.Technology.HTML, ds)
+         ds.write(o)
+         ds
+      } else
+         AssetMgr.details(AssetMgr.brief(kref));
+   }
+
+   override def onShutdown() = {
+   }
+   
+}
