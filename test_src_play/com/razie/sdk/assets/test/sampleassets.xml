@@ -1,0 +1,50 @@
+<!-- 
+	sample file to define assets. The only keyword is the tag called "razie.uml"
+-->
+<config>
+	<!-- 
+		there are many types of asset finders. One basic is provided in the sdk, 
+		which can find files based on extension.
+		
+		the properties for each finder are in a sub-element "finderProps". 
+		"extension" is the only exception since it is so common...	
+		
+		to define your own screwy asset type, put together a finder and a player. 
+		that's it
+	-->
+	<sources>
+		<source name="Stage 6" url="http://www.stage6.com"></source>
+	</sources>
+
+	<sample>
+		<assets>
+			<!-- 
+				sample file to define assets. The only keyword is the tag called "razie.uml"
+			-->
+			<SampleXmlAsset icon="" descr="sample xml-defined class">
+				<!--  this one has no key, so it's shared across all instances. 
+					It's like the class definition! -->
+				<action name="display" icon="" descr="">
+					"asset displayed:"+asset.getKey().toString()
+				</action>
+			</SampleXmlAsset>
+			<SampleXmlAsset key="1">
+				<action name="display">
+					"CUSTOMIZED asset
+					displayed:"+asset.getKey().toString()
+				</action>
+			</SampleXmlAsset>
+			<SampleXmlAsset key="2"></SampleXmlAsset>
+		</assets>
+	</sample>
+
+	<objects>
+		<objectset name="users" type="xmlentity"
+			xpath="/config/users/user" />
+	</objects>
+
+	<razie.uml>
+		<assets type="sampleassets"
+			xpath="/config/sample/assets/sampleasset" />
+	</razie.uml>
+</config>
