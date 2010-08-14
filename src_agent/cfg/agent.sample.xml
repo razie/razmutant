@@ -45,20 +45,20 @@
       
       <!--  the most important of all: the home cloud  -->
       <cloud name="home" stamp="home" sharesecret="gigi43">
-         <server name="whs" os="windowsxp" ip=""
+         <server name="whs" os="windows" ip=""
              client="full,ie" 
              localdir="c:\video\razmutant" icon="/public/Acer_Aspire_H340.jpg">
          </server>
-         <desktop name="Razie" os="windowsxp" ip=""
+         <desktop name="Razie" os="windows" ip=""
              port="" client="full,ie"  localdir="c:\video\razmutant" 
              disable="JukeboxUpnpService" >
          </desktop>
-         <laptop name="Andrei" os="windowsxp" ip=""
+         <laptop name="Andrei" os="windows" ip=""
             port="4444" client="full,ie" signature="Andrei" 
             localdir="c:\video\razmutant" 
              disable="JukeboxUpnpService" >
          </laptop>
-         <laptop name="TorLp-Razvanc" os="windowsxp" ip="192.168.2.202"
+         <laptop name="TorLp-Razvanc" os="windows" ip="192.168.2.202"
             port="4444" client="full,ie" signature="TorLp-Razvanc" 
             localdir="c:\video\razmutant">
          </laptop>
@@ -66,10 +66,10 @@
             port="4444" client="full,ie" signature="ubuntu" 
             localdir="/host/Video/razmutant">
          </laptop> 
-         <laptop name="TEST-host" hostname="TorLp-Razvanc" os="windowsxp"  
+         <laptop name="TEST-host" hostname="TorLp-Razvanc" os="windows"  
                  ip="192.168.2.203" port="4445" client="full,ie"  localdir="c:\video\razmutant">
          </laptop>
-         <laptop name="TORLP-RAZVANC1" os="windowsxp" ip="192.168.2.204" port="4444" 
+         <laptop name="TORLP-RAZVANC1" os="windows" ip="192.168.2.204" port="4444" 
                  client="full,ie" localdir="c:\video\razmutant"
              disable="JukeboxUpnpService" >
          </laptop>

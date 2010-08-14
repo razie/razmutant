@@ -84,7 +84,7 @@
 		from here (generally via the mutant)
 	-->
 	<players>
-		<platform os="windowsxp">
+		<platform os="windows">
 			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"
 				program="C:\Program Files\VideoLAN\VLC\vlc.exe -f --extraintf rc --rc-host localhost:4449 ${asset.path}">
 				<actionables>

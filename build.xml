@@ -14,6 +14,7 @@
         <pathelement location="../razweb/bin/"/>
         <pathelement location="../razweb/lib/mime-util.jar"/>
         <pathelement location="../scripster/bin/"/>
+        <pathelement location="../gremlines/bin/"/>
         <pathelement location="../razpub/lib/log4j-1.2.7.jar"/>
         <pathelement location="../razpub/lib/js.jar"/>
         <pathelement location="../razpub/lib/bcprov-jdk16-143.jar"/>
@@ -37,6 +38,7 @@
         <ant target="clean" dir="${w}/20widgets-swing/"/>
         <ant target="clean" dir="${w}/razweb/"/>
         <ant target="clean" dir="${w}/scripster/"/>
+        <ant target="clean" dir="${w}/gremlins/"/>
         <ant target="clean" dir="${w}/razpub/"/>
         <ant target="clean" dir="${w}/razupnp/"/>
         <ant target="clean" dir="${w}/razpubs/"/>
@@ -53,6 +55,7 @@
         <ant target="build" dir="${w}/20widgets-swing/"/>
         <ant target="build" dir="${w}/razweb/"/>
         <ant target="build" dir="${w}/scripster/"/>
+        <ant target="build" dir="${w}/gremlins/"/>
         <ant target="build" dir="${w}/razpub/"/>
         <ant target="build" dir="${w}/razupnp/"/>
         <ant target="build" dir="${w}/razpubs/"/>
@@ -69,6 +72,7 @@
         <ant target="jar-only" dir="${w}/20widgets-swing/"/>
         <ant target="jar-only" dir="${w}/razweb/"/>
         <ant target="jar-only" dir="${w}/scripster/"/>
+        <ant target="jar-only" dir="${w}/gremlins/"/>
         <ant target="jar-only" dir="${w}/razpub/"/>
         <ant target="jar-only" dir="${w}/razupnp/"/>
         <ant target="jar-only" dir="${w}/razpubs/"/>
@@ -135,6 +139,7 @@
         <pathelement location="${w}/razpub/lib/bcprov-jdk16-143.jar"/>
         <pathelement location="${w}/razpub/bin"/>
         <pathelement location="${w}/scripster/bin"/>
+        <pathelement location="${w}/gremlins/bin"/>
         <pathelement location="${w}/razweb/lib/mime-util.jar"/>
         <pathelement location="${w}/razweb/bin"/>
         <pathelement location="${w}/20widgets/bin/"/>
@@ -155,10 +160,15 @@
 
 
     <target name="dist">
+<!--
+        <ant target="dist" dir="${w}/razxml/"/>
+        <ant target="dist" dir="${w}/scripster/"/>
+-->
         <mkdir  dir="${m}"/>
         <mkdir  dir="${m}/lib"/>
         <mkdir  dir="${m}/plugins"/>
         <mkdir  dir="${m}/cfg"/>
+        <mkdir  dir="${m}/user"/>
 
         <delete dir="${m}/upgrade"/>
         <mkdir  dir="${m}/upgrade"/>
@@ -183,9 +193,9 @@
              destfile="${m}/upgrade/razpub.jar" update="true" />
         <jar basedir="${w}/scripster/bin" 
              destfile="${m}/upgrade/razpub.jar" update="true" />
-        <jar basedir="${w}/razpub/bin" 
+        <jar basedir="${w}/gremlins/bin" 
              destfile="${m}/upgrade/razpub.jar" update="true" />
-        <jar basedir="${w}/razpubs/bin" 
+        <jar basedir="${w}/razpub/bin" 
              destfile="${m}/upgrade/razpub.jar" update="true" />
         <jar basedir="${w}/razupnp/bin" 
              destfile="${m}/upgrade/razpub.jar" update="true" />
@@ -209,11 +219,17 @@
           <fileset dir="${w}/razmutant/src" includes="*.cmd,*.sh"/>
         </copy>
         <copy todir="${m}/upgrade/cfg">
+<!--
           <fileset dir="${w}/razagent/src/cfg"   includes="agent.xml"/>
           <fileset dir="${w}/razagent/src/cfg"   includes="assets.xml"/>
           <fileset dir="${w}/razagent/src/cfg"   includes="template_agent.xml"/>
           <fileset dir="${w}/razmedia/src/cfg"   includes="media.xml"/>
-          <fileset dir="${w}/razmutant/src/cfg"  includes="user.xml"/>
+-->
+          <fileset dir="${w}/razmutant/src_agent/cfg" includes="agent.xml"/>
+          <fileset dir="${w}/razmutant/src_agent/cfg" includes="assets.xml"/>
+          <fileset dir="${w}/razmutant/src_agent/cfg" includes="template_agent.xml"/>
+          <fileset dir="${w}/razmutant/src_media/cfg" includes="media.xml"/>
+          <fileset dir="${w}/razmutant/src/cfg" includes="user.xml"/>
         </copy>
 
         <copy file="${w}/razbase/src/log4j.properties" todir="${m}/upgrade" />
@@ -222,6 +238,8 @@
         <copy todir="${m}/upgrade/lib">
           <fileset dir="${scala.home}/lib" includes="scala-library.jar"/>
           <fileset dir="${scala.home}/lib" includes="scala-compiler.jar"/>
+
+          <fileset dir="${w}/razxml/dist" includes="razxml.jar"/>
         </copy>
 
         <!-- the plugins -->
