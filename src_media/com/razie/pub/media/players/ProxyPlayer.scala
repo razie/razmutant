@@ -29,12 +29,12 @@ class ProxyPlayer (val player:SdkPlayer, val hasa:THasActionables) extends SdkPl
 
     def play(m:AssetBase):PlayerHandle = {
         val h = player.play(m)
-        ActionableFactory.makeProxy (h, hasa).asInstanceOf[PlayerHandle]
+        Actionables.makeProxy (h, hasa).asInstanceOf[PlayerHandle]
     }
 
     def makeHandle:PlayerHandle = {
         val h = player.makeHandle()
-        ActionableFactory.makeProxy (h, hasa).asInstanceOf[PlayerHandle]
+        Actionables.makeProxy (h, hasa).asInstanceOf[PlayerHandle]
     }
 
     def init(doc:XmlDoc, xpath:String ) = player.init (doc,xpath)

@@ -9,13 +9,14 @@ import org.w3c.dom.Element;
 
 import razie.JAS;
 import razie.assets.Meta;
+import razie.base.AttrAccess;
+import razie.base.AttrAccessImpl;
+import razie.base.data.RiXmlUtils;
 
 import com.razie.pub.agent.Agent;
 import com.razie.pub.agent.AgentFileService;
 import com.razie.pub.agent.AgentHttpService;
 import com.razie.pub.agent.AgentService;
-import razie.base.AttrAccess;
-import razie.base.data.RiXmlUtils;
 import com.razie.pub.base.log.Log;
 import com.razie.pub.comms.AgentHandle;
 import com.razie.pub.comms.Agents;
@@ -101,7 +102,7 @@ public class AgentDbService extends AgentService {
         aa = AgentDb.listLocalDb();
         for (String a : aa.getPopulatedAttr()) {
             if (!a.startsWith("testdb")) {
-                Agent.instance().notifyOthers(AgentDb.EVT_UPDATEDB, "dbname", a);
+                Agent.instance().notifyOthers(AgentDb.EVT_UPDATEDB, razie.JAA.of("dbname", a));
             }
         }
         Log.logThis("AGENTDB_NOTIFYONSTARTUP");
@@ -115,7 +116,7 @@ public class AgentDbService extends AgentService {
         AttrAccess aa = AgentDb.listLocalDb();
         for (String a : aa.getPopulatedAttr()) {
             if (!a.startsWith("testdb")) {
-                Agent.instance().notifyOther(remote, AgentDb.EVT_UPDATEDB, "dbname", a);
+                Agent.instance().notifyOther(remote, AgentDb.EVT_UPDATEDB, razie.JAA.of("dbname", a));
             }
         }
     }

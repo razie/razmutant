@@ -75,16 +75,21 @@
 	</storage>
 
 	<!--
-		the players currently supported Players are organized in batches, per
+		the players 
+		
+		currently supported Players are organized in batches, per
 		platform. A platform is an OS (i.e. windowsxp) or a single host. A
-		host will use the OS defaults. TODO nice inheritance mechanism would
-		be nice Here's the expansion: ${asset.path} - the full remote path to
-		the file, windows style ${asset.smbpath} - full remote path prefixed
-		with smb: for ubuntu ${asset.url} - streaming url - you can stream it
-		from here (generally via the mutant)
+		host will use the OS defaults. 
+		
+		TODO nice inheritance mechanism would be nice 
+		
+		Here's the expansion: 
+		${asset.path} - the full remote path to the file, windows style 
+		${asset.smbpath} - full remote path prefixed with smb: for ubuntu 
+		${asset.url} - streaming url - you can stream it from here (generally via the mutant)
 	-->
 	<players>
-		<platform os="windows">
+		<platform os="windowsxp">
 			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"
 				program="C:\Program Files\VideoLAN\VLC\vlc.exe -f --extraintf rc --rc-host localhost:4449 ${asset.path}">
 				<actionables>
@@ -123,6 +128,39 @@
 				program="C:\Program Files\Windows Media Player\wmplayer.exe /fullscreen" />
 			<player name="dvdfolder" class="com.razie.pub.media.players.DvdFolderPlayer" />
 			<player name="SeriesPlayer" class="com.razie.pub.media.players.SeriesPlayer" />
+		</platform>
+		<nicetodo_override 
+		    path="/config/players/platform[@os=='windows7']/player[@name=='vlc]"
+		    attr="program"
+		    value=""C:\Program Files (x86)\VideoLAN\VLC\vlc.exe -f --extraintf rc --rc-host localhost:4449 ${asset.path}"
+      />
+		<platform host="Dell">
+			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"
+				program="C:\Program Files (x86)\VideoLAN\VLC\vlc.exe -f --extraintf rc --rc-host localhost:4449 ${asset.path}">
+				<actionables>
+					<action name="play"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=play" />
+					<action name="pause"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=pause" />
+					<action name="rew"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=rewind" />
+					<action name="fwd"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=fastforward" />
+					<action name="prev"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=prev" />
+					<action name="skip"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=next" />
+					<action name="stop"
+						exec="simple:telnet host=localhost,port=4449,noread=true,cmd=quit" />
+
+					<!--  volume commands are left to windows -->
+
+					<action name="testplay"
+						exec="simple:playkey key=VK_F,ctrl=true,shift=true" />
+					<action name="testplay2"
+						exec="simple:cmdline program=gigi.exe,args=blahblah" />
+				</actionables>
+			</player>
 		</platform>
 		<platform os="ubuntu">
 			<player name="vlc" class="com.razie.pub.media.players.WinFilePlayer"

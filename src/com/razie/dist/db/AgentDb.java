@@ -126,7 +126,7 @@ public class AgentDb implements AssetBase {
         if (xml().prepareForSave() || forcesave) {
             this.xml().xmlize(filenamefor(dbname));
             if (notify)
-                Agent.instance().notifyOthers(EVT_UPDATEDB, "dbname", dbname);
+                Agent.instance().notifyOthers(EVT_UPDATEDB, razie.JAA.of("dbname", dbname));
         }
     }
 
@@ -137,7 +137,7 @@ public class AgentDb implements AssetBase {
         File f = new File(filenamefor(dbname));
         f.delete();
         if (notify)
-            Agent.instance().notifyOthers(EVT_REMOVEDB, "dbname", dbname);
+            Agent.instance().notifyOthers(EVT_REMOVEDB, razie.JAA.of("dbname", dbname));
     }
 
     /** the two DB names must normally match - use 2 for testing */
