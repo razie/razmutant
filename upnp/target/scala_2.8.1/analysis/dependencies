@@ -1,0 +1,28 @@
+#Source Dependencies
+#Mon Mar 07 17:40:42 EST 2011
+src/main/scala/com/razie/pub/learnscala/Point.scala=src/main/scala/com/razie/pub/learnscala/Centered.scala
+src/main/scala/razie/upnp/UpnpService.scala=src/main/scala/razie/upnp/SampleThing.scala\:src/main/scala/razie/upnp/DeviceBridge.scala\:src/main/scala/razie/upnp/UpnpDevice.scala\:src/main/scala/razie/upnp/UpnpInventory.scala
+src/main/scala/org/cybergarage/upnp/Service.java=src/main/scala/razie/upnp/UpnpService.scala\:src/main/scala/razie/upnp/UpnpInventory.scala\:src/main/scala/razie/upnp/DeviceBridgeJ.java\:src/main/scala/org/cybergarage/upnp/Device.java\:src/main/scala/org/cybergarage/upnp/Action.java\:src/main/scala/org/cybergarage/upnp/ControlPoint.java
+src/main/scala/razie/upnp/SampleThing.scala=
+src/main/scala/org/cybergarage/upnp/ssdp/SSDPNotifySocket.java=src/main/scala/org/cybergarage/upnp/Device.java\:src/main/scala/org/cybergarage/upnp/Service.java
+src/main/scala/razie/upnp/UpnpDevice.scala=src/main/scala/razie/upnp/SampleThing.scala\:src/main/scala/razie/upnp/DeviceBridge.scala\:src/main/scala/razie/upnp/UpnpInventory.scala\:src/main/scala/razie/upnp/UpnpControlPoint.scala
+src/main/scala/com/razie/pub/upnpscala/IsUpnpService.java=
+src/main/scala/com/razie/pub/upnp/DIDLDrawStream.java=
+src/main/scala/org/cybergarage/http/HTTPServer.java=
+src/main/scala/com/razie/pub/upnp/UpnpSoaBinding.java=src/main/scala/razie/upnp/SampleThing.scala\:src/main/scala/razie/upnp/UpnpService.scala
+src/main/scala/razie/upnp/UpnpControlPoint.scala=src/main/scala/com/razie/pub/upnpscala/TestUpnpStuff.scala\:src/main/scala/razie/upnp/UpnpInventory.scala
+src/main/scala/com/razie/pub/learnscala/Centered.scala=
+src/main/scala/org/cybergarage/upnp/Device.java=src/main/scala/org/cybergarage/upnp/Service.java\:src/main/scala/org/cybergarage/upnp/RazieDevice.java\:src/main/scala/razie/upnp/DeviceBridge.scala\:src/main/scala/razie/upnp/UpnpDevice.scala\:src/main/scala/razie/upnp/UpnpInventory.scala\:src/main/scala/razie/upnp/DeviceBridgeJ.java\:src/main/scala/org/cybergarage/upnp/ControlPoint.java
+src/main/scala/org/cybergarage/upnp/ssdp/SSDPSearchResponseSocket.java=src/main/scala/org/cybergarage/upnp/Device.java
+src/main/scala/com/razie/pub/upnp/UpnpUtils.java=src/main/scala/com/razie/pub/upnp/DIDLDrawStream.java
+src/main/scala/razie/upnp/DeviceBridgeJ.java=src/main/scala/razie/upnp/DeviceBridge.scala
+src/main/scala/org/cybergarage/upnp/RazieDevice.java=
+src/main/scala/razie/upnp/DeviceBridge.scala=src/main/scala/razie/upnp/UpnpDevice.scala
+src/main/scala/org/cybergarage/upnp/ssdp/SSDPSearchSocket.java=
+src/main/scala/com/razie/pub/upnpscala/UpnpUCJ.java=
+src/main/scala/org/cybergarage/upnp/ControlPoint.java=src/main/scala/org/cybergarage/upnp/ssdp/SSDPSearchResponseSocket.java\:src/main/scala/razie/upnp/UpnpControlPoint.scala\:src/main/scala/org/cybergarage/upnp/ssdp/SSDPNotifySocket.java
+src/main/scala/org/cybergarage/upnp/Action.java=src/main/scala/razie/upnp/UpnpService.scala\:src/main/scala/org/cybergarage/upnp/Device.java\:src/main/scala/com/razie/pub/upnp/UpnpSoaBinding.java\:src/main/scala/org/cybergarage/upnp/Service.java
+src/main/scala/razie/upnp/UpnpInventory.scala=
+src/main/scala/org/cybergarage/util/ThreadCore.java=
+src/main/scala/com/razie/pub/upnpscala/TestVectorJ.java=
+src/main/scala/com/razie/pub/upnpscala/TestUpnpStuff.scala=

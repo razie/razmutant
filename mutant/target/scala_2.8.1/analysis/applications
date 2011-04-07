@@ -1,0 +1,11 @@
+#Classes with main methods
+#Mon Mar 07 17:40:45 EST 2011
+src/main/scala/com/razie/mutant/FindIp.scala=com.razie.mutant.FindIp
+src/main/scala/com/razie/learnscala/CoolInScala.scala=com.razie.learnscala.CoolInScala
+src/main/scala/com/razie/learnscala/LearnScala.scala=com.razie.learnscala.LearnScala\:com.razie.learnscala.MyMain
+src/main/scala/com/razie/learnscala/IssueMutableMap.scala=com.razie.learnscala.IssueMutableMap
+src/main/scala/com/razie/learnscala/LearnScalaExamples.scala=com.razie.learnscala.LearnScalaExamples
+src/main/scala/com/razie/learnscala/ProblemAbstractMethod.scala=com.razie.learnscala.ProblemAbstractMethod
+src/main/scala/com/razie/mutant/MutantMain.scala=com.razie.mutant.MutantMain
+src/main/scala/com/razie/sdk/TempFilesRazie.java=com.razie.sdk.TempFilesRazie
+src/main/scala/com/razie/mutant/JavaMutantMain.java=com.razie.mutant.JavaMutantMain
