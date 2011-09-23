@@ -2,31 +2,31 @@
 <classpath>
 	<classpathentry kind="src" path="agent/src/main/scala"/>
 	<classpathentry kind="src" path="agent/src/main/resources"/>
-	<classpathentry kind="src" path="agent/src/test/scala"/>
 	<classpathentry kind="src" path="upnp/src/main/scala"/>
 	<classpathentry kind="src" path="upnp/src/test/scala"/>
-	<classpathentry kind="src" path="media/src/main/scala"/>
 	<classpathentry kind="src" path="media/src/main/resources"/>
+	<classpathentry kind="src" path="mutant/src/main/resources"/>
+	<classpathentry kind="src" path="agent/src/test/scala"/>
+	<classpathentry kind="src" path="upnp/src/main/resources"/>
+	<classpathentry kind="src" path="media/src/main/scala"/>
 	<classpathentry kind="src" path="media/src/test/scala"/>
 	<classpathentry kind="src" path="mutant/src/main/scala"/>
-	<classpathentry kind="src" path="mutant/src/main/resources"/>
-	<classpathentry kind="src" path="mutant/src/test/scala"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/scalatest"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="lib_upnp/clink170.jar"/>
 	<classpathentry kind="lib" path="lib_upnp/xercesImpl290.jar"/>
 	<classpathentry kind="lib" path="lib_upnp/xml-apis290.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/20widgets_2.8.1-0.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/base_2.8.1-0.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/razpub_2.8.1-0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/razweb_2.8.1-0.3-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/json-20090211.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/scalatest-1.2.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/junit-4.5.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/scripster_2.8.1-0.6-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="agent/lib_managed/scala_2.8.1/compile/gremlins_2.8.1-0.3-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/bcprov-jdk16-143.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gremlins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/razbase"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/razpub"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scripster"/>
+	<classpathentry kind="lib" path="agent/lib_managed/scala_2.9.1/compile/json-20090211.jar"/>
+	<classpathentry kind="lib" path="agent/lib_managed/scala_2.9.1/compile/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="agent/lib_managed/scala_2.9.1/compile/scalatest_2.9.1-1.6.1.jar"/>
+	<classpathentry kind="lib" path="agent/lib_managed/scala_2.9.1/compile/slf4j-api-1.6.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/scalafs"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/snakked"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,8 @@
 bin
 .scala_dependencies
 dist
+mdist
 project/boot
 project/build/target
-
+lib_managed
+target

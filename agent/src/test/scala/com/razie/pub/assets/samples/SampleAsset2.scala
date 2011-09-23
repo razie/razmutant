@@ -36,7 +36,7 @@ class SampleAsset2 extends CoolAsset with HasMeta {
    
    override def render(t:Technology , stream:DrawStream ) : AnyRef = {
 //   def myPaint(ctx:ScriptContext) = {
-       val details = new AssetActionToInvoke(Agents.me.url, this.getKey(), razie.AI("details"));
+       val details = new AssetActionToInvoke(Agents.me.url, this.getKey(), AssetBrief.DETAILS);
        val testing = new AssetActionToInvoke(Agents.me.url, this.getKey(), razie.AI("testingstring"));
 //       new DrawSequence(super.paint(ctx), new DrawLater(details), testing)
        new DrawSequence(super.render(t,stream), new DrawLater(details), testing)
