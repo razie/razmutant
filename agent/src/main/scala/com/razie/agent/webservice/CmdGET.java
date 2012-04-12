@@ -27,6 +27,7 @@ import com.razie.pub.comms.SedFilter;
 import com.razie.pub.http.LightCmdGET;
 import com.razie.pub.http.SocketCmdHandler;
 import com.razie.pub.lightsoa.HttpSoaBinding;
+import com.razie.pub.lightsoa.ISoaBinding;
 import com.razie.pub.webui.MutantPresentation;
 
 /**
@@ -213,7 +214,7 @@ public class CmdGET extends LightCmdGET {
 
         if (!foundOldListener) {
             // try the new soa bridges
-            for (HttpSoaBinding c : AgentHttpService.getBindings()) {
+            for (ISoaBinding c : AgentHttpService.getBindings()) {
                 if (c.getServiceName().equals(svc)) {
                     boolean callThisOne = false;
 
