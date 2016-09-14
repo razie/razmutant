@@ -23,3 +23,12 @@ A playground of ideas https://github.com/razie/razmutant/tree/master/play/src/ma
 
 In-mem versioned and distributed sync in https://github.com/razie/razmutant/tree/master/mutant/src/main/scala/com/razie/dist/db
 
+Assets - bastardized word, but here it is. You can think of them as **ManagedEntities** (see OSS/J) or something 
+like stateful beans. Just like services are simple classes (one instance to serve all), the assets are 
+individual objects which you can access remotely. They however have state and could be persisted.
+They are developed much like the services (annotated methods).
+
+There's some very basic multi-threading support (life), which keeps track of the threads and what they're doing.
+I envision some beings jumping up and down inside the program, which need to breathe(). There's also workers which 
+only process() something.
+
